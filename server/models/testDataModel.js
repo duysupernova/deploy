@@ -5,6 +5,6 @@ const testSchema = mongoose.Schema({
   content: String,
 });
 
-const testDataModel = mongoose.model("testDateModel", testSchema);
+const testDataModel = mongoose.model("testDataModel", testSchema);
 
 export default testDataModel;
