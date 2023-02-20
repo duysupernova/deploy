@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import { useDispatch } from "react-redux";
 import { getTestData } from "./actions/test";
 
@@ -8,6 +8,7 @@ import Form from "./components/Form/Form";
 
 const App = () => {
   // const styles = useStyles();
+  const [edit, setedit] = useState(null);
   const dispatch = useDispatch();
 
   useEffect(() => {
@@ -16,8 +17,8 @@ const App = () => {
 
   return (
     <>
-      <Test />
-      <Form />
+      <Test setedit={setedit} />
+      <Form edit={edit} />
     </>
   );
 };

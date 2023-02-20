@@ -1,10 +1,11 @@
 import React from "react";
-import { useSelector } from "react-redux";
+import { useSelector, useDispatch } from "react-redux";
 import { Card, CardContent, CardActions, Typography, Box, Grid, Button } from "@mui/material"
+import { deleteTestData } from "../../actions/test";
 
-const Test = () => {
+const Test = ({ setedit }) => {
   const test = useSelector((state) => state.testReducer);
-  console.log(test);
+  const dispatch = useDispatch();
 
   return (
     <>
@@ -30,8 +31,8 @@ const Test = () => {
                       </Typography>
                     </CardContent>
                     <CardActions>
-                      <Button size="small" variant="contained">Update</Button>
-                      <Button size="small" variant="contained">Delete</Button>
+                      <Button size="small" variant="contained" onClick={() => setedit(child._id)}>Update</Button>
+                      <Button size="small" variant="contained" onClick={() => dispatch(deleteTestData(child._id))}>Delete</Button>
                     </CardActions>
                   </Card>
                 </Grid>

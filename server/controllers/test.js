@@ -26,3 +26,10 @@ export const testPostFunc = async (req, res) => {
     res.status(409).json(error);
   }
 };
+
+export const testUpdateFunc = async (req, res) => {
+
+};
+export const testDeleteFunc = async (req, res) => {
+
+};

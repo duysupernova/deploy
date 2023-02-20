@@ -21,3 +21,23 @@ export const createTestData = (newTest) => async (dispatch) => {
     console.log(error);
   }
 };
+export const updateTestData = (id, updateTest) => async (dispatch) => {
+  try {
+    const { data } = await api.updateTestData(id, updateTest);
+
+    const action = { type: "UPDATE", payload: data };
+    dispatch(action);
+  } catch (error) {
+    console.log(error);
+  }
+}
+export const deleteTestData = (id) => async (dispatch) => {
+  try {
+    await api.deleteTestData(id)
+
+    const action = { type: "DELETE", payload: id };
+    dispatch(action);
+  } catch (error) {
+    console.log(error);
+  }
+}

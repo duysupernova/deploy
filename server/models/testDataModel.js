@@ -8,3 +8,5 @@ const testSchema = mongoose.Schema({
 const testDataModel = mongoose.model("testDataModel", testSchema);
 
 export default testDataModel;
+
+

@@ -1,19 +1,31 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { Paper, TextField, Button, Box } from "@mui/material";
-import { useDispatch } from "react-redux";
-import { createTestData } from "../../actions/test";
+import { useDispatch, useSelector } from "react-redux";
+import { createTestData, updateTestData } from "../../actions/test";
 
-const Form = () => {
+const Form = ({ edit }) => {
+  const updateObject = useSelector((state) => state.testReducer.find(eles => eles._id === edit));
+
   const dispatch = useDispatch();
   const [data, setdata] = useState({
     title: "",
     content: "",
   });
-  const [edit, setedit] = useState(false);
+
   const handleSubmit = (e) => {
     e.preventDefault();
-    dispatch(createTestData(data));
+    if (edit) {
+      dispatch(updateTestData(edit, data));
+    }
+    else {
+      dispatch(createTestData(data));
+    }
   };
+
+  useEffect(() => {
+    if (edit) setdata(updateObject);
+  }, [edit, updateObject])
+
   return (
     <>
       <Box
@@ -23,7 +35,7 @@ const Form = () => {
         }}
       >
         <Paper elevation={3}>
-          <form noValidate onSubmit={handleSubmit} autoComplete="off">
+          <form onSubmit={handleSubmit} autoComplete="off">
             <TextField
               id="outlined-basic"
               label="Title"
