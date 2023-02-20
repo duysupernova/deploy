@@ -1,12 +1,20 @@
-import mongoose from "mongoose";
+const mongoose = require("mongoose");
 
-const testSchema = mongoose.Schema({
-  title: String,
-  content: String,
+const testDataSchema = new mongoose.Schema({
+  title: {
+    type: String,
+    required: [true, "Title must be given"],
+    unique: true,
+    trim: true,
+    maxlength: [50, "Tile must have less or equal than 50 characters"],
+    minlength: [10, "Tile must have more or equal than 10 characters"],
+  },
+  content: {
+    type: String,
+    required: [true, "Content must be given"],
+  },
 });
 
-const testDataModel = mongoose.model("testDataModel", testSchema);
+const TestData = mongoose.model("TestData", testDataSchema);
 
-export default testDataModel;
-
-
+module.exports = TestData;
