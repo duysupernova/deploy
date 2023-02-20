@@ -4,6 +4,7 @@ import { getTestData } from "./actions/test";
 
 // import useStyles from "./globalStyles";
 import Test from "./components/Test/Test";
+import Form from "./components/Form/Form";
 
 const App = () => {
   // const styles = useStyles();
@@ -15,8 +16,8 @@ const App = () => {
 
   return (
     <>
-      <div>App element</div>
       <Test />
+      <Form />
     </>
   );
 };

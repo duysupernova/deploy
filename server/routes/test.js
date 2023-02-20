@@ -4,6 +4,6 @@ import { testGetFunc, testPostFunc } from "../controllers/test.js";
 const router = express.Router();
 
 router.get("/get", testGetFunc);
-router.get("/post", testPostFunc);
+router.post("/post", testPostFunc);
 
 export default router;

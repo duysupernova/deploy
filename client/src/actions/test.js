@@ -11,3 +11,13 @@ export const getTestData = () => async (dispatch) => {
     console.log(error);
   }
 };
+export const createTestData = (newTest) => async (dispatch) => {
+  try {
+    const { data } = await api.createTestData(newTest);
+
+    const action = { type: "CREATE", payload: data };
+    dispatch(action);
+  } catch (error) {
+    console.log(error);
+  }
+};
