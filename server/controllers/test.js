@@ -3,7 +3,7 @@ import testDataModel from "../models/testDataModel.js";
 export const testGetFunc = async (req, res) => {
   try {
     const testData = await testDataModel.find();
-
+    const test = "test";
     //Ok response
     res.status(200).json(testData);
   } catch (error) {
@@ -27,9 +27,5 @@ export const testPostFunc = async (req, res) => {
   }
 };
 
-export const testUpdateFunc = async (req, res) => {
-
-};
-export const testDeleteFunc = async (req, res) => {
-
-};
+export const testUpdateFunc = async (req, res) => {};
+export const testDeleteFunc = async (req, res) => {};
