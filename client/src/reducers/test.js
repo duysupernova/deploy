@@ -1,4 +1,11 @@
-export default function testReducer(test = [], action) {
+const initialState = {
+  status: "",
+  results: 0,
+  data: {
+    testData: []
+  }
+}
+export default function testReducer(test = initialState, action) {
   switch (action.type) {
     case "FETCH_ALL":
       return action.payload;
@@ -9,6 +16,6 @@ export default function testReducer(test = [], action) {
     case "DELETE":
       return test.filter((singleTest) => singleTest._id !== action.payload);
     default:
-      return test;
+      return test.data?.testData;
   }
 }
