@@ -4,8 +4,9 @@ import { useDispatch, useSelector } from "react-redux";
 import { createTestData, updateTestData } from "../../actions/test";
 
 const Form = ({ edit }) => {
-  const updateObject = useSelector((state) => state.testReducer.find(eles => eles._id === edit));
 
+
+  const updateObject = useSelector((state) => state.testReducer.find((eles) => eles?._id === edit));
   const dispatch = useDispatch();
   const [data, setdata] = useState({
     title: "",

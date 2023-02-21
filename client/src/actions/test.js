@@ -5,7 +5,8 @@ export const getTestData = () => async (dispatch) => {
   try {
     const { data } = await api.fetchTestData();
 
-    const action = { type: "FETCH_ALL", payload: data };
+
+    const action = { type: "FETCH_ALL", payload: data.data.testData };
     dispatch(action);
   } catch (error) {
     console.log(error);
@@ -13,10 +14,12 @@ export const getTestData = () => async (dispatch) => {
 };
 export const createTestData = (newTest) => async (dispatch) => {
   try {
+
     const { data } = await api.createTestData(newTest);
 
-    const action = { type: "CREATE", payload: data };
+    const action = { type: "CREATE", payload: data.data.newData };
     dispatch(action);
+
   } catch (error) {
     console.log(error);
   }
@@ -24,8 +27,7 @@ export const createTestData = (newTest) => async (dispatch) => {
 export const updateTestData = (id, updateTest) => async (dispatch) => {
   try {
     const { data } = await api.updateTestData(id, updateTest);
-
-    const action = { type: "UPDATE", payload: data };
+    const action = { type: "UPDATE", payload: data.data.testData };
     dispatch(action);
   } catch (error) {
     console.log(error);
