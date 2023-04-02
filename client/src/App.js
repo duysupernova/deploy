@@ -2,16 +2,11 @@ import React, { useEffect } from "react";
 import { useDispatch } from "react-redux";
 import { getTestData } from "./actions/test";
 
-// import useStyles from "./globalStyles";
-// import Test from "./components/Test/Test";
-// import Form from "./components/Form/Form";
-import Login from "./components/Login/Login";
-import Signup from "./components/Signup/Signup";
-
+// import Login from "./components/Login/Login";
+// import Signup from "./components/Signup/Signup";
+import Home from "./components/Home/Home";
 
 const App = () => {
-  // const styles = useStyles();
-  // const [edit, setedit] = useState(null);
   const dispatch = useDispatch();
 
   useEffect(() => {
@@ -20,10 +15,9 @@ const App = () => {
 
   return (
     <>
-      {/* <Test setedit={setedit} />
-      <Form edit={edit} /> */}
-      <Signup />
-      <Login />
+      <Home />
+      {/* <Signup />
+      <Login /> */}
     </>
   );
 };
