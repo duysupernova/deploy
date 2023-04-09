@@ -10,12 +10,11 @@ const Home = () => {
             {/* <Container disableGutters="true" maxWidt=""> */}
             <Grid container>
                 <Grid item xs={2} md={4}>
-                    <SideBar />
+                    <SideBar></SideBar>
                 </Grid>
                 <Grid item xs={10} md={8}>
-                    <RightSide />
+                    <RightSide></RightSide>
                 </Grid>
-
             </Grid>
             {/* </Container> */}
         </>

@@ -31,49 +31,47 @@ export default function PermanentDrawerLeft() {
   };
 
   return (
-    <Box sx={{ display: 'flex', }}>
+    <Box sx={{ display: 'flex' }} >
       <CssBaseline />
-      <AppBar
-        position="fixed"
-        sx={{ width: `calc(100% - ${drawerWidth}px)`, ml: `${drawerWidth}px` }}
-      >
-      </AppBar>
-      <Drawer
-        sx={{
-          width: drawerWidth,
-          flexShrink: 0,
-          '& .MuiDrawer-paper': {
-            width: drawerWidth,
-            boxSizing: 'border-box',
-          },
-        }}
-        variant="permanent"
-        anchor="left"
-      >
-        <Grid >
-          <Container direction="column" align="center">
-            <img src={Logo} height={70} width={150} />
-          </Container>
-        </Grid>
+        <AppBar
+            position="fixed"
+        >
+        </AppBar>
+            <Drawer
+                sx={{
+                flexShrink: 0,
+                '& .MuiDrawer-paper': {
+                    width: 1/3,
+                    boxSizing: 'border-box',
+                },
+                }}
+                variant="permanent"
+                anchor="left"
+            >
+          <Grid >
+            <Container direction="column" align="center">
+              <img src={Logo} height={70} width={150} />
+            </Container>
+          </Grid>
         <Divider />
-        <List>
-          <Container disableGutters>
-            <TextField
-              id="search"
-              type="search"
-              label="Search"
-              value={searchTerm}
-              onChange={handleChange}
-              sx={{ width: 299 }}
-              InputProps={{
-                endAdornment: (
-                  <InputAdornment position="end">
-                    <img src={search} height={25} width={25} />
-                  </InputAdornment>
-                ),
-              }}
-            />
-          </Container>
+        <List >
+        <Container disableGutters>
+        <TextField 
+          id="search"
+          type="search"
+          label="Search"
+          value={searchTerm}
+          onChange={handleChange}
+          sx={{width: '100%'}}
+          InputProps={{
+            endAdornment: (
+              <InputAdornment position="end">
+                  <img src={search} height={25} width='{25}'/> 
+              </InputAdornment>
+            ),
+          }}
+        />
+        </Container>
           {['Home', 'Notification'].map((text, index) => (
             <ListItem key={text} disablePadding>
               <ListItemButton>
@@ -82,8 +80,8 @@ export default function PermanentDrawerLeft() {
             </ListItem>
           ))}
         </List>
-        <List sx={{ position: 'fixed', bottom: 0, width: 300 }}>
-          <Divider />
+        <List sx={{position: 'fixed', bottom: 0, width: 1/3}}>
+        <Divider />
           {['Help', 'Setting'].map((text, index) => (
             <ListItem key={text} disablePadding>
               <ListItemButton>
@@ -93,12 +91,6 @@ export default function PermanentDrawerLeft() {
           ))}
         </List>
       </Drawer>
-      {/* <Box
-        component="main"
-        sx={{ flexGrow: 1, bgcolor: 'background.default', p: 3 }}
-      >
-        <Toolbar />
-      </Box> */}
     </Box>
   );
 }
