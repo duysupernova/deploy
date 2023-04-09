@@ -50,7 +50,7 @@ const Login = () => {
                                 required
                                 fullWidth
                                 autoFocus
-                                label="username"
+                                label="Username"
                                 name="username"
                                 id="username"
                                 {...register("username", { required: true })}
@@ -63,7 +63,7 @@ const Login = () => {
                                 required
                                 fullWidth
                                 autoFocus
-                                label="password"
+                                label="Password"
                                 name="password"
                                 id="password"
                                 {...register("password", { required: true })}
@@ -105,7 +105,7 @@ const Login = () => {
                                 </Typography>
                             </Grid>
                             <Grid item>
-                                <Link href="#" underline="none" variant="span" sx={{
+                                <Link href="/signup" underline="none" variant="span" sx={{
                                     fontWeight: "bold",
                                     fontSize: "16px",
                                 }}>
