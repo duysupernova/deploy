@@ -1,8 +1,7 @@
 import React from 'react'
-import LeftSide from './LeftSide/LeftSide'
 import RightSide from './RightRight/RightSide'
 import { Grid, Container } from '@mui/material'
-// import useStyle from './style'
+import SideBar from './LeftSide/SideBar'
 
 const Home = () => {
     // const myStyle = useStyle();
@@ -12,6 +11,7 @@ const Home = () => {
             <Grid container>
                 <Grid item xs={4}>
                     {/* <LeftSide></LeftSide> */}
+                    <SideBar></SideBar>
                 </Grid>
                 <Grid item xs={8}>
                     <RightSide></RightSide>
