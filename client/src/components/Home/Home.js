@@ -9,11 +9,10 @@ const Home = () => {
         <>
             {/* <Container disableGutters="true" maxWidt=""> */}
             <Grid container>
-                <Grid item xs={4}>
-                    {/* <LeftSide></LeftSide> */}
+                <Grid item xs={2} md={4}>
                     <SideBar></SideBar>
                 </Grid>
-                <Grid item xs={8}>
+                <Grid item xs={10} md={8}>
                     <RightSide></RightSide>
                 </Grid>
 

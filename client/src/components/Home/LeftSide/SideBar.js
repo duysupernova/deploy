@@ -31,32 +31,31 @@ export default function PermanentDrawerLeft() {
     };
 
   return (
-    <Box sx={{ display: 'flex', }}>
+    <Box sx={{ display: 'flex' }} >
       <CssBaseline />
         <AppBar
             position="fixed"
-            sx={{ width: `calc(100% - ${drawerWidth}px)`, ml: `${drawerWidth}px` }}
+            // sx={{ width: `calc(100% - ${drawerWidth}px)`, ml: `${drawerWidth}px` }}
         >
         </AppBar>
             <Drawer
                 sx={{
-                width: drawerWidth,
                 flexShrink: 0,
                 '& .MuiDrawer-paper': {
-                    width: drawerWidth,
+                    width: 1/3,
                     boxSizing: 'border-box',
                 },
                 }}
                 variant="permanent"
                 anchor="left"
             >
-          <Grid direction="column" align="center">
-            <Grid alignItems="center">
+          <Grid >
+            <Container direction="column" align="center">
               <img src={Logo} height={70} width={150} />
-            </Grid>
+            </Container>
           </Grid>
         <Divider />
-        <List>
+        <List >
         <Container disableGutters>
         <TextField 
           id="search"
@@ -64,11 +63,11 @@ export default function PermanentDrawerLeft() {
           label="Search"
           value={searchTerm}
           onChange={handleChange}
-          sx={{ width: 299 }}
+          sx={{width: '100%'}}
           InputProps={{
             endAdornment: (
               <InputAdornment position="end">
-                  <img src={search} height={25} width={25}/>
+                  <img src={search} height={25} width='{25}'/> 
               </InputAdornment>
             ),
           }}
@@ -82,7 +81,7 @@ export default function PermanentDrawerLeft() {
             </ListItem>
           ))}
         </List>
-        <List sx={{position: 'fixed', bottom: 0, width: 300}}>
+        <List sx={{position: 'fixed', bottom: 0, width: 1/3}}>
         <Divider />
           {['Help', 'Setting'].map((text, index) => (
             <ListItem key={text} disablePadding>
@@ -93,12 +92,6 @@ export default function PermanentDrawerLeft() {
           ))}
         </List>
       </Drawer>
-      <Box
-        component="main"
-        sx={{ flexGrow: 1, bgcolor: 'background.default', p: 3 }}
-      >
-        <Toolbar />
-      </Box>
     </Box>
   );
 }
