@@ -8,7 +8,7 @@ router.post("/signup", authController.signup);
 
 router
   .route("/")
-  .get(testDataController.getAllTestData)
+  .get(authController.protect, testDataController.getAllTestData)
   .post(testDataController.createTestData);
 
 router
