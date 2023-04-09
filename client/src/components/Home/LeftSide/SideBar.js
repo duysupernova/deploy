@@ -24,18 +24,17 @@ const drawerWidth = 300;
 
 export default function PermanentDrawerLeft() {
 
-    const [searchTerm, setSearchTerm] = useState("");
+  const [searchTerm, setSearchTerm] = useState("");
 
-    const handleChange = (event) => {
+  const handleChange = (event) => {
     setSearchTerm(event.target.value);
-    };
+  };
 
   return (
     <Box sx={{ display: 'flex' }} >
       <CssBaseline />
         <AppBar
             position="fixed"
-            // sx={{ width: `calc(100% - ${drawerWidth}px)`, ml: `${drawerWidth}px` }}
         >
         </AppBar>
             <Drawer

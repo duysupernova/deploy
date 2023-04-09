@@ -15,7 +15,6 @@ const Home = () => {
                 <Grid item xs={10} md={8}>
                     <RightSide></RightSide>
                 </Grid>
-
             </Grid>
             {/* </Container> */}
         </>
