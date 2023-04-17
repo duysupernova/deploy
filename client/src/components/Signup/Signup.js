@@ -3,16 +3,18 @@ import { Grid, Button, TextField, Box, Typography, Container, CssBaseline, Link 
 import { useForm } from "react-hook-form"
 import { grey } from '@mui/material/colors'
 import { useDispatch } from "react-redux";
+import { useNavigate } from "react-router-dom";
 import { createNewUser } from "../../actions/login&signup";
 
 export default function Signup() {
   // const updateObject = useSelector((state) => state.testReducer.find((eles) => eles?._id === edit));
+  const history = useNavigate();
   const dispatch = useDispatch();
   const secondary = grey[500];
-  const { register, handleSubmit, watch, formState: { errors } } = useForm();
+  const { register, handleSubmit, formState: { errors } } = useForm();
   const onSubmit = (data) => {
     console.log(data);
-    dispatch(createNewUser(data));
+    dispatch(createNewUser(data, history));
   };
   return (
     <Container component="main" maxWidth="xs">

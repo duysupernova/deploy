@@ -62,12 +62,17 @@ exports.login = async (req, res, next) => {
     res.status(200).json({
       status: "success",
       token,
+      data: {
+        user: user,
+      },
+      //e sửa như vậy dc ko ?
     });
   } catch (err) {
     res.status(400).json({
-      status: "Failed to logged in",
+      status: "Failed to logged insss",
       message: err,
     });
+    console.log(err)
   }
 };
 
