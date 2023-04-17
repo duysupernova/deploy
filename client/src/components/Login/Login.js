@@ -1,18 +1,26 @@
-import React from 'react'
+import React, { useState } from 'react'
+import { useNavigate } from 'react-router-dom'
 import { Container, Grid, Box, TextField, Typography, Button, Link } from '@mui/material'
 import { grey } from '@mui/material/colors'
 import { useForm } from "react-hook-form"
+import { useSelector, useDispatch } from "react-redux";
+import { loginUser } from '../../actions/login&signup';
 
 const Login = () => {
+    const userData = useSelector((state) => state.userReducer);
+    const [showPassword, setShowPassword] = useState(false);
+    const dispatch = useDispatch();
+    const history = useNavigate();
     const secondary = grey[500];
-    const { register, handleSubmit } = useForm({
+    const { register, handleSubmit, formState: { errors } } = useForm({
         defaultValues: {
-            username: "",
+            email: "",
             password: "",
         }
     });
-    const handleForm = (event) => {
+    const handleForm = async (event) => {
         console.log(event);
+        dispatch(loginUser(event, history));
     }
     return (
         <Container component="main" maxWidth="xs">
@@ -38,7 +46,6 @@ const Login = () => {
                 <Box
                     component="form"
                     onSubmit={handleSubmit(handleForm)}
-                    noValidate
                     sx={{
                         boxShadow: "rgba(0, 0, 0, 0.25) 0px 14px 28px, rgba(0, 0, 0, 0.22) 0px 10px 10px",
                         padding: [2, 4]
@@ -50,25 +57,33 @@ const Login = () => {
                                 required
                                 fullWidth
                                 autoFocus
-                                label="Username"
-                                name="username"
-                                id="username"
-                                {...register("username", { required: true })}
+                                label="Email Address"
+                                name="email"
+                                id="email"
+                                {...register("email", {
+                                    required: true,
+                                    pattern: {
+                                        value: /^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$/,
+                                        message: "Wrong email address! Try again"
+                                    }
+                                })}
                             >
                             </TextField>
+                            {errors.email && <p>{errors.email.message}</p>}
                         </Grid>
                         <Grid item xs={12}>
                             <TextField
-                                type="string"
+                                type={showPassword ? "text" : "password"}
                                 required
                                 fullWidth
                                 autoFocus
                                 label="Password"
                                 name="password"
                                 id="password"
-                                {...register("password", { required: true })}
+                                {...register("password", { required: "Password is required" })}
                             >
                             </TextField>
+                            {errors.password && <p>{errors.email.password}</p>}
                         </Grid>
                         <Grid item xs={12}>
                             <Link href="#" underline="none" variant="body2" color={secondary} sx={{
