@@ -72,7 +72,6 @@ exports.login = async (req, res, next) => {
       status: "Failed to logged insss",
       message: err,
     });
-    console.log(err)
   }
 };
 
