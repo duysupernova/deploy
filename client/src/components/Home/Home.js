@@ -2,7 +2,6 @@ import React from 'react'
 import RightSide from './RightRight/RightSide'
 import { Grid, Container } from '@mui/material'
 import SideBar from './LeftSide/SideBar'
-// import ChatApp from '../../Chat/Chat'
 
 const Home = () => {
     // const myStyle = useStyle();
