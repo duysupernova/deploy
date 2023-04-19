@@ -1,9 +1,10 @@
 import { makeStyles } from '@mui/styles'
 
 export default makeStyles(() => ({
+
     text: {
         "& .MuiContainer-root": {
-            fontWeight: "bold"
+            fontWeight: "bold",
         },
         "& .headBar": {
             boxShadow: "rgba(0, 0, 0, 0.15) 0px 3px 3px 0px",

@@ -7,7 +7,7 @@ const RightSide = () => {
     const myStyle = useStyle();
     return (
         <>
-            <Container component="main" className={myStyle.text}>
+            <Container component="main" disableGutters={true} className={myStyle.text}>
                 <Grid container className='headBar'>
                     <Grid item xs={12} sx={{ float: 'right' }} display='flex' justifyContent='right' alignItems='right'>
                         <Button variant='contained' size='medium'>
