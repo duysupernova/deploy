@@ -12,7 +12,7 @@ export default function Filter() {
         value={tag}
         onChange={setTags}
         name="Tags"
-        placeHolder="Enter tags 🏷️!"
+        placeHolder="Enter tags 🏷️"
       />
       </Grid>
     </Grid>
