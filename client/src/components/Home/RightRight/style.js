@@ -12,7 +12,7 @@ export default makeStyles(() => ({
     },
     navigation: {
         "& .MuiGrid-root": {
-            padding: "10px"
+            padding: "10px 50px"
         },
         " & .MuiGrid-item": {
             border: "2px solid transparent",

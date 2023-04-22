@@ -7,6 +7,7 @@ import { BrowserRouter as Router, Route, Routes, Navigate } from "react-router-d
 import Login from "./components/Login/Login";
 import Signup from "./components/Signup/Signup";
 import Home from "./components/Home/Home";
+import Thread from "./components/Thread/Thread"
 
 const App = () => {
   const dispatch = useDispatch();
@@ -21,8 +22,9 @@ const App = () => {
         <Routes>
           <Route path="/" element={(false) ? <Navigate to="/posts" replace={true} /> : <Navigate to="/home" replace={true} />} />
           <Route exact path="/home" element={<Home />} />
-          <Route path="/login" element={<Login />} />
-          <Route path="/signup" element={<Signup />}></Route>
+          <Route exact path="/login" element={<Login />} />
+          <Route exact path="/signup" element={<Signup />} />
+          <Route exact path="/threads/:threadID/details" element={<Thread />} />
         </Routes>
       </Router>
     </>
