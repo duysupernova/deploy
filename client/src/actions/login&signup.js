@@ -19,7 +19,7 @@ export const loginUser = (formData, history) => async (dispatch) => {
 
         const action = { type: "AUTH", payload: data };
         dispatch(action);
-        // history("/home");
+        history("/home");
     } catch (error) {
         console.log(error);
     }

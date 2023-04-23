@@ -33,11 +33,11 @@ const RightSide = () => {
                         </Grid>
                     </Grid>
                 </Grid>
-                <Grid >
-                    <Filter />
-                    <Grid item xs={9}>
+                <Grid container p={3}>
+                    <Grid item xs={12} md={9}>
                         <ThreadList />
                     </Grid>
+                    <Grid item xs={12} md={3}> <Filter /></Grid>
                 </Grid>
             </Container>
         </>

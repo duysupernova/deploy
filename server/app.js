@@ -14,6 +14,7 @@ app.use(express.json());
 app.use(cors());
 
 app.use("/api/v1/test", testDataRouter);
-app.use("/api/v1/user", [userRouter, threadRouter]);
+app.use("/api/v1/user", userRouter);
+app.use("/api/v1/thread", threadRouter);
 
 module.exports = app;
