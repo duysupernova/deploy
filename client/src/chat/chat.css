@@ -22,7 +22,7 @@ body {
   }
   
   .form-title { 
-    font-size: 42px; 
+    font-size: 43px; 
     font-family: 'Avenir'; 
     font-weight: 800; 
     letter-spacing: 0.5px; 
@@ -87,3 +87,5 @@ body {
     color: white; 
     background: rgb(43, 47, 60);
   }
+
+  
