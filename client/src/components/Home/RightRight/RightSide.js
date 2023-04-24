@@ -2,6 +2,7 @@ import React from 'react'
 import { Button, Container, Grid, Link } from '@mui/material'
 import useStyle from './style.js'
 import ThreadList from './ThreadList/ThreadList.js'
+import Filter from '../LeftSide/Filter.js'
 
 const RightSide = () => {
     const myStyle = useStyle();
@@ -32,10 +33,11 @@ const RightSide = () => {
                         </Grid>
                     </Grid>
                 </Grid>
-                <Grid container>
-                    <Grid item xs={9}>
+                <Grid container p={3}>
+                    <Grid item xs={12} md={9}>
                         <ThreadList />
                     </Grid>
+                    <Grid item xs={12} md={3}> <Filter /></Grid>
                 </Grid>
             </Container>
         </>

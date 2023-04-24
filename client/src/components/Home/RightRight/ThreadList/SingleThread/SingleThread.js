@@ -8,7 +8,11 @@ const SingleThread = () => {
     const myStyle = useStyle();
     return (
         <>
-            <Container component="main">
+            <Container component="main" disableGutters={true} sx={{
+                border: "1px solid #CCCCCC",
+                borderRadius: "4px",
+                pointerEvents: "auto"
+            }}>
                 <Grid container>
                     <Grid item xs={2} display='flex' justifyContent='center' alignItems='center' flexDirection='column'>
                         <Avatar alt="Star icon" src={star} />
