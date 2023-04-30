@@ -11,6 +11,18 @@ const commentSchema = new mongoose.Schema({
     required: [true, "Content must be provided"],
     trim: true,
   },
+  image: {
+    data: Buffer,
+    contentType: String
+  },
+  likes: {
+    type: Number,
+    default: 0,
+  },
+  createdAt: {
+    type: Date,
+    default: Date.now
+  }
 });
 
 const threadSchema = new mongoose.Schema({
@@ -35,6 +47,11 @@ const threadSchema = new mongoose.Schema({
     required: [true, "Content of the thread must be provided"],
     trim: true,
   },
+  image: {
+    data: Buffer,
+    contentType: String,
+    base64: String
+  },
   likes: {
     type: Number,
     default: 0,
@@ -46,7 +63,6 @@ const threadSchema = new mongoose.Schema({
       trim: true,
     },
   ],
-  time: Date,
   pins: [
     {
       type: String,
@@ -59,6 +75,10 @@ const threadSchema = new mongoose.Schema({
       trim: true,
     },
   ],
+  createdAt: {
+    type: Date,
+    default: Date.now
+  }
 });
 
 const Thread = mongoose.model("Thread", threadSchema);
