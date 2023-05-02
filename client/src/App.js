@@ -8,6 +8,7 @@ import Login from "./components/Login/Login";
 import Signup from "./components/Signup/Signup";
 import Home from "./components/Home/Home";
 import Thread from "./components/Thread/Thread"
+import Form from "./components/Form/CreateThreadForm"
 
 const App = () => {
   const dispatch = useDispatch();
@@ -25,6 +26,7 @@ const App = () => {
           <Route exact path="/login" element={<Login />} />
           <Route exact path="/signup" element={<Signup />} />
           <Route exact path="/threads/:threadID/details" element={<Thread />} />
+          <Route exact path="/form" element={<Form />} />
         </Routes>
       </Router>
     </>
