@@ -12,8 +12,7 @@ const commentSchema = new mongoose.Schema({
     trim: true,
   },
   image: {
-    data: Buffer,
-    contentType: String
+    type: String
   },
   likes: {
     type: Number,
@@ -48,9 +47,7 @@ const threadSchema = new mongoose.Schema({
     trim: true,
   },
   image: {
-    data: Buffer,
-    contentType: String,
-    base64: String
+    type:String
   },
   likes: {
     type: Number,
