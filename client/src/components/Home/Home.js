@@ -2,7 +2,7 @@ import React from 'react'
 import RightSide from './RightRight/RightSide'
 import { Grid, Container } from '@mui/material'
 import SideBar from './LeftSide/SideBar'
-import Profile from "../profile/Profile";
+// import Profile from "../Profile/Profile";
 
 const Home = () => {
     // const myStyle = useStyle();
@@ -20,7 +20,7 @@ const Home = () => {
             </Grid>
             {/* </Container> */}
         </>
-    )
+    ) 
 }
 
 export default Home
