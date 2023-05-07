@@ -4,7 +4,7 @@ import useStyle from './style.js'
 import ThreadList from './ThreadList/ThreadList.js'
 import Filter from '../LeftSide/Filter.js'
 import CreateThreadForm from '../../Form/CreateThreadForm.js'
-import Profile from '../../Profile/Profile'
+import Profile from '../../profile/Profile.js'
 
 const RightSide = () => {
     const myStyle = useStyle();

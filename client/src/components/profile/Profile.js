@@ -14,7 +14,7 @@ import Typography from '@mui/material/Typography';
 import Container from '@mui/material/Container';
 import ImageUpload from './ImageUpload'
 
-export default function BoxSx() {
+export default function userProfile() {
   return (
     <Container component="main" maxWidth="md">
         <CssBaseline />
