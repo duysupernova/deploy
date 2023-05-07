@@ -2,6 +2,7 @@ import React from 'react'
 import RightSide from './RightRight/RightSide'
 import { Grid, Container } from '@mui/material'
 import SideBar from './LeftSide/SideBar'
+// import Profile from "../Profile/Profile";
 
 const Home = () => {
     // const myStyle = useStyle();
@@ -14,11 +15,12 @@ const Home = () => {
                 </Grid>
                 <Grid item xs={11} sm={10} md={9}>
                     <RightSide></RightSide>
+                    {/* <Profile /> */}
                 </Grid>
             </Grid>
             {/* </Container> */}
         </>
-    )
+    ) 
 }
 
 export default Home

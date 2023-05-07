@@ -11,7 +11,7 @@ export default function Signup() {
   const history = useNavigate();
   const dispatch = useDispatch();
   const secondary = grey[500];
-  const { register, handleSubmit, formState: { errors } } = useForm();
+  const {register, handleSubmit, formState: { errors } } = useForm();
   const onSubmit = (data) => {
     console.log(data);
     dispatch(createNewUser(data, history));
@@ -95,7 +95,7 @@ export default function Signup() {
                 fullWidth
                 name="passwordConfirm"
                 label="Confirm Password"
-                type="passwordConfirm"
+                type="password"
                 id="passwordConfirm"
                 {...register("passwordConfirm", {
                   required: "Password is required",

@@ -4,6 +4,7 @@ import useStyle from './style.js'
 import ThreadList from './ThreadList/ThreadList.js'
 import Filter from '../LeftSide/Filter.js'
 import CreateThreadForm from '../../Form/CreateThreadForm.js'
+import Profile from '../../Profile/Profile'
 
 const RightSide = () => {
     const myStyle = useStyle();
@@ -48,6 +49,7 @@ const RightSide = () => {
                     direction={{ xs: "column-reverse", md: "column-reverse", lg: "row" }}>
                     <Grid item xs={12} md={12} lg={9}>
                         <ThreadList />
+                        {/* <Profile /> */}
                     </Grid>
                     <Grid item xs={12} md={12} lg={3}> <Filter /></Grid>
                 </Grid>
