@@ -4,6 +4,7 @@ import useStyle from './style.js'
 import ThreadList from './ThreadList/ThreadList.js'
 import Filter from '../LeftSide/Filter.js'
 import CreateThreadForm from '../../Form/CreateThreadForm.js'
+import Profile from '../../profile/Profile.js'
 
 const RightSide = () => {
     const myStyle = useStyle();
@@ -42,6 +43,7 @@ const RightSide = () => {
                 <Grid container p={3}>
                     <Grid item xs={12} md={9}>
                         <ThreadList />
+                        {/* <Profile /> */}
                     </Grid>
                     <Grid item xs={12} md={3}> <Filter /></Grid>
                 </Grid>
