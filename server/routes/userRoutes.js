@@ -11,6 +11,9 @@ router.patch("/resetPassword/:token", authController.resetPassword);
 
 router.patch('/updateMyPassword',authController.protect, authController.updatePassword);
 
-router.post("/post/:id", authController.protect, authController.likeUnlikePost)
+router.post("/post/likeFunction/:id", authController.protect, authController.likeUnlikePost)
+router.post("/post/pinFunction/:id", authController.protect, authController.pinUnpinnedPost)
+router.post("/post/tagFunction/:id", authController.protect, authController.tagUntaggedPost)
+router.post("/post/shareFunction/:id", authController.protect, authController.shareUnsharedPost)
 
 module.exports = router;

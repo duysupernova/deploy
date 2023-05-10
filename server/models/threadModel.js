@@ -14,10 +14,6 @@ const commentSchema = new mongoose.Schema({
   image: {
     type: String
   },
-  likes: {
-    type: Number,
-    default: 0,
-  },
   createdAt: {
     type: Date,
     default: Date.now
@@ -52,28 +48,24 @@ const threadSchema = new mongoose.Schema({
   likes: {
     type: [{
       type: mongoose.Schema.ObjectId,
-      ref: "User"
     }]
   },
   comments: [commentSchema],
-  tags: [
-    {
-      type: String,
-      trim: true,
-    },
-  ],
-  pins: [
-    {
-      type: String,
-      trim: true,
-    },
-  ],
-  share: [
-    {
-      type: String,
-      trim: true,
-    },
-  ],
+  pins: {
+    type: [{
+      type: mongoose.Schema.ObjectId,
+    }]
+  },
+  tags: {
+    type: [{
+      type: mongoose.Schema.ObjectId,
+    }]
+  },
+  shares: {
+    type: [{
+      type: mongoose.Schema.ObjectId,
+    }]
+  },
   createdAt: {
     type: Date,
     default: Date.now
