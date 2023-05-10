@@ -1,0 +1,56 @@
+[
+    {
+        "id": 1,
+        "name": "Java",
+        "questions": 10,
+        "time": 5
+    },
+    {
+        "id": 2,
+        "name": "Java Script",
+        "questions": 10,
+        "time": 6
+    },
+    {
+        "id": 3,
+        "name": "React Native",
+        "questions": 10,
+        "time": 5
+    },
+    {
+        "id": 4,
+        "name": "C++",
+        "questions": 10,
+        "time": 7
+    },
+    {
+        "id": 5,
+        "name": "Python",
+        "questions": 10,
+        "time": 4
+    },
+    {
+        "id": 6,
+        "name": "C",
+        "questions": 10,
+        "time": 8
+    },
+    {
+        "id": 7,
+        "name": "Axios",
+        "questions": 10,
+        "time": 8
+    },
+    {
+        "id": 8,
+        "name": "Flutter",
+        "questions": 10,
+        "time": 9
+    },
+    {
+        "id": 9,
+        "name": "Rust",
+        "questions": 10,
+        "time": 10
+    }
+]
