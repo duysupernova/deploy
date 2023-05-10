@@ -50,8 +50,10 @@ const threadSchema = new mongoose.Schema({
     type:String
   },
   likes: {
-    type: Number,
-    default: 0,
+    type: [{
+      type: mongoose.Schema.ObjectId,
+      ref: "User"
+    }]
   },
   comments: [commentSchema],
   tags: [
@@ -77,6 +79,8 @@ const threadSchema = new mongoose.Schema({
     default: Date.now
   }
 });
+
+
 
 const Thread = mongoose.model("Thread", threadSchema);
 
