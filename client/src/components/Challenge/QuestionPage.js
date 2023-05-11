@@ -10,20 +10,9 @@ const Home = () => {
     return (
         <>
             {/* <Container disableGutters="true" maxWidt=""> */}
-            <Appbar />
             <Grid container>
-                <Grid item xs={1} sm={2} md={3}>
-                    {/* <Appbar /> */}
-                    {/* <SideBar></SideBar> */}
-                </Grid>
-                <Grid item xs={11} sm={10} md={9}>
-                    {/* <RightSide></RightSide> */}
-                    {/* <Profile /> */}
-                    {/* <Challenge /> */}
-                </Grid>
-                <Grid item md={12}>
-                <Challenge />
-                </Grid>
+                    <Appbar />
+                    <Challenge />
             </Grid>
             {/* </Container> */}
         </>

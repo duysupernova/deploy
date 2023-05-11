@@ -18,7 +18,7 @@ function Challenge(){
 
     return(
         <div>
-        <Appbar/>
+        {/* <Appbar/> */}
         <Container fixed >
             <CssBaseline/>
                 <Typography variant="h4" gutterBottom padding={4}>
