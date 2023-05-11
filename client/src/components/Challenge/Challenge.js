@@ -7,30 +7,33 @@ import Question from './Question'
 import Typography from '@mui/material/Typography';
 import data from './data.json'
 import SearchBar from './SearchBar';
+import Appbar from './AppBar'
 
-function Challenge(){
-    return(
+function Challenge() {
+    return (
         <div>
-        <Container fixed >
-            <CssBaseline/>              
-            <Grid container direction="row" justifyContent="space-between" alignItems="center">
-                <Grid item>
-                    <Typography variant="h4" gutterBottom padding={4}>
-                        Quick Challenge
-                    </Typography>
-                </Grid>
-                    <Grid item padding={5} gutterBottom >
+            {/* <Appbar /> */}
+            <Container fixed >
+                <CssBaseline />
+                <Grid container direction="row" justifyContent="space-between" alignItems="center">
+                    <Grid item>
+                        <Typography variant="h4" gutterBottom padding={4}>
+                            Quick Challenge
+                        </Typography>
+                    </Grid>
+                    <Grid item gutterBottom padding={4}>
                         <SearchBar />
                     </Grid>
-                </Grid>          
-                    <Grid container spacing={2}>
-                        {data.map((data, i) =>(
-                            <>
-                                <Question data={data} key={i}/>
-                            </>
-                        ))}
-                    </Grid>
-        </Container>
+                </Grid>
+                {/* Nho them search bar */}
+                <Grid container spacing={2}>
+                    {data.map((data, i) => (
+                        <React.Fragment key={i}>
+                            <Question data={data} key={i} />
+                        </React.Fragment>
+                    ))}
+                </Grid>
+            </Container>
         </div>
     )
 }

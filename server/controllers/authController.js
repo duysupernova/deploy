@@ -1,6 +1,7 @@
 const crypto = require('crypto');
 const jwt = require("jsonwebtoken");
 const User = require("./../models/userModel");
+const Thread = require("./../models/threadModel");
 const sendEmail = require("./../utils/email")
 const { promisify } = require("util");
 
@@ -211,3 +212,151 @@ exports.updatePassword = async (req, res, next) => {
   // 4) Log user in, send JWT
   createSendToken(user, 200, res);
 };
+
+exports.likeUnlikePost = async (req, res, next) => {
+  try {
+    const currentUser = req.user
+
+    const post = await Thread.findByIdAndUpdate(req.params.id);
+    if (!post) {
+      return next(
+        res.status(404).json({
+          status: "Post not found",
+        })
+      )
+    }
+
+    if (post.likes.includes(currentUser._id)){
+      const index = post.likes.indexOf(currentUser._id);
+      post.likes.splice(index, 1)
+      await post.save()
+
+      return res.status(200).json({
+        message: "Post unliked"
+      })
+    } else {
+      post.likes.push(currentUser._id)
+      await post.save()
+      return res.status(200).json({
+        message: "Post liked"
+      })
+    }
+  } catch (err){ 
+    res.status(400).json({
+      status: "Function Like/Unlike failed",
+      message: err,
+    });
+    console.log(err);
+  }
+}
+
+exports.pinUnpinnedPost = async (req, res, next) => {
+  try {
+    const currentUser = req.user
+
+    const post = await Thread.findByIdAndUpdate(req.params.id);
+    if (!post) {
+      return next(
+        res.status(404).json({
+          status: "Post not found",
+        })
+      )
+    }
+
+    if (post.pins.includes(currentUser._id)){
+      const index = post.pins.indexOf(currentUser._id);
+      post.pins.splice(index, 1)
+      await post.save()
+
+      return res.status(200).json({
+        message: "Post unpinned"
+      })
+    } else {
+      post.pins.push(currentUser._id)
+      await post.save()
+      return res.status(200).json({
+        message: "Post pinned"
+      })
+    }
+  } catch (err){ 
+    res.status(400).json({
+      status: "Function Pin/Unpinned failed",
+      message: err,
+    });
+    console.log(err);
+  }
+}
+
+exports.tagUntaggedPost = async (req, res, next) => {
+  try {
+    const currentUser = req.user
+
+    const post = await Thread.findByIdAndUpdate(req.params.id);
+    if (!post) {
+      return next(
+        res.status(404).json({
+          status: "Post not found",
+        })
+      )
+    }
+
+    if (post.tags.includes(currentUser._id)){
+      const index = post.tags.indexOf(currentUser._id);
+      post.tags.splice(index, 1)
+      await post.save()
+
+      return res.status(200).json({
+        message: "Post untagged"
+      })
+    } else {
+      post.tags.push(currentUser._id)
+      await post.save()
+      return res.status(200).json({
+        message: "Post tagged"
+      })
+    }
+  } catch (err){ 
+    res.status(400).json({
+      status: "Function Tag/Untagged failed",
+      message: err,
+    });
+    console.log(err);
+  }
+}
+
+exports.shareUnsharedPost = async (req, res, next) => {
+  try {
+    const currentUser = req.user
+
+    const post = await Thread.findByIdAndUpdate(req.params.id);
+    if (!post) {
+      return next(
+        res.status(404).json({
+          status: "Post not found",
+        })
+      )
+    }
+
+    if (post.shares.includes(currentUser._id)){
+      const index = post.shares.indexOf(currentUser._id);
+      post.shares.splice(index, 1)
+      await post.save()
+
+      return res.status(200).json({
+        message: "Post unshared"
+      })
+    } else {
+      post.shares.push(currentUser._id)
+      await post.save()
+      return res.status(200).json({
+        message: "Post shared"
+      })
+    }
+  } catch (err){ 
+    res.status(400).json({
+      status: "Function Share/Unshared failed",
+      message: err,
+    });
+    console.log(err);
+  }
+}
