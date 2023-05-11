@@ -21,11 +21,11 @@ const Home = () => {
                 <Grid item xs={11} sm={10} md={9}>
                     {/* <RightSide></RightSide> */}
                     {/* <Profile /> */}
-                    {/* <Challenge /> */}       
+                    <Challenge />       
                 </Grid>
-                <Grid item md={12}>
-                <Challenge />
-                </Grid>
+                {/* <Grid item >
+                    <Challenge />
+                </Grid> */}
             </Grid>
             {/* </Container> */}
         </>

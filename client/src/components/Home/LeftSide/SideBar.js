@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { Container, InputBase, Paper, IconButton, ListItemAvatar, Popper, Box, Drawer, Divider, ListItemText, ListItem, ListItemButton, List, Button, ListItemIcon, Avatar, Grid, Collapse, Link, Typography } from "@mui/material";
 import { useSpring, animated } from '@react-spring/web';
 import PropTypes from 'prop-types';
+import { useNavigate } from 'react-router-dom'
 import Logo from './nettee.png'
 import expandLess from './expandLess.png'
 import expandMore from './expandMore.png'
@@ -22,7 +23,8 @@ const SideBar = () => {
   const [openChallengeCollapse, setOpenChallengeCollapse] = useState(false);
   const [openNotification, setOpenNotification] = useState(false);
   const [anchorEl, setAnchorEl] = useState(null);
-  const [width, setWindowWidth] = useState("");
+  const [width, setWindowWidth] = useState(window.innerWidth);
+  const navigate = useNavigate();
 
   const Fade = React.forwardRef(function Fade(props, ref) {
     const { in: openNotification, children, onEnter, onExited, ...other } = props;
@@ -64,6 +66,11 @@ const SideBar = () => {
     setOpenNotification((previousOpen) => !previousOpen);
   }
 
+  const handleLogout = () => {
+    localStorage.removeItem("NETTEE_TOKEN");
+    navigate('/login');
+  }
+
   const toggleDrawer = (anchor, open) => (event) => {
     if (event.type === 'keydown' && (event.key === 'Tab' || event.key === 'Shift')) {
       return;
@@ -80,14 +87,13 @@ const SideBar = () => {
     };
 
     window.addEventListener('resize', handleWindowResize);
-    console.log(width);
     return () => {
       window.removeEventListener('resize', handleWindowResize);
     };
-  });
+  }, []);
 
 
-  console.log(window.innerWidth);
+
   return (
     <Container component="main" disableGutters={true}>
       <Popper id="popover" open={openNotification} anchorEl={anchorEl} placement="right-start"
@@ -184,7 +190,7 @@ const SideBar = () => {
               </ListItemButton>
               <Collapse in={openUserCollapse} timeout="auto" unmountOnExit>
                 <List component="div" disablePadding>
-                  <ListItemButton sx={{ pl: 4 }}>
+                  <ListItemButton sx={{ pl: 4 }} onClick={() => navigate('/profile')}>
                     <ListItemText primary="My profile" />
                   </ListItemButton>
                   <ListItemButton sx={{ pl: 4 }}>
@@ -209,7 +215,7 @@ const SideBar = () => {
             </Paper>
             <List>
               <ListItem disablePadding>
-                <ListItemButton>
+                <ListItemButton onClick={() => navigate('/home')}>
                   <ListItemIcon>
                     <ListItemIcon>
                       <Avatar src={home} alt='home' />
@@ -242,7 +248,7 @@ const SideBar = () => {
               <Collapse in={openChallengeCollapse
               } timeout="auto" unmountOnExit sx={{ background: openChallengeCollapse ? "#E6E9FE" : "none" }}>
                 <List component="div" disablePadding>
-                  <ListItemButton sx={{ pl: 8 }}>
+                  <ListItemButton sx={{ pl: 8 }} onClick={() => navigate("/qChallenge")}>
                     <ListItemText primary="Quick challenges" />
                   </ListItemButton>
                   <ListItemButton sx={{ pl: 8 }}>
@@ -280,7 +286,8 @@ const SideBar = () => {
             </List>
           </Grid>
         </Grid>
-        : <Grid container maxWidth>
+        :
+        <Grid container maxWidth>
           {['left'].map((anchor) => (
             <React.Fragment key={anchor}>
               <Button onClick={toggleDrawer(anchor, true)}>
@@ -325,10 +332,10 @@ const SideBar = () => {
                     </ListItemButton>
                     <Collapse in={openUserCollapse} timeout="auto" unmountOnExit>
                       <List component="div" disablePadding>
-                        <ListItemButton sx={{ pl: 4 }}>
+                        <ListItemButton sx={{ pl: 4 }} onClick={() => navigate('/profile')}>
                           <ListItemText primary="My profile" />
                         </ListItemButton>
-                        <ListItemButton sx={{ pl: 4 }}>
+                        <ListItemButton sx={{ pl: 4 }} onClick={handleLogout}>
                           <ListItemText primary="Logout" />
                         </ListItemButton>
                       </List>
@@ -350,7 +357,7 @@ const SideBar = () => {
                   </Paper>
                   <List>
                     <ListItem disablePadding>
-                      <ListItemButton>
+                      <ListItemButton onClick={() => navigate('/home')}>
                         <ListItemIcon>
                           <ListItemIcon>
                             <Avatar src={home} alt='home' />
@@ -383,7 +390,7 @@ const SideBar = () => {
                     <Collapse in={openChallengeCollapse
                     } timeout="auto" unmountOnExit sx={{ background: openChallengeCollapse ? "#E6E9FE" : "none" }}>
                       <List component="div" disablePadding>
-                        <ListItemButton sx={{ pl: 8 }}>
+                        <ListItemButton sx={{ pl: 8 }} onClick={() => navigate("/qChallenge")} >
                           <ListItemText primary="Quick challenges" />
                         </ListItemButton>
                         <ListItemButton sx={{ pl: 8 }}>
@@ -424,11 +431,6 @@ const SideBar = () => {
             </React.Fragment>
           ))}
         </Grid>}
-      {/* ============================================================ */}
-      {/* ============================================================ */}
-      {/* ============================================================ */}
-      {/* ============================================================ */}
-      {/* ============================================================ */}
     </Container>
   )
 }
