@@ -13,26 +13,26 @@ import InputBase from '@mui/material';
 import Appbar from './AppBar'
 
 
-function Challenge(){
+function Challenge() {
 
 
-    return(
+    return (
         <div>
-        <Appbar/>
-        <Container fixed >
-            <CssBaseline/>
+            <Appbar />
+            <Container fixed >
+                <CssBaseline />
                 <Typography variant="h4" gutterBottom padding={4}>
                     Quick Challenge
                 </Typography>
-                {/* Nho them search bar */}             
-                    <Grid container spacing={2}>
-                        {data.map((data, i) =>(
-                            <>
-                                <Question data={data} key={i}/>
-                            </>
-                        ))}
-                    </Grid>
-        </Container>
+                {/* Nho them search bar */}
+                <Grid container spacing={2}>
+                    {data.map((data, i) => (
+                        <React.Fragment key={i}>
+                            <Question data={data} key={i} />
+                        </React.Fragment>
+                    ))}
+                </Grid>
+            </Container>
         </div>
     )
 }

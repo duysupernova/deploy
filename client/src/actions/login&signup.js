@@ -7,7 +7,7 @@ export const createNewUser = (newUser, history) => async (dispatch) => {
         const action = { type: "CREATE", payload: data.data.user };
         dispatch(action);
 
-        history("/login")
+        history("/login");
     } catch (error) {
         console.log(error);
     }
