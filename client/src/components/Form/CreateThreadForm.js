@@ -6,12 +6,13 @@ import imageIcon from '../../images/imageIcon.png'
 import tagIcon from '../../images/tagIcon.png'
 
 const CreateThreadForm = ({ isOpen, toggleOpenModal }) => {
-    const currentUser = JSON.parse(localStorage.getItem("NETTEE_TOKEN"));
+    const currentUser = JSON.parse(localStorage.getItem("NETTEE_TOKEN"))?.data?.user;
+    console.log(currentUser);
     const { register, handleSubmit, formState: { errors }, setValue } = useForm({
         defaultValues: {
-            userID: currentUser.data.user._id,
+            userID: "",
             //nhớ xử lý cái thread ID khi integrate =)))))))))))))))))))))))))))))))))))))))))))))))
-            threadID: currentUser.data.user._id,
+            threadID: currentUser?._id,
             title: "",
             content: "",
             image: "",

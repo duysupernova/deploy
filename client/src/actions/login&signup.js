@@ -13,13 +13,13 @@ export const createNewUser = (newUser, history) => async (dispatch) => {
     }
 };
 
-export const loginUser = (formData, history) => async (dispatch) => {
+export const loginUser = (formData) => async (dispatch) => {
     try {
         const { data } = await api.loginUser(formData);
 
         const action = { type: "AUTH", payload: data };
         dispatch(action);
-        history("/home");
+
     } catch (error) {
         console.log(error);
     }

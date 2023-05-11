@@ -5,9 +5,10 @@ import { grey } from '@mui/material/colors'
 import { useForm } from "react-hook-form"
 import { useSelector, useDispatch } from "react-redux";
 import { loginUser } from '../../actions/login&signup';
+import { useAuth } from '../../auth/AuthHook'
 
 const Login = () => {
-    const userData = useSelector((state) => state.userReducer);
+    // const userData = useSelector((state) => state.userReducer);
     const [showPassword, setShowPassword] = useState(false);
     const dispatch = useDispatch();
     const history = useNavigate();
@@ -18,9 +19,13 @@ const Login = () => {
             password: "",
         }
     });
+    const { login } = useAuth();
     const handleForm = async (event) => {
         console.log(event);
-        dispatch(loginUser(event, history));
+        dispatch(loginUser(event));
+        await login(JSON.stringify(localStorage.getItem("NETTEE_TOKEN")));
+        // history('/home');
+        console.log(localStorage.getItem("NETTEE_TOKEN"));
     }
     return (
         <Container component="main" maxWidth="xs">

@@ -5,7 +5,7 @@ import SideBar from './LeftSide/SideBar'
 const Home = () => {
     // const myStyle = useStyle();
     return (
-        <React.Fragment sx={{ margin: 0 }}>
+        <React.Fragment>
             <Grid container>
                 <Grid item xs={1} sm={2} md={3}>
                     <SideBar></SideBar>
