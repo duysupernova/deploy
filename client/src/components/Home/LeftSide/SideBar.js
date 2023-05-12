@@ -68,7 +68,7 @@ const SideBar = () => {
 
   const handleLogout = () => {
     localStorage.removeItem("NETTEE_TOKEN");
-    navigate('/login');
+    navigate('/login', { replace: true });
   }
 
   const toggleDrawer = (anchor, open) => (event) => {
