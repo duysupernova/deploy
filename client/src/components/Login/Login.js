@@ -1,17 +1,11 @@
 import React, { useState } from 'react'
-import { useNavigate } from 'react-router-dom'
 import { Container, Grid, Box, TextField, Typography, Button, Link } from '@mui/material'
 import { grey } from '@mui/material/colors'
 import { useForm } from "react-hook-form"
-import { useSelector, useDispatch } from "react-redux";
-import { loginUser } from '../../actions/login&signup';
 import { useAuth } from '../../auth/AuthHook'
 
 const Login = () => {
-    // const userData = useSelector((state) => state.userReducer);
     const [showPassword, setShowPassword] = useState(false);
-    const dispatch = useDispatch();
-    const history = useNavigate();
     const secondary = grey[500];
     const { register, handleSubmit, formState: { errors } } = useForm({
         defaultValues: {
@@ -21,12 +15,9 @@ const Login = () => {
     });
     const { login } = useAuth();
     const handleForm = async (event) => {
-        console.log(event);
-        dispatch(loginUser(event));
-        await login(JSON.stringify(localStorage.getItem("NETTEE_TOKEN")));
-        // history('/home');
-        console.log(localStorage.getItem("NETTEE_TOKEN"));
+        login(event);
     }
+
     return (
         <Container component="main" maxWidth="xs">
             <Box sx={{
