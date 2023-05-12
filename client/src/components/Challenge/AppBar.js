@@ -7,10 +7,10 @@ import Grid from '@mui/material/Grid';
 
 export default function ButtonAppBar() {
   return (
-    <Box sx = {{ flexGrow: 1, maxWidth:'xl' }}>
+    <Box sx = {{ flexGrow: 1, width:'100%' }}>
       <AppBar position="static" color="default">
-        <Toolbar>
-            <Grid container sx={{flexDirection: 'row-reverse', py: 3}}>
+        <Toolbar >
+            <Grid container sx={{flexDirection: 'row-reverse', py: 3}} >
               <Button variant="contained" color="primary">Create question</Button>
             </Grid>
         </Toolbar>
