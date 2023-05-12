@@ -8,7 +8,7 @@ import Login from "./components/Login/Login";
 import Signup from "./components/Signup/Signup";
 import Home from "./components/Home/Home";
 import Thread from "./components/Thread/Thread"
-import Profile from "./components/profile/Profile";
+import Profile from "./components/Profile/Profile";
 import QuickChallenge from './components/Challenge/index'
 
 const App = () => {

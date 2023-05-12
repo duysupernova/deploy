@@ -1,33 +1,46 @@
-import { Grid, FormControlLabel, Radio, RadioGroup, FormControl, Container, Typography, Button, Stack } from "@mui/material";
+import { FormControlLabel, Radio, RadioGroup, FormControl, Container, Typography, Button, Box, Card, CardContent, CardActions } from "@mui/material";
+import { useState } from "react";
 
-export default function Quiz(){
+export default function Quiz(props){
+    const { question ={}, questionNumber, submitAnswer} = props;
+    const [value, setValue] = useState(null);
+
+    const handleChangeRadio = (e) => {
+        setValue(e.target.value);
+    }
+
+    const handleSubmit = () => {
+        submitAnswer(value);
+        setValue(null);
+    }
+
     return(
-    <Container fixed>
-        <Typography variant="h3" paddingTop={6}>
-            Java Expert
-        </Typography>
-        <Typography variant="h4" paddingTop={2}>
-        Question 1 of 25
-        </Typography>
-        <FormControl >
-            <Typography variant="h4" paddingY={3} >
-                What is a correct syntax of "Hello Word!" in Java?
-            </Typography>
-            <RadioGroup>
-                <FormControlLabel value="1" control={<Radio />} label="1" componentsProps={{ typography: { variant: 'h4', paddingY: 2 } }}/>
-                <FormControlLabel value="2" control={<Radio />} label="2" componentsProps={{ typography: { variant: 'h4', paddingY:2 } }}/>
-                <FormControlLabel value="3" control={<Radio />} label="3" componentsProps={{ typography: { variant: 'h4', paddingY: 2 } }}/>
-                <FormControlLabel value="4" control={<Radio />} label="4" componentsProps={{ typography: { variant: 'h4', paddingY:2 } }}/>
-            </RadioGroup>
-        </FormControl>
-        <Grid container spacing={1}>
-            <Grid item xs={4}>
-                <Button variant="contained" sx={{width: "100%"}}>Contained</Button>
-            </Grid>
-            <Grid item xs={4}>
-                <Button variant="contained" sx={{width: "100%"}}>Contained</Button>
-            </Grid>
-        </Grid>
-    </Container>
+        <Container fixed >
+            <Box color={'black'} maxWidth='xs' paddingTop={16}>
+                <Card variant="outlined">
+                    <CardContent>
+                        <Typography variant="h4" paddingY={1}>
+                            Question {questionNumber}
+                        </Typography>
+                        <Typography variant="h4" paddingY={2}>
+                            {question.title}
+                        </Typography>
+
+                        <FormControl>
+                            <RadioGroup value={value} onChange={handleChangeRadio}>
+                                {question.options.map((q, i) => {
+                                    return <FormControlLabel key={i+1} value={i+1} control={<Radio />} label={q.description} componentsProps={{ typography: { variant: 'h5', paddingY: 2 } }}/>
+                                })}
+                            </RadioGroup>
+                        </FormControl>
+                    </CardContent>
+                    <CardActions>
+                        <Button disabled={!value} onClick={handleSubmit} fullWidth variant="contained">
+                            Next
+                        </Button>
+                    </CardActions>
+                </Card>
+            </Box>
+        </Container>
     );
 }

@@ -3,7 +3,8 @@ import RightSide from './RightRight/RightSide'
 import { Grid } from '@mui/material'
 import SideBar from './LeftSide/SideBar'
 import Challenge from '../Challenge/Challenge'
-import Quiz from '../Challenge/Quiz'
+import QuizPage from '../Challenge/QuizPage'
+
 const Home = () => {
     return (
         <React.Fragment sx={{ margin: 0 }}>
@@ -13,7 +14,7 @@ const Home = () => {
                 </Grid>
                 <Grid item xs={11} sm={10} md={9}>
                     {/* <RightSide></RightSide> */}
-                    <Quiz/>
+                    <QuizPage />
                 </Grid>
             </Grid>
         </ React.Fragment>
