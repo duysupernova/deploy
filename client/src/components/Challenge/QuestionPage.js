@@ -6,7 +6,6 @@ import SideBar from './LeftSide/SideBar'
 import Appbar from "../Challenge/AppBar"
 import Challenge from "../Challenge/Challenge"
 const Home = () => {
-    // const myStyle = useStyle();
     return (
         <>
             {/* <Container disableGutters="true" maxWidt=""> */}
