@@ -13,8 +13,8 @@ const Home = () => {
                     <SideBar></SideBar>
                 </Grid>
                 <Grid item xs={11} sm={10} md={9}>
-                    {/* <RightSide></RightSide> */}
-                    <QuizPage />
+                    <RightSide></RightSide>
+                    {/* <QuizPage /> */}
                 </Grid>
             </Grid>
         </ React.Fragment>

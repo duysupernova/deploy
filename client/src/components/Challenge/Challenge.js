@@ -12,7 +12,6 @@ import Appbar from './AppBar'
 function Challenge() {
     return (
         <div>
-            {/* <Appbar /> */}
             <Container fixed >
                 <CssBaseline />
                 <Grid container direction="row" justifyContent="space-between" alignItems="center">
@@ -25,7 +24,6 @@ function Challenge() {
                         <SearchBar />
                     </Grid>
                 </Grid>
-                {/* Nho them search bar */}
                 <Grid container spacing={2}>
                     {data.map((data, i) => (
                         <React.Fragment key={i}>
