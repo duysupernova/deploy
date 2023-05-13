@@ -251,7 +251,7 @@ const SideBar = () => {
                   <ListItemButton sx={{ pl: 8 }} onClick={() => navigate("/qChallenge")}>
                     <ListItemText primary="Quick challenges" />
                   </ListItemButton>
-                  <ListItemButton sx={{ pl: 8 }}>
+                  <ListItemButton sx={{ pl: 8 }} onClick={() => navigate("/lChallenge")}>
                     <ListItemText primary="Long challenges" />
                   </ListItemButton>
                 </List>

@@ -1,8 +1,8 @@
 import React from 'react'
 import { Grid } from '@mui/material'
 import SideBar from '../Home/LeftSide/SideBar'
-import Challenge from "./Challenge"
-const QuickChallenge = () => {
+import LongChallenge from "./LongChallenge"
+const QuickChallengePage = () => {
     return (
         <>
             <Grid container>
@@ -11,11 +11,11 @@ const QuickChallenge = () => {
                 </Grid>
 
                 <Grid item xs={11} sm={10} md={9}>
-                    <Challenge />
+                    <LongChallenge />
                 </Grid>
             </Grid>
         </>
     )
 }
 
-export default QuickChallenge
+export default QuickChallengePage

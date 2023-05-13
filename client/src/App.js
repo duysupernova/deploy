@@ -11,6 +11,7 @@ import Thread from "./components/Thread/Thread"
 import Profile from "./components/Profile/Profile";
 import QuickChallenge from './components/Challenge/index'
 import QuizPage from './components/Challenge/QuizPageRender'
+import LongChallengePage from "./components/Challenge/LongChallengePage";
 
 const App = () => {
   const dispatch = useDispatch();
@@ -39,6 +40,7 @@ const App = () => {
           <Route exact path="/threads/:threadID/details" element={<Thread />} />
           <Route exact path="/qChallenge" element={<QuickChallenge />} />
           <Route exact path="/quiz" element={<QuizPage />} />
+          <Route exact path="/lChallenge" element={<LongChallengePage />} />
         </Routes>
       </Router>
     </>

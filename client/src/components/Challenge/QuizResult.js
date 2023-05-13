@@ -1,9 +1,10 @@
 import React from 'react'
 import { useMemo } from 'react'
-import { Grid, Typography, CardContent, Card, CardActions, Button, Container } from '@mui/material'
+import { Grid, Typography, CardContent, Card, CardActions, Button } from '@mui/material'
 import questions from './QuestionData'
 import Laptop from './image/laptop.png'
 import Info from './image/info.png'
+import { useNavigate } from 'react-router-dom'
 
 export default function QuizResult(props) {
     const {answers, restartQuiz } = props;
@@ -11,7 +12,7 @@ export default function QuizResult(props) {
         return questions.filter((q, i) => {
             return q.correctAnswer === parseInt(answers[i]);
         }).length;}, [answers])
-
+    const navigate = useNavigate();
     return (
         <Grid maxWidth='xs'>
         <Grid item paddingTop={17}>
@@ -81,13 +82,12 @@ export default function QuizResult(props) {
                     </Button>
                     ) : (
                         <>
-                        <Button variant="contained" >
+                        <Button variant="contained" onClick={() => navigate("/lChallenge")}>
                         Home
                         </Button>
                         </>
                     )}
                 </Button>
-                
             </CardActions>
         </Card>
         </Grid>
