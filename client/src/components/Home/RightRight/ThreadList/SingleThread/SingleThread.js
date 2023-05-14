@@ -1,23 +1,25 @@
 import React from 'react'
 import { ButtonGroup, Button, Container, Grid, Typography, Avatar, List, ListItem, ListItemText, ListItemIcon, Stack, Badge } from '@mui/material'
+import { useNavigate } from 'react-router-dom'
 import useStyle from './style'
 import star from '../../../../../images/star.png'
 import notification from '../../../../../images/notification.png'
 import share from '../../../../../images/share.png'
-const SingleThread = () => {
+const SingleThread = ({ data }) => {
     const myStyle = useStyle();
+    const navigate = useNavigate();
+    // console.log(data);
     return (
         <>
             <Container component="main" disableGutters={true} sx={{
                 border: "1px solid #CCCCCC",
                 borderRadius: "4px",
-                pointerEvents: "auto"
             }}>
                 <Grid container>
                     <Grid item xs={2} display='flex' justifyContent='center' alignItems='center' flexDirection='column'>
                         <Avatar alt="Star icon" src={star} />
                         <Typography component='span'>
-                            983
+                            {data?.likes.length}
                         </Typography>
                     </Grid>
                     <Grid item xs={10} className={myStyle.list}>
@@ -26,55 +28,59 @@ const SingleThread = () => {
                                 className={myStyle.listItemText}
                             >
                                 <ListItemText
-                                    primary="Posted by Ordinary-Accident351"
-                                    secondary="Animated By Column Using 2 df's with GGAnimate"
+                                    primary={`Posted by ${data?._id}`}
+                                    secondary={data?.title}
+                                    onClick={() => navigate(`/threads/${data.threadID}/details`)}
+                                    sx={{
+                                        cursor: 'pointer'
+                                    }
+                                    }
                                 />
                                 <ListItemIcon>
                                     <ButtonGroup>
                                         <Badge badgeContent={3} color='secondary'>
                                             <Button sx={{ borderRadius: 10 }}
-                                                variant="text"
+                                                variant="outlined"
                                                 startIcon={<img alt="Notification icon" src={notification} />}
                                                 className={myStyle.startIcon}
-                                                size="small">
+                                                size="small"
+                                                onClick={() => navigate("/home")}
+                                            >
                                             </Button>
                                         </Badge>
                                         <Button sx={{ borderRadius: 10 }}
-                                            variant="text"
+                                            variant="outlined"
                                             startIcon={<img alt="Share icon" src={share} />}
                                             className={myStyle.startIcon}
-                                            size="small">
+                                            size="small"
+                                            onClick={() => navigate("/home")}
+                                        >
                                         </Button>
                                     </ButtonGroup>
                                 </ListItemIcon>
                             </ListItem>
                         </List>
                         <Typography component="div" className='bodyText'>
-                            I am currently trying to use gganimate to animate bond yield curves over time. In essence, I have 2 data frames, each formatted the same way: Maturity 1/1/2020 1/1/2021 1/1/2022 3M 3.4 3.4 3.4 6M 4....
+                            {data?.content && data.content}
                         </Typography>
                         <Typography component="div" className='commentCount'>
-                            1.4k comments
+                            {(data?.comments.length > 1000) ? `${Math.floor(data?.comments.length / 1000)}.${data?.comments.length - (Math.floor(data?.comments.length / 1000) * 1000)}` : data?.comments.length} comments
                         </Typography>
                         <Grid item xs={12} sx={{ padding: "0 16px 0 16px" }} display='flex' justifyContent='space-between'>
                             <Stack spacing={1} direction="row" className={myStyle.tags}>
-                                <Button
-                                    variant="contained"
-                                    size="small">
-                                    Animate
-                                </Button>
-                                <Button
-                                    variant="contained"
-                                    size="small">
-                                    gglot2
-                                </Button>
-                                <Button
-                                    variant="contained"
-                                    size="small">
-                                    Spring
-                                </Button>
+                                {data?.tags.map((tag, index) => {
+                                    return (
+                                        <Button
+                                            variant="contained"
+                                            size="small"
+                                            key={index}>
+                                            {tag}
+                                        </Button>
+                                    )
+                                })}
                             </Stack>
                             <Typography component="span" className='times'>
-                                8 days ago
+                                {new Date().getDate() - new Date(data?.createdAt).getDate()} days ago
                             </Typography>
                         </Grid>
                     </Grid>

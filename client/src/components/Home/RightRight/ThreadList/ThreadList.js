@@ -1,17 +1,21 @@
 import React from 'react'
 import SingleThread from './SingleThread/SingleThread'
-import { Grid } from '@mui/material'
+import { Grid, Button } from '@mui/material'
+import { useSelector } from "react-redux";
 
 const ThreadList = () => {
+    // exact path = "/threads/:threadID/details"
+    const thread = useSelector((state) => state.threadReducer[1]);
     return (
         <>
-            <Grid container spacing={2}>
-                <Grid item>
-                    <SingleThread />
-                </Grid>
-                <Grid item>
-                    <SingleThread />
-                </Grid>
+            <Grid container maxWidth>
+                {thread?.map((singleThread) => {
+                    return (
+                        <Grid item key={singleThread._id} xs={12}>
+                            <SingleThread data={singleThread} />
+                        </Grid>
+                    )
+                })}
             </Grid>
         </>
     )

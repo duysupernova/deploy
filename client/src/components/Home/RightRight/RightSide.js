@@ -40,16 +40,10 @@ const RightSide = () => {
                         </Grid>
                     </Grid>
                 </Grid>
-                <Grid container p={3} sx={{
-                    // display: 'flex',
-                    // '@media (min-width: 1000px)': {
-                    //     flexDirection: 'row-reverse',
-                    // },
-                }}
+                <Grid container p={3}
                     direction={{ xs: "column-reverse", md: "column-reverse", lg: "row" }}>
                     <Grid item xs={12} md={12} lg={9}>
                         <ThreadList />
-                        {/* <Profile /> */}
                     </Grid>
                     <Grid item xs={12} md={12} lg={3}> <Filter /></Grid>
                 </Grid>

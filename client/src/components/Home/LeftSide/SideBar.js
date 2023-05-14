@@ -25,6 +25,7 @@ const SideBar = () => {
   const [anchorEl, setAnchorEl] = useState(null);
   const [width, setWindowWidth] = useState(window.innerWidth);
   const navigate = useNavigate();
+  const currentUser = JSON.parse(localStorage.getItem("NETTEE_TOKEN"))?.data?.user;
 
   const Fade = React.forwardRef(function Fade(props, ref) {
     const { in: openNotification, children, onEnter, onExited, ...other } = props;
@@ -95,7 +96,7 @@ const SideBar = () => {
 
 
   return (
-    <Container component="main" disableGutters={true}>
+    <Container component="main" disableGutters={true} sx={{ width: 'inherit', position: 'fixed' }}>
       <Popper id="popover" open={openNotification} anchorEl={anchorEl} placement="right-start"
         sx={{ zIndex: 1000000 }}
       >
@@ -113,7 +114,7 @@ const SideBar = () => {
                   key={elems}>
                   <ListItem alignItems="flex-start" disablePadding>
                     <ListItemAvatar>
-                      <Avatar sx={{ bgcolor: 'orange' }}>N</Avatar>
+                      <Avatar sx={{ bgcolor: 'orange' }} src={currentUser.image && currentUser.image}>{!currentUser.image && currentUser.name.charAt(0)}</Avatar>
                     </ListItemAvatar>
                     <ListItemText
                       primary={
@@ -183,9 +184,9 @@ const SideBar = () => {
               </Link>
               <ListItemButton onClick={handleClick}>
                 <ListItemIcon>
-                  <Avatar sx={{ bgcolor: 'orange' }}>N</Avatar>
+                  <Avatar sx={{ bgcolor: 'orange' }} src={currentUser.image && currentUser.image}>{!currentUser.image && currentUser.name.charAt(0)}</Avatar>
                 </ListItemIcon>
-                <ListItemText primary="user@gmail.com" />
+                <ListItemText primary={currentUser.email} />
                 {openUserCollapse ? <img src={expandLess} alt="expand less" style={{ width: '16px', height: '16px' }} /> : <img src={expandMore} alt="expand more" style={{ width: '16px', height: '16px' }} />}
               </ListItemButton>
               <Collapse in={openUserCollapse} timeout="auto" unmountOnExit>
@@ -325,9 +326,9 @@ const SideBar = () => {
                     </Link>
                     <ListItemButton onClick={handleClick}>
                       <ListItemIcon>
-                        <Avatar sx={{ bgcolor: 'orange' }}>N</Avatar>
+                        <Avatar sx={{ bgcolor: 'orange' }} src={currentUser.image && currentUser.image}>{!currentUser.image && currentUser.name.charAt(0)}</Avatar>
                       </ListItemIcon>
-                      <ListItemText primary="user@gmail.com" />
+                      <ListItemText primary={currentUser.email} />
                       {openUserCollapse ? <img src={expandLess} alt="expand less" style={{ width: '16px', height: '16px' }} /> : <img src={expandMore} alt="expand more" style={{ width: '16px', height: '16px' }} />}
                     </ListItemButton>
                     <Collapse in={openUserCollapse} timeout="auto" unmountOnExit>

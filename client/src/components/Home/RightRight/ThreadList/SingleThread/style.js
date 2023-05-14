@@ -17,7 +17,7 @@ export default makeStyles(() => ({
         }
     },
     list: {
-        "& .MuiList-root": {
+        "& > .MuiList-root": {
             padding: "0",
         },
         "& .bodyText": {
