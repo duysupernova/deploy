@@ -5,7 +5,7 @@ import { Grid, Typography } from '@mui/material'
 export default function Filter() {
   const [tag, setTags] = useState(["Java Scripts", "Java", "Web Development"]);
   return (
-    <Grid item xs={12} sx={{ float: 'right' }} display='flex' justifyContent='right' alignItems='right'>
+    <Grid item xs={12} sx={{ float: 'right', padding: '12px' }} display='flex' justifyContent='right' alignItems='right'>
       <Grid container>
         <Typography variant="h5" gutterBottom>Filter by tags</Typography>
         <TagsInput

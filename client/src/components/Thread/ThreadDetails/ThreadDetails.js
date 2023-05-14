@@ -31,11 +31,11 @@ const ThreadDetails = () => {
                         </Grid>
                     </Grid>
                     <Grid container p={3} className='headBar'>
-                        <Grid container pr={24}>
+                        <Grid container pr={0}>
                             <Grid item xs={2} display='flex' justifyContent='start' alignItems='center' flexDirection='column'>
                                 <Avatar alt="Star icon" src={star} />
                                 <Typography component='span'>
-                                    {thread.likes}
+                                    {thread.likes.length}
                                 </Typography>
                             </Grid>
                             <Grid item xs={10} className={myStyle.list}>
@@ -47,7 +47,33 @@ const ThreadDetails = () => {
                                             primary={thread.title}
                                             secondary="Date posted by whom ?"
                                         />
-                                        {/* <ListItemIcon>
+                                    </ListItem>
+                                </List>
+                                <Typography component="div" className='bodyText'>
+                                    {thread.content}
+                                </Typography>
+                                <Typography component="div" className='commentCount'>
+                                    {thread.comments.length} comments
+                                </Typography>
+                                <Grid item xs={12} sx={{ padding: "0 16px 0 16px" }} display='flex' justifyContent='space-between'>
+                                    <Box sx={{
+                                        width: "100%",
+                                        display: "flex",
+                                        flexDirection: "row",
+                                        flexWrap: "wrap",
+                                        justifyContent: "space-between"
+                                    }}>
+                                        <Stack spacing={1} direction="row" className={myStyle.tags}>
+                                            {thread.tags.map((tag) => {
+                                                return <Button
+                                                    key={tag}
+                                                    variant="contained"
+                                                    size="small">
+                                                    {tag}
+                                                </Button>
+                                            })}
+                                        </Stack>
+                                        <Typography component="span" className='times'>
                                             <ButtonGroup>
                                                 <Button sx={{ borderRadius: 10 }}
                                                     variant="text"
@@ -63,52 +89,16 @@ const ThreadDetails = () => {
                                                     size="small">
                                                 </Button>
                                             </ButtonGroup>
-                                        </ListItemIcon> */}
-                                    </ListItem>
-                                </List>
-                                <Typography component="div" className='bodyText'>
-                                    {thread.content}
-                                </Typography>
-                                <Typography component="div" className='commentCount'>
-                                    {thread.comments.length} comments
-                                </Typography>
-                                <Grid item xs={12} sx={{ padding: "0 16px 0 16px" }} display='flex' justifyContent='space-between'>
-                                    <Stack spacing={1} direction="row" className={myStyle.tags}>
-                                        {thread.tags.map((tag) => {
-                                            return <Button
-                                                key={tag}
-                                                variant="contained"
-                                                size="small">
-                                                {tag}
-                                            </Button>
-                                        })}
-                                    </Stack>
-                                    <Typography component="span" className='times'>
-                                        <ButtonGroup>
-                                            <Button sx={{ borderRadius: 10 }}
-                                                variant="text"
-                                                startIcon={<img alt="Notification icon" src={notification} />}
-                                                className={myStyle.startIcon}
-                                                size="small">
-
-                                            </Button>
-                                            <Button sx={{ borderRadius: 10 }}
-                                                variant="text"
-                                                startIcon={<img alt="Share icon" src={share} />}
-                                                className={myStyle.startIcon}
-                                                size="small">
-                                            </Button>
-                                        </ButtonGroup>
-                                    </Typography>
+                                        </Typography>
+                                    </Box>
                                 </Grid>
                             </Grid>
                         </Grid>
                     </Grid >
-                    {/* xs={10} */}
                     <Grid container className='headBar'>
                         {thread.comments.map((Singlecomment) => {
                             return (
-                                <Grid container pr={24} key={Singlecomment._id}>
+                                <Grid container pr={0} key={Singlecomment._id}>
                                     <Grid item xs={12}>
                                         <Answer data={Singlecomment} />
                                     </Grid>
@@ -117,9 +107,8 @@ const ThreadDetails = () => {
                         })}
 
                     </Grid>
-                    {/* xs={10} */}
                     <Grid container p={4} >
-                        <Grid container pr={24} rowSpacing={2} >
+                        <Grid container pr={0} rowSpacing={2} >
                             <Grid item xs={12}>
                                 <Typography component='div' variant='body2'>
                                     Your answer

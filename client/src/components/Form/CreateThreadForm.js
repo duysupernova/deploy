@@ -7,7 +7,6 @@ import tagIcon from '../../images/tagIcon.png'
 
 const CreateThreadForm = ({ isOpen, toggleOpenModal }) => {
     const currentUser = JSON.parse(localStorage.getItem("NETTEE_TOKEN"))?.data?.user;
-    // const userData = useSelector((state) => state.userReducer?.authData);
     console.log("this is current user :", currentUser);
     const { register, handleSubmit, formState: { errors }, setValue } = useForm({
         defaultValues: {
