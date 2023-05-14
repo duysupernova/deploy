@@ -54,11 +54,13 @@ const App = () => {
               <ProtectedRoute>
                 <QuickChallenge />
               </ProtectedRoute>} />
+            <Route exact path="/quizPage" element={
               <ProtectedRoute>
                 <QuizPage />
               </ProtectedRoute>} />
+              <Route exact path="/lChallenge" element={
               <ProtectedRoute>
-                <LongChallengePage />}
+                <LongChallengePage />
               </ProtectedRoute>} />
           </Routes>
         </AuthProvider>
