@@ -1,38 +1,47 @@
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
 import { Modal, Box, Typography, Button, List, ListItem, ListItemAvatar, Avatar, ListItemText, TextField, Divider } from '@mui/material'
 import { useForm } from "react-hook-form"
-import { useSelector } from "react-redux";
+import { useSelector, useDispatch } from "react-redux";
+import { useNavigate } from 'react-router-dom';
+import { createThread } from '../../actions/thread';
 import imageIcon from '../../images/imageIcon.png'
 import tagIcon from '../../images/tagIcon.png'
 
 const CreateThreadForm = ({ isOpen, toggleOpenModal }) => {
     const currentUser = JSON.parse(localStorage.getItem("NETTEE_TOKEN"))?.data?.user;
-    console.log("this is current user :", currentUser);
+    const threadData = useSelector((state) => state.threadReducer[1]);
+    const dispatch = useDispatch();
+    const navigate = useNavigate();
     const { register, handleSubmit, formState: { errors }, setValue } = useForm({
         defaultValues: {
             userID: currentUser?._id,
-            //nhớ xử lý cái thread ID khi integrate =)))))))))))))))))))))))))))))))))))))))))))))))
-            // threadID: currentUser?._id,
+            threadID: threadData?.length + 1,
             title: "",
             content: "",
             image: "",
-            likes: 0,
-            comments: [],
-            tags: [],
-            pins: [],
-            share: [],
+            // likes: [],
+            // comments: [],
+            // tags: [],
+            // pins: [],
+            // share: [],
         }
     });
 
+    const [preview, setPreview] = useState();
+    useEffect(() => {
+        setValue('threadID', threadData?.length + 1);
+    }, [threadData])
+
+
     const handleForm = (event) => {
-        console.log(event);
+        dispatch(createThread(event, navigate));
     }
     const handleImage = (event) => {
         var reader = new FileReader();
         reader.readAsDataURL(event.target.files[0]);
-
         reader.onload = () => {
-            setValue('image', reader.result)
+            setValue('image', reader.result);
+            setPreview(reader.result);
         };
     }
 
@@ -87,6 +96,28 @@ const CreateThreadForm = ({ isOpen, toggleOpenModal }) => {
                         {...register("content", { required: "Content is required" })}
                     />
                     {errors.content && <p style={{ color: 'red', margin: '0' }}>{errors.content.message}</p>}
+                    {preview &&
+                        <Box component='div' p={1} sx={{
+                            borderRadius: '8px',
+                            border: '3px solid #f1f1f1',
+                            marginY: '8px',
+                            position: 'relative'
+                        }}>
+
+                            <img src={`${preview}`} style={{ width: "100%", maxHeight: "150px" }} alt='content' />
+                            <Avatar sx={{
+                                position: 'absolute',
+                                top: 0,
+                                right: 0,
+                                background: '#1565c0',
+                                border: '2px solid #1565c0'
+
+                            }}><Button variant='contained' onClick={() => {
+                                setPreview(null);
+                                setValue('image', "");
+                            }}>X</Button></Avatar>
+                        </Box>
+                    }
                     <Box component='div' p={2} sx={{
                         display: 'flex',
                         justifyContent: 'space-between',
