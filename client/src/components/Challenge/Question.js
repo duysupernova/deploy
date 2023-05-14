@@ -36,7 +36,7 @@ const Question = ({data}) => {
                                     {data.questions} questions - {data.time} minutes
                                 </Typography>
                             </Box>
-                            <Grid item paddingRight={1} paddingBottom={3} onClick={() => navigate("/quiz")}>
+                            <Grid item paddingRight={1} paddingBottom={3} onClick={() => navigate("/quizPage")}>
                                     <Button variant='contained'>
                                         go !
                                     </Button>

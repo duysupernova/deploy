@@ -2,7 +2,6 @@ import React from 'react'
 import Container from '@mui/material/Container';
 import CssBaseline from '@mui/material/CssBaseline';
 import { Grid } from '@mui/material';
-import Paper from '@mui/material/Paper';
 import Question from './Question'
 import Typography from '@mui/material/Typography';
 import data from './data.json'
