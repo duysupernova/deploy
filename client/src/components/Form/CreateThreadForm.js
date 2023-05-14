@@ -1,17 +1,19 @@
 import React, { useState } from 'react'
 import { Modal, Box, Typography, Button, List, ListItem, ListItemAvatar, Avatar, ListItemText, TextField, Divider } from '@mui/material'
 import { useForm } from "react-hook-form"
-// import FileBase from 'react-file-base64';
+import { useSelector } from "react-redux";
 import imageIcon from '../../images/imageIcon.png'
 import tagIcon from '../../images/tagIcon.png'
 
 const CreateThreadForm = ({ isOpen, toggleOpenModal }) => {
-    const currentUser = JSON.parse(localStorage.getItem("NETTEE_TOKEN"));
+    const currentUser = JSON.parse(localStorage.getItem("NETTEE_TOKEN"))?.data?.user;
+    // const userData = useSelector((state) => state.userReducer?.authData);
+    console.log("this is current user :", currentUser);
     const { register, handleSubmit, formState: { errors }, setValue } = useForm({
         defaultValues: {
-            userID: currentUser.data.user._id,
+            userID: currentUser?._id,
             //nhớ xử lý cái thread ID khi integrate =)))))))))))))))))))))))))))))))))))))))))))))))
-            threadID: currentUser.data.user._id,
+            // threadID: currentUser?._id,
             title: "",
             content: "",
             image: "",

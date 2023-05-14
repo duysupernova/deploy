@@ -68,7 +68,7 @@ const SideBar = () => {
 
   const handleLogout = () => {
     localStorage.removeItem("NETTEE_TOKEN");
-    navigate('/login');
+    navigate('/login', { replace: true });
   }
 
   const toggleDrawer = (anchor, open) => (event) => {
@@ -193,7 +193,7 @@ const SideBar = () => {
                   <ListItemButton sx={{ pl: 4 }} onClick={() => navigate('/profile')}>
                     <ListItemText primary="My profile" />
                   </ListItemButton>
-                  <ListItemButton sx={{ pl: 4 }}>
+                  <ListItemButton sx={{ pl: 4 }} onClick={handleLogout}>
                     <ListItemText primary="Logout" />
                   </ListItemButton>
                 </List>

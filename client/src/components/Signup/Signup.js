@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { Grid, Button, TextField, Box, Typography, Container, CssBaseline, Link } from "@mui/material";
 import { useForm } from "react-hook-form"
 import { grey } from '@mui/material/colors'
@@ -11,7 +11,8 @@ export default function Signup() {
   const history = useNavigate();
   const dispatch = useDispatch();
   const secondary = grey[500];
-  const {register, handleSubmit, formState: { errors } } = useForm();
+  const { register, handleSubmit, formState: { errors } } = useForm();
+
   const onSubmit = (data) => {
     console.log(data);
     dispatch(createNewUser(data, history));

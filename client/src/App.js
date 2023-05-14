@@ -4,44 +4,64 @@ import { useDispatch } from "react-redux";
 // import { Route, Switch } from "react-router";
 import { BrowserRouter as Router, Route, Routes, Navigate } from "react-router-dom";
 
+import { ProtectedRoute } from "./auth/ProtectedRoute";
+import { AuthProvider, useAuth } from "./auth/AuthHook";
 import Login from "./components/Login/Login";
 import Signup from "./components/Signup/Signup";
 import Home from "./components/Home/Home";
 import Thread from "./components/Thread/Thread"
 import Profile from "./components/Profile/Profile";
 import QuickChallenge from './components/Challenge/index'
+import { getAllThread } from "./actions/thread";
 import QuizPage from './components/Challenge/QuizPageRender'
 import LongChallengePage from "./components/Challenge/LongChallengePage";
 
 const App = () => {
   const dispatch = useDispatch();
-  const currentUser = JSON.parse(localStorage.getItem("NETTEE_TOKEN"));
 
   useEffect(() => {
-
+    dispatch(getAllThread());
   }, [dispatch]);
-
-  // const handleLoginRequirements () => {
-
-  //   return (
-  //     <Navigate to="/login" replace={true} />
-  //   )
-  // }
 
   return (
     <>
       <Router>
-        <Routes>
-          <Route path="/" element={(currentUser) ? <Navigate to="/home" replace={true} /> : <Navigate to="/login" replace={true} />} />
-          <Route exact path="/home" element={<Home />} />
-          <Route exact path="/login" element={<Login />} />
-          <Route exact path="/signup" element={<Signup />} />
-          <Route exact path="/profile" element={<Profile />} />
-          <Route exact path="/threads/:threadID/details" element={<Thread />} />
-          <Route exact path="/qChallenge" element={<QuickChallenge />} />
-          <Route exact path="/quiz" element={<QuizPage />} />
-          <Route exact path="/lChallenge" element={<LongChallengePage />} />
-        </Routes>
+        <AuthProvider>
+          <Routes>
+            <Route path="/home" element={
+              <ProtectedRoute>
+                < Home />
+              </ProtectedRoute>
+            } />
+            <Route path="/" element={
+              <ProtectedRoute>
+                < Home />
+              </ProtectedRoute>
+            } />
+            {/* <Route exact path="/login" element={(!currentUser ? <Login /> : <Navigate to="/home" replace={true} />)} /> */}
+            <Route exact path="/login" element={<Login />} />
+            <Route exact path="/signup" element={<Signup />} />
+            {/* <Route exact path="/signup" element={(!currentUser ? <Signup /> : <Navigate to="/home" replace={true} />)} /> */}
+            <Route exact path="/profile" element={
+              <ProtectedRoute>
+                <Profile />
+              </ProtectedRoute>} />
+            <Route exact path="/threads/:threadID/details" element={
+              <ProtectedRoute>
+                <Thread />
+              </ProtectedRoute>} />
+            <Route exact path="/qChallenge" element={
+              <ProtectedRoute>
+                <QuickChallenge />
+              </ProtectedRoute>} />
+              <ProtectedRoute>
+                <QuizPage />
+              </ProtectedRoute>} />
+              <ProtectedRoute>
+                <LongChallengePage />}
+              </ProtectedRoute>} />
+          </Routes>
+        </AuthProvider>
       </Router>
     </>
   );

@@ -1,25 +1,26 @@
 import * as api from "../api/login&signup";
 
-export const createNewUser = (newUser, history) => async (dispatch) => {
+export const createNewUser = (newUser, navigate) => async (dispatch) => {
     try {
         const { data } = await api.createNewUser(newUser);
 
         const action = { type: "CREATE", payload: data.data.user };
         dispatch(action);
 
-        history("/login");
+        navigate('/login', { replace: true });
     } catch (error) {
         console.log(error);
     }
 };
 
-export const loginUser = (formData, history) => async (dispatch) => {
+export const loginUser = (formData, navigate) => async (dispatch) => {
     try {
         const { data } = await api.loginUser(formData);
 
         const action = { type: "AUTH", payload: data };
         dispatch(action);
-        history("/home");
+
+        navigate('/home', { replace: true });
     } catch (error) {
         console.log(error);
     }

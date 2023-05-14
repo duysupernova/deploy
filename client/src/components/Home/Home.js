@@ -7,7 +7,7 @@ import QuizPage from '../Challenge/QuizPage'
 
 const Home = () => {
     return (
-        <React.Fragment sx={{ margin: 0 }}>
+        <React.Fragment>
             <Grid container>
                 <Grid item xs={1} sm={2} md={3}>
                     <SideBar></SideBar>
