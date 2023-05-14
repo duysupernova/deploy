@@ -1,5 +1,5 @@
 import React from 'react'
-import { ButtonGroup, Button, Container, Grid, Typography, Avatar, List, ListItem, ListItemText, ListItemIcon, Stack } from '@mui/material'
+import { ButtonGroup, Button, Container, Grid, Typography, Avatar, List, ListItem, ListItemText, ListItemIcon, Stack, Badge } from '@mui/material'
 import useStyle from './style'
 import star from '../../../../../images/star.png'
 import notification from '../../../../../images/notification.png'
@@ -31,13 +31,14 @@ const SingleThread = () => {
                                 />
                                 <ListItemIcon>
                                     <ButtonGroup>
-                                        <Button sx={{ borderRadius: 10 }}
-                                            variant="text"
-                                            startIcon={<img alt="Notification icon" src={notification} />}
-                                            className={myStyle.startIcon}
-                                            size="small">
-
-                                        </Button>
+                                        <Badge badgeContent={3} color='secondary'>
+                                            <Button sx={{ borderRadius: 10 }}
+                                                variant="text"
+                                                startIcon={<img alt="Notification icon" src={notification} />}
+                                                className={myStyle.startIcon}
+                                                size="small">
+                                            </Button>
+                                        </Badge>
                                         <Button sx={{ borderRadius: 10 }}
                                             variant="text"
                                             startIcon={<img alt="Share icon" src={share} />}
