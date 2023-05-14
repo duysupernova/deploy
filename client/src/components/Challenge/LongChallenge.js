@@ -2,12 +2,13 @@ import React from 'react'
 import Container from '@mui/material/Container';
 import CssBaseline from '@mui/material/CssBaseline';
 import { Grid } from '@mui/material';
+import Paper from '@mui/material/Paper';
 import Question from './Question'
 import Typography from '@mui/material/Typography';
 import data from './data.json'
 import SearchBar from './SearchBar';
 
-function Challenge() {
+function longChallenge() {
     return (
         <div>
             <Container fixed >
@@ -15,7 +16,7 @@ function Challenge() {
                 <Grid container direction="row" justifyContent="space-between" alignItems="center">
                     <Grid item>
                         <Typography variant="h4" gutterBottom padding={4}>
-                            Quick Challenge
+                            Long Challenge
                         </Typography>
                     </Grid>
                     <Grid item gutterBottom padding={4}>
@@ -34,4 +35,4 @@ function Challenge() {
     )
 }
 
-export default Challenge
+export default longChallenge

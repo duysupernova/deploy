@@ -13,7 +13,8 @@ import Thread from "./components/Thread/Thread"
 import Profile from "./components/Profile/Profile";
 import QuickChallenge from './components/Challenge/index'
 import { getAllThread } from "./actions/thread";
-
+import QuizPage from './components/Challenge/QuizPageRender'
+import LongChallengePage from "./components/Challenge/LongChallengePage";
 
 const App = () => {
   const dispatch = useDispatch();
@@ -53,7 +54,12 @@ const App = () => {
               <ProtectedRoute>
                 <QuickChallenge />
               </ProtectedRoute>} />
-
+              <ProtectedRoute>
+                <QuizPage />
+              </ProtectedRoute>} />
+              <ProtectedRoute>
+                <LongChallengePage />}
+              </ProtectedRoute>} />
           </Routes>
         </AuthProvider>
       </Router>
