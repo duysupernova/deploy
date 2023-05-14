@@ -15,6 +15,7 @@ import QuickChallenge from './components/Challenge/index'
 import { getAllThread } from "./actions/thread";
 import QuizPage from './components/Challenge/QuizPageRender'
 import LongChallengePage from "./components/Challenge/LongChallengePage";
+import Appointment from "./components/Scheduler/SchedulerPage";
 
 const App = () => {
   const dispatch = useDispatch();
@@ -61,6 +62,10 @@ const App = () => {
               <Route exact path="/lChallenge" element={
               <ProtectedRoute>
                 <LongChallengePage />
+              </ProtectedRoute>} />
+              <Route exact path="/appointment" element={
+              <ProtectedRoute>
+                <Appointment />
               </ProtectedRoute>} />
           </Routes>
         </AuthProvider>
