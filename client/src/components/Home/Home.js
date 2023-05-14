@@ -14,7 +14,6 @@ const Home = () => {
                 </Grid>
                 <Grid item xs={11} sm={10} md={9}>
                     <RightSide></RightSide>
-                    {/* <QuizPage /> */}
                 </Grid>
             </Grid>
         </ React.Fragment>
