@@ -4,7 +4,6 @@ import { Grid, Button } from '@mui/material'
 import { useSelector } from "react-redux";
 
 const ThreadList = () => {
-    // exact path = "/threads/:threadID/details"
     const thread = useSelector((state) => state.threadReducer[1]);
     return (
         <>

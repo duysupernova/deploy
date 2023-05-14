@@ -27,10 +27,9 @@ const threadSchema = new mongoose.Schema({
     trim: true,
   },
   threadID: {
-    type: String,
+    type: Number,
     required: [true, "ID of the thread must be provided"],
     unique: true,
-    trim: true,
   },
   title: {
     type: String,
@@ -43,7 +42,7 @@ const threadSchema = new mongoose.Schema({
     trim: true,
   },
   image: {
-    type:String
+    type: String
   },
   likes: {
     type: [{
@@ -58,7 +57,7 @@ const threadSchema = new mongoose.Schema({
   },
   tags: {
     type: [{
-      type: mongoose.Schema.ObjectId,
+      type: String
     }]
   },
   shares: {
