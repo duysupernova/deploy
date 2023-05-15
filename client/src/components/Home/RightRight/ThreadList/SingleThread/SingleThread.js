@@ -38,7 +38,7 @@ const SingleThread = ({ data }) => {
                                 />
                                 <ListItemIcon>
                                     <ButtonGroup>
-                                        <Badge badgeContent={3} color='secondary'>
+                                        <Badge badgeContent={3} color='secondary' paddingLeft={3}>
                                             <Button sx={{ borderRadius: 10 }}
                                                 variant="outlined"
                                                 startIcon={<img alt="Notification icon" src={notification} />}
