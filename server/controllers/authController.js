@@ -70,6 +70,44 @@ exports.login = async (req, res, next) => {
     createSendToken(user, 200, res);
 };
 
+exports.getAllUser = async (req, res) => {
+  try {
+    const userData = await User.find();
+    res.status(200).json({
+      status: "Success",
+      results: userData.length,
+      data: {
+        userData,
+      },
+    });
+  } catch (err) {
+    res.status(400).json({
+      status: "Failed to get all user",
+      message: err,
+    });
+  }
+};
+
+exports.updateUser = async (req, res) => {
+  try {
+    const userData = await User.findByIdAndUpdate(req.params.id, req.body, {
+      new: true,
+      runValidators: true,
+    });
+    res.status(200).json({
+      status: "Successfully updated user data",
+      data: {
+        userData,
+      },
+    });
+  } catch (err) {
+    res.status(400).json({
+      status: "Failed updating user data",
+      message: err,
+    });
+  }
+};
+
 exports.forgotPassword = async (req, res, next) => {
   try {
     const user = await User.findOne({ email: req.body.email})

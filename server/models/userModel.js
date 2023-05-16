@@ -40,6 +40,16 @@ const userSchema = new mongoose.Schema({
     default: true,
     select: false,
   },
+  title: {
+    type: String,
+    trim: true
+  },
+  badges: {
+    type: [{
+      type: String,
+      trim: true
+    }]
+  }
 });
 
 userSchema.pre("save", async function (next) {
