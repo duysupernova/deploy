@@ -11,6 +11,9 @@ router.patch("/resetPassword/:token", authController.resetPassword);
 
 router.patch('/updateMyPassword',authController.protect, authController.updatePassword);
 
+router.get('/', authController.protect, authController.getAllUser);
+router.patch("/:id", authController.protect, authController.updateUser)
+
 router.post("/post/likeFunction/:id", authController.protect, authController.likeUnlikePost)
 router.post("/post/pinFunction/:id", authController.protect, authController.pinUnpinnedPost)
 router.post("/post/tagFunction/:id", authController.protect, authController.tagUntaggedPost)
