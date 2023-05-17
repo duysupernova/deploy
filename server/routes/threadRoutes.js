@@ -6,7 +6,7 @@ const router = express.Router();
 
 router
   .route("/")
-  .get(authController.protect ,threadController.getAllThread)
+  .get(threadController.getAllThread)
   .post(threadController.createThread);
 
 router.route("/searchThread").post(threadController.searchThreadByName);
