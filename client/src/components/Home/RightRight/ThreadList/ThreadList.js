@@ -1,10 +1,12 @@
-import React from 'react'
+import React, { useEffect, useState } from 'react'
 import SingleThread from './SingleThread/SingleThread'
 import { Grid } from '@mui/material'
-import { useSelector } from "react-redux";
+import { useSelector, useDispatch } from "react-redux";
+// import { getAllThread } from '../../../../actions/thread';
 
 const ThreadList = () => {
-    const thread = useSelector((state) => state.threadReducer[1]);
+    const thread = useSelector((state) => state.threadReducer.data.threadData);
+
     return (
         <>
             <Grid container maxWidth>

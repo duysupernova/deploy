@@ -3,7 +3,7 @@ import * as api from "../api/thread";
 export const getAllThread = () => async (dispatch) => {
     try {
         const { data } = await api.getAllThread();
-        const action = { type: "FETCH_ALL", payload: data.data.threadData };
+        const action = { type: "FETCH_ALL_THREAD", payload: data.data.threadData };
         dispatch(action);
 
     } catch (error) {

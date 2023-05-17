@@ -1,8 +1,11 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect } from 'react'
 import { Container, InputBase, Paper, IconButton, ListItemAvatar, Popper, Box, Drawer, Divider, ListItemText, ListItem, ListItemButton, List, Button, ListItemIcon, Avatar, Grid, Collapse, Link, Typography } from "@mui/material";
-import { useSpring, animated } from '@react-spring/web';
-import PropTypes from 'prop-types';
+import { useSpring, animated } from '@react-spring/web'
+import PropTypes from 'prop-types'
 import { useNavigate } from 'react-router-dom'
+import { useSelector, useDispatch } from "react-redux"
+import { getAllThread } from '../../../actions/thread'
+import { getAllUser } from '../../../actions/user';
 import Logo from './nettee.png'
 import expandLess from './expandLess.png'
 import expandMore from './expandMore.png'
@@ -14,7 +17,6 @@ import challenge from './challenge.png'
 import pin from './pin.png'
 import help from './help.png'
 import setting from './setting.png'
-import appoinment from './appointment.png'
 
 const SideBar = () => {
   const [state, setState] = useState({
@@ -26,7 +28,24 @@ const SideBar = () => {
   const [anchorEl, setAnchorEl] = useState(null);
   const [width, setWindowWidth] = useState(window.innerWidth);
   const navigate = useNavigate();
+  const dispatch = useDispatch();
   const currentUser = JSON.parse(localStorage.getItem("NETTEE_TOKEN"))?.data?.user;
+
+  let thread = useSelector((state) => state.threadReducer?.data?.threadData?.filter((thread) => thread?.pins?.includes(currentUser?._id)));
+  const allUser = useSelector((state) => state.userReducer?.allUserData);
+
+  const mergeArrays = (thread, allUser) => {
+    let res = [];
+    res = thread.map(obj => {
+      const index = allUser.findIndex(el => el["_id"] === obj["userID"]);
+      let owner = index !== -1 ? allUser[index] : {};
+      return {
+        ...obj,
+        owner,
+      };
+    });
+    return res;
+  };
 
   const Fade = React.forwardRef(function Fade(props, ref) {
     const { in: openNotification, children, onEnter, onExited, ...other } = props;
@@ -94,28 +113,39 @@ const SideBar = () => {
     };
   }, []);
 
+  useEffect(() => {
+    dispatch(getAllThread());
+    dispatch(getAllUser());
+  }, [openNotification, dispatch])
 
 
   return (
     <Container component="main" disableGutters={true} sx={{ width: 'inherit', position: 'fixed' }}>
       <Popper id="popover" open={openNotification} anchorEl={anchorEl} placement="right-start"
-        sx={{ zIndex: 1000000 }}
+        sx={{
+          zIndex: 1000000,
+          width: '350px',
+          overflowY: 'scroll',
+          maxHeight: '500px',
+        }}
       >
         <Box component='main' sx={{ p: 1, bgcolor: '#FFFFFF' }}>
           <Grid container direction="column"
             justifyContent="center"
             alignItems="center">
-            {['a', 'b', 'c'].map((elems) => {
+            {mergeArrays(thread, allUser).map((elems, index) => {
               return (
                 <Grid item sx={{
                   border: '2px solid red',
                   padding: '4px',
-                  marginBottom: '6px'
+                  marginBottom: '6px',
+                  width: '100%'
                 }}
-                  key={elems}>
+                  key={index}
+                >
                   <ListItem alignItems="flex-start" disablePadding>
                     <ListItemAvatar>
-                      <Avatar sx={{ bgcolor: 'orange' }} src={currentUser.image && currentUser.image}>{!currentUser.image && currentUser.name.charAt(0)}</Avatar>
+                      <Avatar sx={{ bgcolor: 'orange' }} src={elems?.owner && elems.owner.image}>{!elems?.owner?.image && elems?.owner?.name?.charAt(0)}</Avatar>
                     </ListItemAvatar>
                     <ListItemText
                       primary={
@@ -126,7 +156,7 @@ const SideBar = () => {
                             variant="body2"
                             color="#081FF7"
                           >
-                            Username
+                            {elems?.owner?.name ? elems?.owner?.name : 'Unknown'}
                           </Typography>
                           <Typography
                             sx={{ display: 'inline' }}
@@ -134,7 +164,7 @@ const SideBar = () => {
                             variant="body1"
                             color="text.secondary"
                           >
-                            &nbsp; 30/4/2023
+                            &nbsp; {new Date(elems.createdAt).toLocaleDateString("en-US")}
                           </Typography>
                           <Box sx={{
                             position: 'absolute', right: 0, top: 0, display: 'flex', flexDirection: 'row',
@@ -149,7 +179,7 @@ const SideBar = () => {
                       }
                       secondary={
                         <React.Fragment>
-                          — I'll be in your neighborhood doing errands this…
+                          {elems.content}
                         </React.Fragment>
                       }
                     />
@@ -236,16 +266,6 @@ const SideBar = () => {
                   <ListItemText primary="Notification" />
                 </ListItemButton>
               </ListItem>
-              {/* <ListItem disablePadding>
-                <ListItemButton onClick={() => navigate('/Appointment')}>
-                  <ListItemIcon>
-                    <ListItemIcon>
-                      <Avatar src={appoinment} alt='appoinment' height="30px" />
-                    </ListItemIcon>
-                  </ListItemIcon>
-                  <ListItemText primary="Book appointments" />
-                </ListItemButton>
-              </ListItem> */}
               <ListItem disablePadding sx={{ background: openChallengeCollapse ? "#E6E9FE" : "none" }}>
                 <ListItemButton onClick={() => setOpenChallengeCollapse(!openChallengeCollapse)}>
                   <ListItemIcon>

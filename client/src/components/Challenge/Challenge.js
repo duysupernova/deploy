@@ -14,11 +14,11 @@ function Challenge() {
                 <CssBaseline />
                 <Grid container direction="row" justifyContent="space-between" alignItems="center">
                     <Grid item>
-                        <Typography variant="h4" gutterBottom padding={4}>
+                        <Typography variant="h4" padding={4}>
                             Quick Challenge
                         </Typography>
                     </Grid>
-                    <Grid item gutterBottom padding={4}>
+                    <Grid item padding={4}>
                         <SearchBar />
                     </Grid>
                 </Grid>
