@@ -37,3 +37,27 @@ export const likeThread = (token, thread_id) => async (dispatch) => {
         console.log(error);
     }
 }
+
+export const shareThread = (token, thread_id) => async (dispatch) => {
+    try {
+        const { data } = await api.shareThread(token, thread_id);
+
+        const action = { type: "UPDATE_SHARE", payload: data };
+        dispatch(action);
+
+    } catch (error) {
+        console.log(error);
+    }
+}
+
+export const pinThread = (token, thread_id) => async (dispatch) => {
+    try {
+        const { data } = await api.pinThread(token, thread_id);
+
+        const action = { type: "UPDATE_SHARE", payload: data };
+        dispatch(action);
+
+    } catch (error) {
+        console.log(error);
+    }
+}
