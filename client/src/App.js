@@ -5,16 +5,15 @@ import { useDispatch } from "react-redux";
 import { BrowserRouter as Router, Route, Routes, Navigate } from "react-router-dom";
 
 import { ProtectedRoute } from "./auth/ProtectedRoute";
-import { AuthProvider, useAuth } from "./auth/AuthHook";
+import { AuthProvider } from "./auth/AuthHook";
 import Login from "./components/Login/Login";
 import Signup from "./components/Signup/Signup";
 import Home from "./components/Home/Home";
 import Thread from "./components/Thread/Thread"
-import Profile from "./components/Profile/Profile";
+import Profile from './components/profile/Profile'
 import QuickChallenge from './components/Challenge/index'
 import { getAllThread } from "./actions/thread";
 import QuizPage from './components/Challenge/QuizPageRender'
-import LongChallengePage from "./components/Challenge/LongChallengePage";
 import Appointment from "./components/Scheduler/SchedulerPage";
 
 const App = () => {
@@ -59,14 +58,14 @@ const App = () => {
               <ProtectedRoute>
                 <QuizPage />
               </ProtectedRoute>} />
-              <Route exact path="/lChallenge" element={
-              <ProtectedRoute>
-                <LongChallengePage />
-              </ProtectedRoute>} />
-              <Route exact path="/appointment" element={
+            <Route exact path="/lChallenge" element={
               <ProtectedRoute>
                 <Appointment />
               </ProtectedRoute>} />
+            {/* <Route exact path="/appointment" element={
+              <ProtectedRoute>
+                <Appointment />
+              </ProtectedRoute>} /> */}
           </Routes>
         </AuthProvider>
       </Router>

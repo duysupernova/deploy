@@ -6,7 +6,7 @@ import useStyle from './style'
 import Answer from './Answer/Answer'
 import { getAllThread } from '../../../actions/thread'
 
-import star from '../../../images/star.png'
+import like from '../../../images/like.png'
 import notification from '../../../images/notification.png'
 import share from '../../../images/share.png'
 
@@ -33,7 +33,7 @@ const ThreadDetails = () => {
                     <Grid container p={3} className='headBar'>
                         <Grid container pr={0}>
                             <Grid item xs={2} display='flex' justifyContent='start' alignItems='center' flexDirection='column'>
-                                <Avatar alt="Star icon" src={star} />
+                                <Avatar alt="like icon" src={like} />
                                 <Typography component='span'>
                                     {thread.likes.length}
                                 </Typography>

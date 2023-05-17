@@ -1,14 +1,32 @@
-import React from 'react'
+import React, { useState } from 'react'
 import { ButtonGroup, Button, Container, Grid, Typography, Avatar, List, ListItem, ListItemText, ListItemIcon, Stack, Badge } from '@mui/material'
 import { useNavigate } from 'react-router-dom'
+import { useDispatch } from 'react-redux'
+import { likeThread } from '../../../../../actions/user'
+import { getAllThread } from '../../../../../actions/thread'
 import useStyle from './style'
-import star from '../../../../../images/star.png'
+import like from '../../../../../images/like.png'
+import unlike from '../../../../../images/unlike.png'
 import notification from '../../../../../images/notification.png'
 import share from '../../../../../images/share.png'
 const SingleThread = ({ data }) => {
+    const currentUser = JSON.parse(localStorage.getItem("NETTEE_TOKEN"));
+    const dispatch = useDispatch();
     const myStyle = useStyle();
     const navigate = useNavigate();
-    // console.log(data);
+    const [isLike, setIsLike] = useState(data?.likes.includes(currentUser?.data?.user._id));
+    console.log(data.likes);
+
+    const handleLikeFunction = () => {
+        dispatch(likeThread(currentUser?.token, data._id));
+        if (data?.likes.includes(currentUser?.data?.user._id)) {
+            data.likes.pop();
+        }
+        else {
+            data.likes.push(currentUser?.data?.user._id);
+        }
+        setIsLike((prev) => !prev);
+    }
     return (
         <>
             <Container component="main" disableGutters={true} sx={{
@@ -17,7 +35,9 @@ const SingleThread = ({ data }) => {
             }}>
                 <Grid container>
                     <Grid item xs={2} display='flex' justifyContent='center' alignItems='center' flexDirection='column'>
-                        <Avatar alt="Star icon" src={star} />
+                        <Button sx={{ borderRadius: "50%" }} onClick={handleLikeFunction}>
+                            <Avatar alt="like icon" src={isLike ? like : unlike} />
+                        </Button>
                         <Typography component='span'>
                             {data?.likes.length}
                         </Typography>
@@ -38,7 +58,7 @@ const SingleThread = ({ data }) => {
                                 />
                                 <ListItemIcon>
                                     <ButtonGroup>
-                                        <Badge badgeContent={3} color='secondary' paddingLeft={3}>
+                                        <Badge badgeContent={3} color='secondary'>
                                             <Button sx={{ borderRadius: 10 }}
                                                 variant="outlined"
                                                 startIcon={<img alt="Notification icon" src={notification} />}

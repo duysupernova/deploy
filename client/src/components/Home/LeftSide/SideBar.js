@@ -236,7 +236,7 @@ const SideBar = () => {
                   <ListItemText primary="Notification" />
                 </ListItemButton>
               </ListItem>
-              <ListItem disablePadding>
+              {/* <ListItem disablePadding>
                 <ListItemButton onClick={() => navigate('/Appointment')}>
                   <ListItemIcon>
                     <ListItemIcon>
@@ -245,12 +245,12 @@ const SideBar = () => {
                   </ListItemIcon>
                   <ListItemText primary="Book appointments" />
                 </ListItemButton>
-              </ListItem>
+              </ListItem> */}
               <ListItem disablePadding sx={{ background: openChallengeCollapse ? "#E6E9FE" : "none" }}>
                 <ListItemButton onClick={() => setOpenChallengeCollapse(!openChallengeCollapse)}>
                   <ListItemIcon>
                     <ListItemIcon>
-                      <Avatar src={challenge} alt='challenge'/>
+                      <Avatar src={challenge} alt='challenge' />
                     </ListItemIcon>
                   </ListItemIcon>
                   <ListItemText primary="Challenge" />
@@ -405,7 +405,7 @@ const SideBar = () => {
                         <ListItemButton sx={{ pl: 8 }} onClick={() => navigate("/qChallenge")} >
                           <ListItemText primary="Quick challenges" />
                         </ListItemButton>
-                        <ListItemButton sx={{ pl: 8 }}>
+                        <ListItemButton sx={{ pl: 8 }} onClick={() => navigate("/lChallenge")}>
                           <ListItemText primary="Long challenges" />
                         </ListItemButton>
                       </List>

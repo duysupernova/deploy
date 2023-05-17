@@ -2,7 +2,7 @@ import { createContext, useContext, useMemo } from "react";
 import { useNavigate } from "react-router-dom";
 import { useLocalStorage } from "./LocalStorageHook";
 import { useDispatch } from "react-redux";
-import { loginUser } from "../actions/login&signup";
+import { loginUser } from "../actions/user";
 const AuthContext = createContext();
 
 export const AuthProvider = ({ children }) => {
