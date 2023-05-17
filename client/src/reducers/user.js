@@ -13,6 +13,10 @@ export default function userReducer(user = initialState, action) {
             return { ...user.authData, authData: JSON.stringify(action?.payload) };
         case "UPDATE_LIKE":
             return user;
+        case "UPDATE_SHARE":
+            return user;
+        case "UPDATE_PIN":
+            return user;
         default:
             return user;
     }

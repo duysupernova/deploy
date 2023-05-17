@@ -14,7 +14,7 @@ const ThreadDetails = () => {
     const myStyle = useStyle();
     const dispatch = useDispatch();
     const routeParams = useParams();
-    const thread = useSelector((state) => state.threadReducer[1]?.filter((thread) => !thread.threadID.localeCompare(routeParams.threadID)))?.[0];
+    const thread = useSelector((state) => state.threadReducer[1]?.filter((thread) => !String(thread.threadID).localeCompare(routeParams.threadID)))?.[0];
     useEffect(() => {
         dispatch(getAllThread());
     }, [dispatch])

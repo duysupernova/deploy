@@ -3,7 +3,6 @@ import { ButtonGroup, Button, Container, Grid, Typography, Avatar, List, ListIte
 import { useNavigate } from 'react-router-dom'
 import { useDispatch } from 'react-redux'
 import { likeThread } from '../../../../../actions/user'
-import { getAllThread } from '../../../../../actions/thread'
 import useStyle from './style'
 import like from '../../../../../images/like.png'
 import unlike from '../../../../../images/unlike.png'
@@ -15,7 +14,6 @@ const SingleThread = ({ data }) => {
     const myStyle = useStyle();
     const navigate = useNavigate();
     const [isLike, setIsLike] = useState(data?.likes.includes(currentUser?.data?.user._id));
-    console.log(data.likes);
 
     const handleLikeFunction = () => {
         dispatch(likeThread(currentUser?.token, data._id));
@@ -58,10 +56,10 @@ const SingleThread = ({ data }) => {
                                 />
                                 <ListItemIcon>
                                     <ButtonGroup>
-                                        <Badge badgeContent={3} color='secondary'>
+                                        <Badge color='secondary'>
                                             <Button sx={{ borderRadius: 10 }}
                                                 variant="outlined"
-                                                startIcon={<img alt="Notification icon" src={notification} />}
+                                                startIcon={<img alt="Notification icon" src={notification} style={{ width: '24px', height: '24px' }} />}
                                                 className={myStyle.startIcon}
                                                 size="small"
                                                 onClick={() => navigate("/home")}
@@ -70,7 +68,7 @@ const SingleThread = ({ data }) => {
                                         </Badge>
                                         <Button sx={{ borderRadius: 10 }}
                                             variant="outlined"
-                                            startIcon={<img alt="Share icon" src={share} />}
+                                            startIcon={<img alt="Share icon" src={share} style={{ width: '24px', height: '24px' }} />}
                                             className={myStyle.startIcon}
                                             size="small"
                                             onClick={() => navigate("/home")}
