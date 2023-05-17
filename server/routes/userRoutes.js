@@ -14,9 +14,9 @@ router.patch('/updateMyPassword', authController.protect, authController.updateP
 router.get('/', authController.protect, authController.getAllUser);
 router.patch("/:id", authController.updateUser)
 
-router.post("/post/likeFunction/:id", authController.likeUnlikePost)
-router.post("/post/pinFunction/:id", authController.pinUnpinnedPost)
-router.post("/post/tagFunction/:id", authController.tagUntaggedPost)
-router.post("/post/shareFunction/:id", authController.shareUnsharedPost)
+router.post("/post/likeFunction/:id", authController.protect, authController.likeUnlikePost)
+router.post("/post/pinFunction/:id", authController.protect, authController.pinUnpinnedPost)
+router.post("/post/tagFunction/:id", authController.protect, authController.tagUntaggedPost)
+router.post("/post/shareFunction/:id", authController.protect, authController.shareUnsharedPost)
 
 module.exports = router;

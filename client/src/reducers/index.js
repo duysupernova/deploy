@@ -1,10 +1,8 @@
 import { combineReducers } from "redux";
-import testReducer from "./test.js";
-import userReducer from "./login&signup.js"
+import userReducer from "./user.js"
 import threadReducer from "./thread.js"
 
 export default combineReducers({
-  // testReducer,
   userReducer,
   threadReducer
 });

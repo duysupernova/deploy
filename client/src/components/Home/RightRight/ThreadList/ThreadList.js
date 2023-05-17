@@ -1,6 +1,6 @@
 import React from 'react'
 import SingleThread from './SingleThread/SingleThread'
-import { Grid, Button } from '@mui/material'
+import { Grid } from '@mui/material'
 import { useSelector } from "react-redux";
 
 const ThreadList = () => {
