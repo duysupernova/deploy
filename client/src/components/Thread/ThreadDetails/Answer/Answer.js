@@ -1,7 +1,7 @@
 import React from 'react'
 import { Grid, Typography, Avatar } from '@mui/material'
 import useStyle from './style'
-import star from '../../../../images/star.png'
+import like from '../../../../images/like.png'
 import sample from '../../../../images/sample.png'
 
 const Answer = (data) => {
@@ -10,7 +10,7 @@ const Answer = (data) => {
         <>
             <Grid container p={3}>
                 <Grid item xs={2} display='flex' justifyContent='start' alignItems='center' flexDirection='column'>
-                    <Avatar alt="Star icon" src={star} />
+                    <Avatar alt="like icon" src={like} />
                     <Typography component='span'>
                         983
                     </Typography>
