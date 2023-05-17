@@ -13,6 +13,7 @@ import Thread from "./components/Thread/Thread"
 import Profile from './components/profile/Profile'
 import QuickChallenge from './components/Challenge/index'
 import { getAllThread } from "./actions/thread";
+import { getAllUser } from "./actions/user";
 import QuizPage from './components/Challenge/QuizPageRender'
 import Appointment from "./components/Scheduler/SchedulerPage";
 
@@ -21,6 +22,7 @@ const App = () => {
 
   useEffect(() => {
     dispatch(getAllThread());
+    dispatch(getAllUser())
   }, [dispatch]);
 
   return (
