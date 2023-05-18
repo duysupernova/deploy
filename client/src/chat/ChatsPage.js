@@ -7,13 +7,13 @@ const ChatsPage = (props) => {
   console.log(object);
 
   return (
-    <div style={{ height: '98.6vh'}}>
+    <Box style={{ height: '98.6vh' }}>
       <PrettyChatWindow
         projectId="765d135e-7fe6-4803-8b98-2a4668233bc9"
         username={object.data.user.email}
         secret={object.data.user.email}
       />
-    </div>
+    </Box>
   );
 };
 

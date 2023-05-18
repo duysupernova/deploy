@@ -190,7 +190,7 @@ const SideBar = () => {
           </Grid>
         </Box>
       </Popper>
-      {(width > 900) ?
+      {(width > 1000) ?
         <Grid container position='relative' sx={{ width: '100%', height: '95vh' }}>
           <Grid item sx={{ width: '100%' }}
           >
@@ -216,7 +216,7 @@ const SideBar = () => {
               </Link>
               <ListItemButton onClick={handleClick}>
                 <ListItemIcon>
-                  <Avatar sx={{ bgcolor: 'orange' }} src={currentUser.image && currentUser.image}>{!currentUser.image && currentUser.name.charAt(0)}</Avatar>
+                  <Avatar sx={{ bgcolor: 'orange' }} src={currentUser?.image && currentUser?.image}>{!currentUser?.image && currentUser?.name?.charAt(0)}</Avatar>
                 </ListItemIcon>
                 <ListItemText primary={currentUser.email} />
                 {openUserCollapse ? <img src={expandLess} alt="expand less" style={{ width: '16px', height: '16px' }} /> : <img src={expandMore} alt="expand more" style={{ width: '16px', height: '16px' }} />}
@@ -386,16 +386,16 @@ const SideBar = () => {
                   </Box>
                   <Divider />
                   <Paper
-                    component="form"
-                    sx={{ p: '8px', display: 'flex', alignItems: 'center', width: '100%' }}
+                    sx={{ display: 'flex', alignItems: 'center', width: '100%' }}
                   >
-                    <IconButton sx={{}} aria-label="search">
+                    <Avatar aria-label="search" sx={{ background: 'none', padding: '4px' }}>
                       <img src={search} alt='search icon' />
-                    </IconButton>
+                    </Avatar>
                     <InputBase
                       sx={{ ml: 1, flex: 1 }}
                       placeholder="Search"
                       inputProps={{ 'aria-label': 'Search' }}
+                    // onChange={(e) => setSearchContext(e.target.value)}
                     />
                   </Paper>
                   <List>
