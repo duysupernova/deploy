@@ -3,6 +3,7 @@ import { useDispatch } from "react-redux";
 // import { getTestData } from "./actions/test";
 // import { Route, Switch } from "react-router";
 import { BrowserRouter as Router, Route, Routes, Navigate } from "react-router-dom";
+import ChatRender from "./chat/ChatRender";
 
 import { ProtectedRoute } from "./auth/ProtectedRoute";
 import { AuthProvider } from "./auth/AuthHook";
@@ -62,6 +63,14 @@ const App = () => {
             <Route exact path="/lChallenge" element={
               <ProtectedRoute>
                 <Appointment />
+              </ProtectedRoute>} />
+            {/* <Route exact path="/appointment" element={
+              <ProtectedRoute>
+                <Appointment />
+              </ProtectedRoute>} /> */}
+            <Route exact path="/chat" element={
+              <ProtectedRoute>
+                <ChatRender />
               </ProtectedRoute>} />
           </Routes>
         </AuthProvider>

@@ -17,6 +17,7 @@ import challenge from './challenge.png'
 import pin from './pin.png'
 import help from './help.png'
 import setting from './setting.png'
+import chat from './chat.png'
 
 const SideBar = () => {
   const [state, setState] = useState({
@@ -264,6 +265,16 @@ const SideBar = () => {
                     </ListItemIcon>
                   </ListItemIcon>
                   <ListItemText primary="Notification" />
+                </ListItemButton>
+              </ListItem>
+              <ListItem disablePadding>
+                <ListItemButton onClick={() => navigate('/chat')}>
+                  <ListItemIcon>
+                    <ListItemIcon>
+                      <Avatar src={chat} alt='Chat' height="30px" />
+                    </ListItemIcon>
+                  </ListItemIcon>
+                  <ListItemText primary="Chat" />
                 </ListItemButton>
               </ListItem>
               <ListItem disablePadding sx={{ background: openChallengeCollapse ? "#E6E9FE" : "none" }}>
