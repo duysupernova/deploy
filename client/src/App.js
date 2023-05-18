@@ -20,6 +20,7 @@ import Appointment from "./components/Scheduler/SchedulerPage";
 
 const App = () => {
   const dispatch = useDispatch();
+  const currentUser = JSON.parse(localStorage.getItem("NETTEE_TOKEN"))?.token;
 
   useEffect(() => {
     dispatch(getAllThread());
@@ -41,10 +42,8 @@ const App = () => {
                 < Home />
               </ProtectedRoute>
             } />
-            {/* <Route exact path="/login" element={(!currentUser ? <Login /> : <Navigate to="/home" replace={true} />)} /> */}
-            <Route exact path="/login" element={<Login />} />
-            <Route exact path="/signup" element={<Signup />} />
-            {/* <Route exact path="/signup" element={(!currentUser ? <Signup /> : <Navigate to="/home" replace={true} />)} /> */}
+            <Route exact path="/login" element={(!currentUser ? <Login /> : <Navigate to="/home" replace={true} />)} />
+            <Route exact path="/signup" element={(!currentUser ? <Signup /> : <Navigate to="/home" replace={true} />)} />
             <Route exact path="/profile" element={
               <ProtectedRoute>
                 <Profile />
