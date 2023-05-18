@@ -2,8 +2,6 @@ import React from 'react'
 import RightSide from './RightRight/RightSide'
 import { Grid } from '@mui/material'
 import SideBar from './LeftSide/SideBar'
-import Challenge from '../Challenge/Challenge'
-import QuizPage from '../Challenge/QuizPage'
 
 const Home = () => {
     return (

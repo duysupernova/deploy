@@ -3,6 +3,7 @@ import { ButtonGroup, Button, Container, Grid, Typography, Avatar, List, ListIte
 import { useNavigate } from 'react-router-dom'
 import { useDispatch } from 'react-redux'
 import { likeThread, pinThread } from '../../../../../actions/user'
+import ShareThreadForm from '../../../../Form/ShareThreadForm'
 import useStyle from './style'
 import like from '../../../../../images/like.png'
 import unlike from '../../../../../images/unlike.png'
@@ -15,6 +16,11 @@ const SingleThread = ({ data }) => {
     const navigate = useNavigate();
     const [isLike, setIsLike] = useState(data?.likes?.includes(currentUser?.data?.user._id));
     const [isPin, setIsPin] = useState(data?.pins?.includes(currentUser?.data?.user._id));
+    //open share box
+    const [openShareBox, setOpenShareBox] = useState(false);
+    const toggleOpenModal = (parameter) => {
+        setOpenShareBox(parameter);
+    }
 
     const handleLikeFunction = () => {
         dispatch(likeThread(currentUser?.token, data._id));
@@ -37,6 +43,7 @@ const SingleThread = ({ data }) => {
                 border: "1px solid #CCCCCC",
                 borderRadius: "4px",
             }}>
+                <ShareThreadForm toggleOpenModal={toggleOpenModal} isOpen={openShareBox} threadID={data._id} />
                 <Grid container>
                     <Grid item xs={2} display='flex' justifyContent='center' alignItems='center' flexDirection='column'>
                         <Button sx={{ borderRadius: "50%" }} onClick={handleLikeFunction}>
@@ -69,7 +76,6 @@ const SingleThread = ({ data }) => {
                                                 className={myStyle.startIcon}
                                                 size="small"
                                                 onClick={handlePinFunction}
-                                            // disabled={isPin ? true : false}
                                             >
                                             </Button>
                                         </Badge>
@@ -78,7 +84,7 @@ const SingleThread = ({ data }) => {
                                             startIcon={<img alt="Share icon" src={share} style={{ width: '24px', height: '24px' }} />}
                                             className={myStyle.startIcon}
                                             size="small"
-                                        // onClick={() => navigate("/home")}
+                                            onClick={() => toggleOpenModal(true)}
                                         >
                                         </Button>
                                     </ButtonGroup>
