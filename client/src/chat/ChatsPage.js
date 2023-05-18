@@ -1,12 +1,17 @@
 import { PrettyChatWindow } from "react-chat-engine-pretty";
+import { Box, Grid } from "@mui/material";
 
 const ChatsPage = (props) => {
+  const storedObject = localStorage.getItem("NETTEE_TOKEN");
+  const object = JSON.parse(storedObject);
+  console.log(object);
+
   return (
-    <div style={{ height: "100vh", width: "100vw" }}>
+    <div style={{ height: '98.6vh'}}>
       <PrettyChatWindow
-        projectId="72d29aba-15de-41dd-a11f-cdb1af0b07c0"
-        username={props.user.username}
-        secret={props.user.secret}
+        projectId="765d135e-7fe6-4803-8b98-2a4668233bc9"
+        username={object.data.user.email}
+        secret={object.data.user.email}
       />
     </div>
   );
@@ -14,4 +19,3 @@ const ChatsPage = (props) => {
 
 export default ChatsPage;
 
-//testing
