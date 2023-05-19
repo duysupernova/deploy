@@ -15,8 +15,8 @@ export default function QuizResult(props) {
     const navigate = useNavigate();
     return (
         <Grid maxWidth='xs'>
-        <Grid item paddingTop={17}>
-        <Card variant='outlined' sx={{  pb: 3}} paddingTop={3}>
+        <Grid item>
+        <Card variant='outlined' sx={{  pb: 3}}>
             <CardContent>
                 <Grid container justifyContent="center">
                     <Grid item paddingLeft={16} xs={10}>
@@ -25,7 +25,6 @@ export default function QuizResult(props) {
                         justifyContent: "center", 
                         mb : 3}}
                         variant='h4'
-                        paddingTop={10} 
                         >
                             Java Expert
                         </Typography>
@@ -64,27 +63,31 @@ export default function QuizResult(props) {
                 }}
                 >
                 {((correctAnswers) <= 5) ? (
-                        <Typography variant='h5'> 
+                        <Typography variant='h5' component={'span'}> 
                             You must get over 50% to get the badge!
                         </Typography>
                     ) : (
-                        <Typography variant='h5'> 
+                        <Typography variant='h5' component={'span'}> 
                             Congratulations! You have receive the Java Expert badge.
                         </Typography>
                     )}
                 </Typography>
             </CardContent>
             <CardActions sx={{ display: "flex", justifyContent: "center"}}>
-                <Button>
+                <Button variant="outlined">
                     {((correctAnswers) <= 5) ? (
-                        <Button onClick={restartQuiz} variant="contained" >
+                        <Card onClick={restartQuiz} variant="contained" >
+                        <Typography variant='h5'>
                         Retry !
-                    </Button>
+                        </Typography>
+                    </Card>
                     ) : (
                         <>
-                        <Button variant="contained" onClick={() => navigate("/lChallenge")}>
+                        <Card variant="contained" onClick={() => navigate("/lChallenge")} >
+                        <Typography variant='h5'>
                         Home
-                        </Button>
+                        </Typography>
+                        </Card>
                         </>
                     )}
                 </Button>

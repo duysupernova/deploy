@@ -1,4 +1,4 @@
-import { Container, CssBaseline, Box } from "@mui/material";
+import { Container, CssBaseline, Box, Grid } from "@mui/material";
 import Quiz from "./Quiz"
 import QuestionData from "./QuestionData"
 import { useState } from "react";
@@ -27,7 +27,7 @@ export default function QuizPage() {
     
 
     return (
-        <div>
+        <Grid>
             <CssBaseline />
                 <Box>
                     <Container fixed>
@@ -38,6 +38,6 @@ export default function QuizPage() {
                         />}
                     </Container>
                 </Box>
-        </div>
+        </Grid>
     )
 }
