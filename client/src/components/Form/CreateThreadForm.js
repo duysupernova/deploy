@@ -1,15 +1,27 @@
 import React, { useState, useEffect } from 'react'
-import { Modal, Box, Typography, Button, List, ListItem, ListItemAvatar, Avatar, ListItemText, TextField, Divider } from '@mui/material'
+import { Autocomplete, Modal, Box, Typography, Button, List, ListItem, ListItemAvatar, Avatar, ListItemText, TextField, Divider, Chip } from '@mui/material'
 import { useForm } from "react-hook-form"
 import { useSelector, useDispatch } from "react-redux";
 import { useNavigate } from 'react-router-dom';
 import { createThread } from '../../actions/thread';
-import imageIcon from '../../images/imageIcon.png'
-import tagIcon from '../../images/tagIcon.png'
+import imageIcon from '../../images/imageIcon.png';
+import react from '../../images/react.png';
+import jquery from '../../images/jquery.png';
+import angular from '../../images/angular.png';
+import rails from '../../images/rails.png';
+import vuejs from '../../images/vuejs.png';
+
 
 const CreateThreadForm = ({ isOpen, toggleOpenModal }) => {
+    let tagsData = [
+        { key: 0, label: 'Angular', image: angular },
+        { key: 1, label: 'jQuery', image: jquery },
+        { key: 2, label: 'Rails', image: rails },
+        { key: 3, label: 'React', image: react },
+        { key: 4, label: 'Vue.js', image: vuejs },
+    ]
     const currentUser = JSON.parse(localStorage.getItem("NETTEE_TOKEN"))?.data?.user;
-    const threadData = useSelector((state) => state.threadReducer[1]);
+    const threadData = useSelector((state) => state.threadReducer?.data?.threadData);
     const dispatch = useDispatch();
     const navigate = useNavigate();
     const { register, handleSubmit, formState: { errors }, setValue } = useForm({
@@ -19,6 +31,7 @@ const CreateThreadForm = ({ isOpen, toggleOpenModal }) => {
             title: "",
             content: "",
             image: "",
+            tags: [],
             // likes: [],
             // comments: [],
             // tags: [],
@@ -26,7 +39,7 @@ const CreateThreadForm = ({ isOpen, toggleOpenModal }) => {
             // share: [],
         }
     });
-
+    //image handle
     const [preview, setPreview] = useState();
     useEffect(() => {
         setValue('threadID', threadData?.length + 1);
@@ -45,6 +58,12 @@ const CreateThreadForm = ({ isOpen, toggleOpenModal }) => {
         };
     }
 
+    //tags handle
+
+    const handleAddTag = (value) => {
+        value = value?.map((tag) => tag.label);
+        setValue('tags', value);
+    }
     return (
         <>
             <Modal
@@ -69,9 +88,9 @@ const CreateThreadForm = ({ isOpen, toggleOpenModal }) => {
                     <List sx={{ width: '100%', bgcolor: '#FFFFFF' }}>
                         <ListItem>
                             <ListItemAvatar>
-                                <Avatar sx={{ bgcolor: '#ff5722' }}>N</Avatar>
+                                <Avatar sx={{ bgcolor: 'orange' }} src={currentUser?.image}>{!currentUser?.image && currentUser?.name?.charAt(0)}</Avatar>
                             </ListItemAvatar>
-                            <ListItemText primary="UserName" secondary="Jan 9, 2014" />
+                            <ListItemText primary={currentUser?.name} secondary={`${new Date().toLocaleDateString("en-US")}`} />
                         </ListItem>
                     </List>
                     <TextField
@@ -91,7 +110,7 @@ const CreateThreadForm = ({ isOpen, toggleOpenModal }) => {
                         multiline
                         id="content"
                         name='content'
-                        rows={5}
+                        rows={4}
 
                         {...register("content", { required: "Content is required" })}
                     />
@@ -100,11 +119,10 @@ const CreateThreadForm = ({ isOpen, toggleOpenModal }) => {
                         <Box component='div' p={1} sx={{
                             borderRadius: '8px',
                             border: '3px solid #f1f1f1',
-                            marginY: '8px',
                             position: 'relative'
                         }}>
 
-                            <img src={`${preview}`} style={{ width: "100%", maxHeight: "150px" }} alt='content' />
+                            <img src={`${preview}`} style={{ width: "100%", maxHeight: "100px" }} alt='content' />
                             <Avatar sx={{
                                 position: 'absolute',
                                 top: 0,
@@ -118,6 +136,29 @@ const CreateThreadForm = ({ isOpen, toggleOpenModal }) => {
                             }}>X</Button></Avatar>
                         </Box>
                     }
+                    <Box component='div'>
+                        <Autocomplete
+                            multiple
+                            id="tags-outlined"
+                            options={tagsData}
+                            getOptionLabel={(option) => option.label}
+                            isOptionEqualToValue={(option, value) => option.key === value.key}
+                            filterSelectedOptions
+                            renderInput={(params) => (
+                                <TextField
+                                    {...params}
+                                    label="Related tags"
+                                    placeholder="Favorites"
+                                ></TextField>
+                            )}
+                            renderTags={(tagValue, getTagProps) => {
+                                return tagValue.map((option, index) => (
+                                    <Chip {...getTagProps({ index })} label={option.label} avatar={<Avatar alt={option.label} src={option?.image && option.image} />} />
+                                ));
+                            }}
+                            onChange={(event, value) => handleAddTag(value)}
+                        />
+                    </Box>
                     <Box component='div' p={2} sx={{
                         display: 'flex',
                         justifyContent: 'space-between',
@@ -136,10 +177,11 @@ const CreateThreadForm = ({ isOpen, toggleOpenModal }) => {
                         />
                         <Typography component='p' sx={{ display: 'flex', alignItems: 'center', justifyContent: 'center' }}>Add to your thread</Typography>
                         <Box sx={{ display: 'flex' }} >
-                            <Avatar sx={{ marginX: '8px' }} src={tagIcon} alt='Tag Icon' />
-                            <label htmlFor="image">
-                                <Avatar src={imageIcon} alt='Image Icon' />
-                            </label>
+                            <Button>
+                                <label htmlFor="image">
+                                    <Avatar src={imageIcon} alt='Image Icon' />
+                                </label>
+                            </Button>
                         </Box>
                     </Box>
                     <Divider />

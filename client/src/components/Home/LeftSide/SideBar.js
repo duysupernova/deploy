@@ -146,7 +146,7 @@ const SideBar = () => {
                 >
                   <ListItem alignItems="flex-start" disablePadding>
                     <ListItemAvatar>
-                      <Avatar sx={{ bgcolor: 'orange' }} src={elems?.owner && elems.owner.image}>{!elems?.owner?.image && elems?.owner?.name?.charAt(0)}</Avatar>
+                      <Avatar sx={{ bgcolor: 'orange' }} src={elems?.owner && elems?.owner?.image}>{!elems?.owner?.image && elems?.owner?.name?.charAt(0)}</Avatar>
                     </ListItemAvatar>
                     <ListItemText
                       primary={
@@ -368,7 +368,7 @@ const SideBar = () => {
                     </Link>
                     <ListItemButton onClick={handleClick}>
                       <ListItemIcon>
-                        <Avatar sx={{ bgcolor: 'orange' }} src={currentUser.image && currentUser.image}>{!currentUser.image && currentUser.name.charAt(0)}</Avatar>
+                        <Avatar sx={{ bgcolor: 'orange' }} src={currentUser?.image && currentUser?.image}>{!currentUser?.image && currentUser?.name?.charAt(0)}</Avatar>
                       </ListItemIcon>
                       <ListItemText primary={currentUser.email} />
                       {openUserCollapse ? <img src={expandLess} alt="expand less" style={{ width: '16px', height: '16px' }} /> : <img src={expandMore} alt="expand more" style={{ width: '16px', height: '16px' }} />}
@@ -417,6 +417,16 @@ const SideBar = () => {
                           </ListItemIcon>
                         </ListItemIcon>
                         <ListItemText primary="Notification" />
+                      </ListItemButton>
+                    </ListItem>
+                    <ListItem disablePadding>
+                      <ListItemButton onClick={() => navigate('/chat')}>
+                        <ListItemIcon>
+                          <ListItemIcon>
+                            <Avatar src={chat} alt='Chat' height="30px" />
+                          </ListItemIcon>
+                        </ListItemIcon>
+                        <ListItemText primary="Chat" />
                       </ListItemButton>
                     </ListItem>
                     <ListItem disablePadding sx={{ background: openChallengeCollapse ? "#E6E9FE" : "none" }}>

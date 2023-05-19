@@ -1,5 +1,5 @@
 import React, { useState } from 'react'
-import { ButtonGroup, Button, Container, Grid, Typography, Avatar, List, ListItem, ListItemText, ListItemIcon, Stack, Badge } from '@mui/material'
+import { ButtonGroup, Button, Container, Grid, Typography, Avatar, List, ListItem, ListItemText, ListItemIcon, Stack, Badge, Chip } from '@mui/material'
 import { useNavigate } from 'react-router-dom'
 import { useDispatch } from 'react-redux'
 import { likeThread, pinThread } from '../../../../../actions/user'
@@ -9,7 +9,30 @@ import like from '../../../../../images/like.png'
 import unlike from '../../../../../images/unlike.png'
 import notification from '../../../../../images/notification.png'
 import share from '../../../../../images/share.png'
+import angular from '../../../../../images/angular.png'
+import jquery from '../../../../../images/jquery.png'
+import rails from '../../../../../images/rails.png'
+import react from '../../../../../images/react.png'
+import vuejs from '../../../../../images/vuejs.png'
 const SingleThread = ({ data }) => {
+    let tagsData = [
+        { key: 0, label: 'Angular', image: angular },
+        { key: 1, label: 'jQuery', image: jquery },
+        { key: 2, label: 'Rails', image: rails },
+        { key: 3, label: 'React', image: react },
+        { key: 4, label: 'Vue.js', image: vuejs },
+    ]
+
+    // data?.tags?.map((singleTag) => {
+    //     tagsData = tagsData.map((tag) => {
+    //         if (singleTag.toString().localeCompare(tag.label, undefined, { sensitivity: 'accent' }) === 0) {
+    //             return singleTag = tag;
+    //         }
+    //     })
+    // });
+
+    // console.log(tagsData);
+
     const currentUser = JSON.parse(localStorage.getItem("NETTEE_TOKEN"));
     const dispatch = useDispatch();
     const myStyle = useStyle();
@@ -99,14 +122,23 @@ const SingleThread = ({ data }) => {
                         </Typography>
                         <Grid item xs={12} sx={{ padding: "0 16px 0 16px" }} display='flex' justifyContent='space-between'>
                             <Stack spacing={1} direction="row" className={myStyle.tags}>
-                                {data?.tags && data.tags.map((tag, index) => {
+                                {data?.tags && data?.tags?.map((tag, index) => {
                                     return (
-                                        <Button
-                                            variant="contained"
-                                            size="small"
-                                            key={index}>
-                                            {tag}
-                                        </Button>
+                                        tagsData.map((singleTag) => {
+                                            return (
+                                                (tag.toString().localeCompare(singleTag.label, undefined, { sensitivity: 'accent' }) === 0)
+                                                    ?
+                                                    <Chip
+                                                        avatar={<Avatar src={singleTag?.image && singleTag.image} />}
+                                                        label={singleTag?.label}
+                                                        variant="outlined"
+                                                        color="primary"
+                                                        key={index}
+                                                    />
+                                                    :
+                                                    null
+                                            )
+                                        })
                                     )
                                 })}
                             </Stack>
