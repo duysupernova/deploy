@@ -10,5 +10,6 @@ router
   .post(threadController.createThread);
 
 router.route("/searchThread").post(threadController.searchThreadByName);
+router.route("/:id/comments").post(threadController.createComment)
 
 module.exports = router;
