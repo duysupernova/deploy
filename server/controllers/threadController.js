@@ -43,6 +43,30 @@ exports.searchThreadByName = async (req, res) => {
   }
 };
 
+exports.createComment = async (req, res, next) => {
+  try {
+    const threadData = await Thread.findByIdAndUpdate(req.params.id)
+    if (!threadData) {
+      return next(
+        res.status(404).json({
+          status: "Thread not found",
+        })
+      )
+    } else {
+      threadData.comments.push(req.body)
+      await threadData.save()
+      return res.status(200).json({
+        message: "Comment saved successfully"
+      })
+    }
+  } catch (err) {
+    res.status(400).json({
+      status: "Failed to comment thread",
+      message: err
+    })
+  }
+}
+
 exports.createThread = async (req, res) => {
   try {
     const newThread = await Thread.create(req.body);
