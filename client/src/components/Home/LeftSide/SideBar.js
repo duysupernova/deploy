@@ -106,6 +106,7 @@ const SideBar = () => {
   useEffect(() => {
     const handleWindowResize = () => {
       setWindowWidth(window.innerWidth);
+      setOpenNotification(false);
     };
 
     window.addEventListener('resize', handleWindowResize);
@@ -126,7 +127,7 @@ const SideBar = () => {
         sx={{
           zIndex: 1000000,
           width: '350px',
-          overflowY: 'scroll',
+          overflowY: 'auto',
           maxHeight: '500px',
         }}
       >
@@ -137,7 +138,7 @@ const SideBar = () => {
             {mergeArrays(thread, allUser).map((elems, index) => {
               return (
                 <Grid item sx={{
-                  border: '2px solid red',
+                  border: '2px solid #60a0e0',
                   padding: '4px',
                   marginBottom: '6px',
                   width: '100%'
@@ -185,7 +186,8 @@ const SideBar = () => {
                       }
                     />
                   </ListItem>
-                </Grid>)
+                </Grid>
+              )
             })}
           </Grid>
         </Box>

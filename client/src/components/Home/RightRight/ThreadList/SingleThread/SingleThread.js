@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
 import { ButtonGroup, Button, Container, Grid, Typography, Avatar, List, ListItem, ListItemText, ListItemIcon, Stack, Badge, Chip } from '@mui/material'
 import { useNavigate } from 'react-router-dom'
 import { useDispatch } from 'react-redux'
@@ -23,28 +23,22 @@ const SingleThread = ({ data }) => {
         { key: 4, label: 'Vue.js', image: vuejs },
     ]
 
-    // data?.tags?.map((singleTag) => {
-    //     tagsData = tagsData.map((tag) => {
-    //         if (singleTag.toString().localeCompare(tag.label, undefined, { sensitivity: 'accent' }) === 0) {
-    //             return singleTag = tag;
-    //         }
-    //     })
-    // });
-
-    // console.log(tagsData);
-
     const currentUser = JSON.parse(localStorage.getItem("NETTEE_TOKEN"));
     const dispatch = useDispatch();
     const myStyle = useStyle();
     const navigate = useNavigate();
     const [isLike, setIsLike] = useState(data?.likes?.includes(currentUser?.data?.user._id));
     const [isPin, setIsPin] = useState(data?.pins?.includes(currentUser?.data?.user._id));
+    useEffect(() => {
+        setIsLike(data?.likes?.includes(currentUser?.data?.user._id));
+        setIsPin(data?.pins?.includes(currentUser?.data?.user._id));
+    }, [data])
     //open share box
     const [openShareBox, setOpenShareBox] = useState(false);
     const toggleOpenModal = (parameter) => {
         setOpenShareBox(parameter);
     }
-
+    //like function
     const handleLikeFunction = () => {
         dispatch(likeThread(currentUser?.token, data._id));
         if (data?.likes.includes(currentUser?.data?.user._id)) {
@@ -55,7 +49,7 @@ const SingleThread = ({ data }) => {
         }
         setIsLike((prev) => !prev);
     }
-
+    //pin function
     const handlePinFunction = () => {
         dispatch(pinThread(currentUser?.token, data._id));
         setIsPin((prev) => !prev);

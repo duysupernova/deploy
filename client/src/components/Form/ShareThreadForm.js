@@ -94,7 +94,7 @@ const ShareThreadForm = ({ isOpen, toggleOpenModal, threadID }) => {
                         <Typography component='div' variant='h5'> Suggested</Typography>
                         <Box sx={{
                             maxHeight: '200px',
-                            overflowY: 'scroll'
+                            overflowY: 'auto'
 
                         }}>
                             {allUser?.map((user, index) => {
