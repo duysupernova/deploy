@@ -3,6 +3,7 @@ import { ButtonGroup, Button, Container, Grid, Typography, Avatar, List, ListIte
 import { useParams } from 'react-router-dom'
 import { useSelector, useDispatch } from "react-redux";
 import { useForm } from "react-hook-form"
+import { addCommentToThread } from '../../../actions/thread';
 import useStyle from './style'
 import Answer from './Answer/Answer'
 
@@ -19,6 +20,7 @@ const ThreadDetails = () => {
     const currentUser = JSON.parse(localStorage.getItem("NETTEE_TOKEN"));
     let thread = useSelector((state) => state.threadReducer.data.threadData?.filter((thread) => !String(thread.threadID).localeCompare(routeParams.threadID)))?.[0];
     const allUser = useSelector((state) => state.userReducer?.allUserData);
+    console.log(thread?.comments);
     thread?.comments?.map((singleComment) => {
         return allUser.map((user) => {
             if (singleComment.userID === user._id) {
@@ -38,8 +40,7 @@ const ThreadDetails = () => {
     });
 
     const handleForm = (event) => {
-        console.log(event);
-        console.log(thread._id);
+        dispatch(addCommentToThread(thread._id, event));
     }
     const handleImage = (event) => {
         var reader = new FileReader();
@@ -94,9 +95,9 @@ const ThreadDetails = () => {
                                         justifyContent: "space-between"
                                     }}>
                                         <Stack spacing={1} direction="row" className={myStyle.tags}>
-                                            {thread.tags.map((tag) => {
+                                            {thread.tags?.map((tag, index) => {
                                                 return <Button
-                                                    key={tag}
+                                                    key={index}
                                                     variant="contained"
                                                     size="small">
                                                     {tag}
@@ -126,9 +127,9 @@ const ThreadDetails = () => {
                         </Grid>
                     </Grid >
                     <Grid container className='headBar'>
-                        {thread?.comments?.map((Singlecomment) => {
+                        {thread?.comments?.map((Singlecomment, index) => {
                             return (
-                                <Grid container key={Singlecomment._id}>
+                                <Grid container key={index}>
                                     <Grid item xs={12}>
                                         <Answer data={Singlecomment} />
                                         <Divider></Divider>
