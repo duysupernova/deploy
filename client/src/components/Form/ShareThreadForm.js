@@ -64,7 +64,7 @@ const ShareThreadForm = ({ isOpen, toggleOpenModal, threadID }) => {
                     p: 4,
                 }} component="form"
                     onSubmit={handleSubmit(handleForm)}>
-                    <Typography variant='h5' component='h1' align='center' >Share to people</Typography>
+                    <Typography component='h1' align='center' >Share to people</Typography>
                     <Divider />
                     <Paper
                         sx={{ display: 'flex', alignItems: 'center', width: '100%' }}
