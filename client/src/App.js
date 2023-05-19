@@ -32,12 +32,17 @@ const App = () => {
       <Router>
         <AuthProvider>
           <Routes>
-            <Route path="/home" element={
+            <Route exact path="/" element={
               <ProtectedRoute>
                 < Home />
               </ProtectedRoute>
             } />
-            <Route path="/" element={
+            <Route exact path="/home" element={
+              <ProtectedRoute>
+                < Home />
+              </ProtectedRoute>
+            } />
+            <Route path="/home/:params" element={
               <ProtectedRoute>
                 < Home />
               </ProtectedRoute>
@@ -64,10 +69,6 @@ const App = () => {
               <ProtectedRoute>
                 <Appointment />
               </ProtectedRoute>} />
-            {/* <Route exact path="/appointment" element={
-              <ProtectedRoute>
-                <Appointment />
-              </ProtectedRoute>} /> */}
             <Route exact path="/chat" element={
               <ProtectedRoute>
                 <ChatRender />

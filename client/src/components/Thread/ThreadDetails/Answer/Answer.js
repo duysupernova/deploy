@@ -4,7 +4,7 @@ import useStyle from './style'
 import like from '../../../../images/like.png'
 import sample from '../../../../images/sample.png'
 
-const Answer = (data) => {
+const Answer = ({ data }) => {
     const myStyle = useStyle();
     return (
         <>
@@ -12,19 +12,17 @@ const Answer = (data) => {
                 <Grid item xs={2} display='flex' justifyContent='start' alignItems='center' flexDirection='column'>
                     <Avatar alt="like icon" src={like} />
                     <Typography component='span'>
-                        983
+                        {data?.likes}
                     </Typography>
                 </Grid>
-                {/* className={myStyle.list} */}
                 <Grid item xs={10} className={myStyle.answer}>
                     <Typography component="div" className='bodyText'>
-                        I am currently trying to use gganimate to animate bond yield curves over time. In essence, I have 2 data frames, each formatted the same way: Maturity 1/1/2020 1/1/2021 1/1/2022 3M 3.4 3.4 3.4 6M 4....
+                        {data?.content}
                     </Typography>
-                    <img alt="Question answer" src={sample} className='img' />
+                    {data?.img && <img alt="Question answer" src={data?.img} className='img' />}
                     <Grid item xs={12} sx={{ padding: "0 16px 0 16px" }} display='flex' justifyContent='space-between'>
-                        {/* className={myStyle.tags} */}
                         <Typography component="span">
-                            8 days ago by Abert EinMinh
+                            {new Date().getDate() - new Date(data?.createdAt).getDate()} days ago by {data?.userID?.name}
                         </Typography>
                     </Grid>
                 </Grid>
