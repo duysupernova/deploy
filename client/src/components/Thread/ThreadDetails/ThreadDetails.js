@@ -1,23 +1,54 @@
-import React, { useEffect } from 'react'
-import { ButtonGroup, Button, Container, Grid, Typography, Avatar, List, ListItem, ListItemText, ListItemIcon, Stack, TextField, Box } from '@mui/material'
+import React, { useState } from 'react'
+import { ButtonGroup, Button, Container, Grid, Typography, Avatar, List, ListItem, ListItemText, CircularProgress, Stack, TextField, Box, Divider } from '@mui/material'
 import { useParams } from 'react-router-dom'
 import { useSelector, useDispatch } from "react-redux";
+import { useForm } from "react-hook-form"
 import useStyle from './style'
 import Answer from './Answer/Answer'
-import { getAllThread } from '../../../actions/thread'
 
 import like from '../../../images/like.png'
+import unlike from '../../../images/unlike.png'
 import notification from '../../../images/notification.png'
 import share from '../../../images/share.png'
+import imageIcon from '../../../images/imageIcon.png'
 
 const ThreadDetails = () => {
     const myStyle = useStyle();
-    const dispatch = useDispatch();
     const routeParams = useParams();
-    const thread = useSelector((state) => state.threadReducer.data.threadData?.filter((thread) => !String(thread.threadID).localeCompare(routeParams.threadID)))?.[0];
-    useEffect(() => {
-        dispatch(getAllThread());
-    }, [dispatch])
+    const dispatch = useDispatch();
+    const currentUser = JSON.parse(localStorage.getItem("NETTEE_TOKEN"));
+    let thread = useSelector((state) => state.threadReducer.data.threadData?.filter((thread) => !String(thread.threadID).localeCompare(routeParams.threadID)))?.[0];
+    const allUser = useSelector((state) => state.userReducer?.allUserData);
+    thread?.comments?.map((singleComment) => {
+        return allUser.map((user) => {
+            if (singleComment.userID === user._id) {
+                return singleComment.userID = user;
+            }
+        })
+    })
+    // const [isLike, setIsLike] = useState(thread?.likes?.includes(currentUser?.data?.user._id));
+    // const [isPin, setIsPin] = useState(thread?.pins?.includes(currentUser?.data?.user._id));
+    const [preview, setPreview] = useState();
+    const { register, handleSubmit, setValue, formState: { errors } } = useForm({
+        defaultValues: {
+            userID: `${currentUser?.data?.user?._id}`,
+            content: "",
+            image: "",
+        }
+    });
+
+    const handleForm = (event) => {
+        console.log(event);
+        console.log(thread._id);
+    }
+    const handleImage = (event) => {
+        var reader = new FileReader();
+        reader.readAsDataURL(event.target.files[0]);
+        reader.onload = () => {
+            setValue('image', reader.result);
+            setPreview(reader.result);
+        };
+    }
     return (
         thread ?
             <>
@@ -95,35 +126,94 @@ const ThreadDetails = () => {
                         </Grid>
                     </Grid >
                     <Grid container className='headBar'>
-                        {thread.comments.map((Singlecomment) => {
+                        {thread?.comments?.map((Singlecomment) => {
                             return (
-                                <Grid container pr={0} key={Singlecomment._id}>
+                                <Grid container key={Singlecomment._id}>
                                     <Grid item xs={12}>
                                         <Answer data={Singlecomment} />
+                                        <Divider></Divider>
                                     </Grid>
                                 </Grid>
                             )
                         })}
 
                     </Grid>
-                    <Grid container p={4} >
-                        <Grid container pr={0} rowSpacing={2} >
-                            <Grid item xs={12}>
-                                <Typography component='div' variant='body2'>
-                                    Your answer
-                                </Typography>
-                            </Grid>
-                            <Grid item xs={12}>
-                                <TextField multiline fullWidth rows={4} />
-                            </Grid>
-                            <Grid item xs={12}>
-                                <Button size="small" variant='contained' sx={{ color: "white" }}> Post your answer</Button>
+                    <Box component='form'
+                        onSubmit={handleSubmit(handleForm)}
+                    >
+                        <Grid container p={4} >
+                            <Grid container pr={0} rowSpacing={2} >
+                                <Grid item xs={12}>
+                                    <Typography component='div' variant='body2'>
+                                        Your answer
+                                    </Typography>
+                                </Grid>
+                                <Grid item xs={12}>
+                                    <TextField
+                                        fullWidth
+                                        margin='normal'
+                                        label="What do you think about the issue ?"
+                                        multiline
+                                        id="content"
+                                        name='content'
+                                        rows={5}
+
+                                        {...register("content", { required: "Content is required" })}
+                                    />
+                                    {errors.content && <p style={{ color: 'red', margin: '0' }}>{errors.content.message}</p>}
+                                </Grid>
+                                <Grid item xs={12}>
+                                    {preview &&
+                                        <Box component='div' p={1} sx={{
+                                            borderRadius: '8px',
+                                            border: '3px solid #f1f1f1',
+                                            marginY: '8px',
+                                            position: 'relative'
+                                        }}>
+
+                                            <img src={`${preview}`} style={{ width: "100%", maxHeight: "auto" }} alt='content' />
+                                            <Avatar sx={{
+                                                position: 'absolute',
+                                                top: 0,
+                                                right: 0,
+                                                background: '#1565c0',
+                                                border: '2px solid #1565c0'
+
+                                            }}><Button variant='contained' onClick={() => {
+                                                setPreview(null);
+                                                setValue('image', "");
+                                            }}>X</Button></Avatar>
+                                        </Box>
+                                    }
+                                </Grid>
+                                <Grid item xs={12}>
+                                    <input
+                                        accept="image/*"
+                                        style={{
+                                            display: "none"
+                                        }}
+                                        id="image"
+                                        type="file"
+                                        onChange={handleImage}
+                                    />
+                                    <Box sx={{ display: 'flex', justifyContent: 'space-between' }}>
+                                        <Button size="small" variant='contained' sx={{ color: "white" }} type='submit'> Post your answer</Button>
+                                        <label htmlFor="image">
+                                            <Avatar src={imageIcon} alt='Image Icon' />
+                                        </label>
+                                    </Box>
+                                </Grid>
                             </Grid>
                         </Grid>
-                    </Grid>
+                    </Box>
                 </Container>
             </>
-            : null
+            :
+            <>
+                <Container component="main" disableGutters={true} sx={{ position: 'relative' }}>
+                    <CircularProgress sx={{ position: 'absolute', top: '50%', right: '50%' }}></CircularProgress>
+                </Container>
+            </>
     )
 }
 
