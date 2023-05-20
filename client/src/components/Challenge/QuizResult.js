@@ -22,9 +22,10 @@ export default function QuizResult(props) {
     correctAnswers = 6;
     useEffect(() => {
         if (correctAnswers > 5 && !currentUser.data.user.badges.includes('Java Beginner')) {
-            currentUser.data.user.badges.push('Java Beginner');
-            let { newUser } = currentUser.data.user;
-            dispatch(updateUser(currentUser.data.user._id), newUser)
+            const badges = {
+                badges: 'Java Beginner'
+            }
+            dispatch(updateUser(currentUser.data.user._id), badges)
         }
     }, [correctAnswers])
 
