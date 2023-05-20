@@ -3,6 +3,7 @@ import { Modal, Box, Typography, Button, Avatar, Divider, Paper, Grid, InputBase
 import { useForm } from "react-hook-form"
 import { useSelector, useDispatch } from "react-redux";
 import { useNavigate } from 'react-router-dom';
+import { shareThread } from '../../actions/user';
 import search from '../../images/search.png'
 
 const ShareThreadForm = ({ isOpen, toggleOpenModal, threadID }) => {
@@ -20,6 +21,8 @@ const ShareThreadForm = ({ isOpen, toggleOpenModal, threadID }) => {
     const handleForm = () => {
         console.log("this is user id (array)", addUser.addedList.map((user) => user?._id));
         console.log("this is thread id", threadID);
+        // dispatch(shareThread(threadID, addUser.addedList.map((user) => user?._id)));
+        // navigate(0);
     }
 
     const handleAddPeople = (user) => {

@@ -76,7 +76,7 @@ const SingleThread = ({ data }) => {
                                 className={myStyle.listItemText}
                             >
                                 <ListItemText
-                                    primary={`Posted by ${data?._id}`}
+                                    primary={`Posted by ${data?.userData?.name}`}
                                     secondary={data?.title}
                                     onClick={() => navigate(`/threads/${data.threadID}/details`)}
                                     sx={{

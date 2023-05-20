@@ -14,10 +14,11 @@ import search from './search.png';
 import home from './home.png'
 import notification from './alarm.png'
 import challenge from './challenge.png'
-import pin from './pin.png'
 import help from './help.png'
 import setting from './setting.png'
 import chat from './chat.png'
+import pin from './pin.png'
+import share from './share.png'
 
 const SideBar = () => {
   const [state, setState] = useState({
@@ -32,8 +33,12 @@ const SideBar = () => {
   const dispatch = useDispatch();
   const currentUser = JSON.parse(localStorage.getItem("NETTEE_TOKEN"))?.data?.user;
 
-  let thread = useSelector((state) => state.threadReducer?.data?.threadData?.filter((thread) => thread?.pins?.includes(currentUser?._id)));
+  const pinnedThread = useSelector((state) => state.threadReducer?.data?.threadData?.filter((singlethread) => singlethread?.pins?.includes(currentUser?._id)));
+  const sharedThread = useSelector((state) => state.threadReducer?.data?.threadData?.filter((singlethread) => singlethread?.shares?.includes(currentUser?._id)));
   const allUser = useSelector((state) => state.userReducer?.allUserData);
+
+  var ids = new Set(pinnedThread.map(d => d.ID));
+  let thread = [...pinnedThread, ...sharedThread.filter(d => !ids.has(d.ID))];
 
   const mergeArrays = (thread, allUser) => {
     let res = [];
@@ -174,8 +179,8 @@ const SideBar = () => {
                               marginX: '2px'
                             }
                           }}>
-                            <Avatar sx={{ bgcolor: 'orange', width: '12px', height: '12px', padding: '2px' }} src={pin} alt='pin icon' />
-                            <Avatar sx={{ bgcolor: 'red', width: '12px', height: '12px', padding: '2px' }} src={pin} alt='pin icon' />
+                            {elems?.pins?.includes(currentUser?._id) && <Avatar sx={{ width: '12px', height: '12px', padding: '2px' }} src={pin} alt='pin icon' />}
+                            {elems?.shares?.includes(currentUser?._id) && <Avatar sx={{ width: '12px', height: '12px', padding: '2px' }} src={share} alt='share icon' />}
                           </Box>
                         </Box>
                       }

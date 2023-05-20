@@ -19,7 +19,7 @@ const Answer = ({ data }) => {
                     <Typography component="div" className='bodyText'>
                         {data?.content}
                     </Typography>
-                    {data?.img && <img alt="Question answer" src={data?.img} className='img' />}
+                    {data?.image && <img alt="Question answer" src={data?.image} className='Answer image' style={{ maxWidth: '100%', marginTop: '8px' }} />}
                     <Grid item xs={12} sx={{ padding: "0 16px 0 16px" }} display='flex' justifyContent='space-between'>
                         <Typography component="span">
                             {new Date().getDate() - new Date(data?.createdAt).getDate()} days ago by {data?.userID?.name}

@@ -51,9 +51,9 @@ export const likeThread = (token, thread_id) => async (dispatch) => {
     }
 }
 
-export const shareThread = (token, thread_id) => async (dispatch) => {
+export const shareThread = (thread_id, shareUserID) => async (dispatch) => {
     try {
-        const { data } = await api.shareThread(token, thread_id);
+        const { data } = await api.shareThread(thread_id, shareUserID);
 
         const action = { type: "UPDATE_SHARE", payload: data };
         dispatch(action);
