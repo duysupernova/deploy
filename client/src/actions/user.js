@@ -26,6 +26,19 @@ export const createNewUser = (newUser, navigate) => async (dispatch) => {
     }
 };
 
+export const updateUser = (userID, updateUserData) => async (dispatch) => {
+    try {
+        const { data } = await api.createNewUser(userID, updateUserData);
+
+        const action = { type: "UPDATE_USER_DATA", payload: data.data.userData };
+        dispatch(action);
+
+        // navigate('/login', { replace: true });
+    } catch (error) {
+        console.log(error);
+    }
+};
+
 export const loginUser = (formData, navigate) => async (dispatch) => {
     try {
         const { data } = await api.loginUser(formData);

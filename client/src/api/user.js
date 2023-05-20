@@ -4,6 +4,7 @@ const backend_url = `${process.env.REACT_APP_BASE_PORT}/api/v1/user`;
 
 export const getAllUser = () => axios.get(`${backend_url}`)
 export const createNewUser = (newUser) => axios.post(`${backend_url}/signup`, newUser)
+export const updateUser = (userID, updateUserData) => axios.patch(`${backend_url}/${userID}`, updateUserData)
 export const loginUser = (formData) => axios.post(`${backend_url}/login`, formData)
 export const likeThread = (token, thread_id) => axios.post(`${backend_url}/post/likeFunction/${thread_id}`, token, { headers: { Authorization: `Bearer ${token}` } })
 export const shareThread = (thread_id, shareUserID) => axios.post(`${backend_url}/post/shareFunction/${thread_id}`, shareUserID)

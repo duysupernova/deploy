@@ -1,20 +1,33 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 import { useMemo } from 'react'
+import { useNavigate } from 'react-router-dom'
+import { useDispatch } from "react-redux";
+import { updateUser } from '../../actions/user'
+
 import { Grid, Typography, CardContent, Card, CardActions, Button } from '@mui/material'
 import questions from './QuestionData'
 import Laptop from './image/laptop.png'
 import Info from './image/info.png'
-import { useNavigate } from 'react-router-dom'
 
 export default function QuizResult(props) {
     const { answers, restartQuiz } = props;
+    const dispatch = useDispatch();
+    const navigate = useNavigate();
     const currentUser = JSON.parse(localStorage.getItem("NETTEE_TOKEN"));
-    const correctAnswers = useMemo(() => {
+    let correctAnswers = useMemo(() => {
         return questions.filter((q, i) => {
             return q.correctAnswer === parseInt(answers[i]);
         }).length;
     }, [answers])
-    const navigate = useNavigate();
+    correctAnswers = 6;
+    useEffect(() => {
+        if (correctAnswers > 5 && !currentUser.data.user.badges.includes('Java Beginner')) {
+            currentUser.data.user.badges.push('Java Beginner');
+            let { newUser } = currentUser.data.user;
+            dispatch(updateUser(currentUser.data.user._id), newUser)
+        }
+    }, [correctAnswers])
+
     return (
         <Grid maxWidth='xs'>
             <Grid item>
@@ -75,7 +88,7 @@ export default function QuizResult(props) {
                                 </Typography>
                             ) : (
                                 <Typography variant='h5' component={'span'}>
-                                    Congratulations! You have receive the Java Expert badge.
+                                    Congratulations! You have receive the Java Beginner badge.
                                 </Typography>
                             )}
                         </Typography>
