@@ -8,8 +8,7 @@ import QuizResult from "./QuizResult";
 export default function QuizPage() {
     const [currentQuestionIndex, setCurrentQuestionIndex] = useState(0);
     const [answers, setAnswers] = useState([]);
-    // const finishedQuiz = currentQuestionIndex === questions.length;
-    const finishedQuiz = true
+    const finishedQuiz = currentQuestionIndex === questions.length;
     const currentQuestion = questions[currentQuestionIndex];
 
     const goToNext = () => {

@@ -19,13 +19,12 @@ export default function QuizResult(props) {
             return q.correctAnswer === parseInt(answers[i]);
         }).length;
     }, [answers])
-    correctAnswers = 6;
     useEffect(() => {
         if (correctAnswers > 5 && !currentUser.data.user.badges.includes('Java Beginner')) {
-            const badges = {
-                badges: 'Java Beginner'
+            const newBadge = {
+                badges: ['Java Beginner']
             }
-            dispatch(updateUser(currentUser.data.user._id), badges)
+            dispatch(updateUser(currentUser.data.user._id, newBadge))
         }
     }, [correctAnswers])
 
