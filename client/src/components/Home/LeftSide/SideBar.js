@@ -43,7 +43,7 @@ const SideBar = () => {
   const mergeArrays = (thread, allUser) => {
     let res = [];
     res = thread.map(obj => {
-      const index = allUser.findIndex(el => el["_id"] === obj["userID"]);
+      const index = allUser?.findIndex(el => el["_id"] === obj["userID"]);
       let owner = index !== -1 ? allUser[index] : {};
       return {
         ...obj,

@@ -19,10 +19,7 @@ export default function userReducer(user = initialState, action) {
                 userData: [...user.userData, action?.payload]
             };
         case "UPDATE_USER_DATA":
-            return {
-                ...user,
-                allUserData: action?.payload
-            }
+            return user;
         case "AUTH":
             localStorage.setItem("NETTEE_TOKEN", JSON.stringify({ ...action?.payload }));
             // return { ...user.authData, authData: JSON.stringify(action?.payload) };

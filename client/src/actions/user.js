@@ -26,9 +26,10 @@ export const createNewUser = (newUser, navigate) => async (dispatch) => {
     }
 };
 
-export const updateUser = (userID, updateUserData) => async (dispatch) => {
+export const updateUser = (userID, userData) => async (dispatch) => {
     try {
-        const { data } = await api.createNewUser(userID, updateUserData);
+        console.log(userID, userData);
+        const { data } = await api.updateUser(userID, userData);
 
         const action = { type: "UPDATE_USER_DATA", payload: data.data.userData };
         dispatch(action);
