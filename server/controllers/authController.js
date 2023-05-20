@@ -391,29 +391,20 @@ exports.tagUntaggedPost = async (req, res, next) => {
 exports.shareUnsharedPost = async (req, res, next) => {
   try {
     // Params id here is the id of the thread
-    const post = await Thread.findByIdAndUpdate(req.params.id);
-    if (!post) {
+    const threadData = await Thread.findByIdAndUpdate(req.params.id, req.body, {
+      new: true
+    });
+    if (!threadData) {
       return next(
         res.status(404).json({
           status: "Thread not found",
         })
       )
-    }
-
-    // _id here is the id of the user you want to share the thread to
-    if (post.shares.includes(req.body._id)) {
-      const index = post.shares.indexOf(req.body._id);
-      post.shares.splice(index, 1)
-      await post.save()
-
-      return res.status(200).json({
-        message: "Post unshared"
-      })
     } else {
-      post.shares.push(req.body._id)
-      await post.save()
-      return res.status(200).json({
-        message: "Successfully share post"
+      res.status(200).json({
+        data: {
+          threadData
+        }
       })
     }
   } catch (err) {
