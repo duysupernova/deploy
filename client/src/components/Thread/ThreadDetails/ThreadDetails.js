@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react'
 import { Chip, ButtonGroup, Button, Container, Grid, Typography, Avatar, List, ListItem, ListItemText, CircularProgress, Stack, TextField, Box, Divider } from '@mui/material'
-import { useParams } from 'react-router-dom'
+import { useParams, useNavigate } from 'react-router-dom'
 import { useSelector, useDispatch } from "react-redux";
 import { useForm } from "react-hook-form"
 import { addCommentToThread } from '../../../actions/thread';
@@ -30,6 +30,7 @@ const ThreadDetails = () => {
     ]
     const myStyle = useStyle();
     const routeParams = useParams();
+    const navigate = useNavigate();
     const dispatch = useDispatch();
     const currentUser = JSON.parse(localStorage.getItem("NETTEE_TOKEN"));
     const allThread = useSelector((state) => state.threadReducer.data.threadData?.filter((thread) => !String(thread.threadID).localeCompare(routeParams.threadID)))?.[0];
@@ -84,6 +85,7 @@ const ThreadDetails = () => {
     //handle form submit
     const handleForm = (event) => {
         dispatch(addCommentToThread(thread._id, event));
+        navigate(0);
     }
     //hanle image change and preview
     const handleImage = (event) => {

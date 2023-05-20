@@ -48,6 +48,7 @@ const CreateThreadForm = ({ isOpen, toggleOpenModal }) => {
 
     const handleForm = (event) => {
         dispatch(createThread(event, navigate));
+        navigate(0);
     }
     const handleImage = (event) => {
         var reader = new FileReader();
