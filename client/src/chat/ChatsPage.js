@@ -1,21 +1,40 @@
-import { PrettyChatWindow } from "react-chat-engine-pretty";
-import { Box, Grid } from "@mui/material";
+import React from 'react';
+import { StreamChat } from 'stream-chat';
+import { Chat, Channel, ChannelHeader, MessageInput, MessageList, Thread, Window } from 'stream-chat-react';
+import './layout.css';
+import 'stream-chat-react/dist/css/v2/index.css';
 
-const ChatsPage = (props) => {
-  const storedObject = localStorage.getItem("NETTEE_TOKEN");
-  const object = JSON.parse(storedObject);
-  console.log(object);
+const chatClient = new StreamChat('u3dzudjmt9w4');
+const userToken = 'eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ1c2VyX2lkIjoiam9sbHktd2F2ZS0wIn0.C2-jSqR5SCdQdz68zOg4LRdjYbcYYtV7YMPBhFz6Z88';
+const storedObject = localStorage.getItem("NETTEE_TOKEN");
+const object = JSON.parse(storedObject);
 
-  return (
-    <Box style={{ height: '98.6vh' }}>
-      <PrettyChatWindow
-        projectId="765d135e-7fe6-4803-8b98-2a4668233bc9"
-        username={object.data.user.email}
-        secret={object.data.user.email}
-      />
-    </Box>
-  );
-};
+
+
+chatClient.connectUser(
+  {
+    id: 'jolly-wave-0',
+    name: 'jolly-wave-0',
+  },
+  userToken,
+);
+
+const channel = chatClient.channel('messaging', 'custom_channel_id', {
+  name: 'Message',
+  members: ['jolly-wave-0'],
+});
+
+const ChatsPage = () => (
+  <Chat client={chatClient} theme='str-chat__theme-light'>
+    <Channel channel={channel}>
+      <Window>
+        <ChannelHeader />
+        <MessageList />
+        <MessageInput />
+      </Window>
+      <Thread />
+    </Channel>
+  </Chat>
+);
 
 export default ChatsPage;
-
