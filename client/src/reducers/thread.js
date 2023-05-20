@@ -20,6 +20,14 @@ export default function threadReducer(thread = initialState, action) {
                 ...thread,
                 newThread: action?.payload
             };;
+        case 'UPDATE_COMMENT':
+            // return {
+            //     ...thread,
+            //     data: {
+            //         threadData: [...thread.data.threadData.comments, action.payload],
+            //     }
+            // };;
+            return thread;
         default:
             return thread;
     }

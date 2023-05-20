@@ -15,11 +15,11 @@ const Question = ({ data }) => {
             <Paper variant='outlined'>
                 <Grid container>
                     <Grid item xs={11}>
-                        <Box paddingX={2} paddingTop={2}>
+                        <Box paddingX={2}>
                             <img src={Laptop} height='60px' width='60px'></img>
                         </Box>
                     </Grid>
-                    <Grid item xs={'auto'} paddingTop={3}  >
+                    <Grid item xs={'auto'}  >
                         <Box>
                             <img src={Checkmark} height='20px' width='20px'></img>
                         </Box>

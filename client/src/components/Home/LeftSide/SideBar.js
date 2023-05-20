@@ -14,10 +14,11 @@ import search from './search.png';
 import home from './home.png'
 import notification from './alarm.png'
 import challenge from './challenge.png'
-import pin from './pin.png'
 import help from './help.png'
 import setting from './setting.png'
 import chat from './chat.png'
+import pin from './pin.png'
+import share from './share.png'
 
 const SideBar = () => {
   const [state, setState] = useState({
@@ -32,8 +33,12 @@ const SideBar = () => {
   const dispatch = useDispatch();
   const currentUser = JSON.parse(localStorage.getItem("NETTEE_TOKEN"))?.data?.user;
 
-  let thread = useSelector((state) => state.threadReducer?.data?.threadData?.filter((thread) => thread?.pins?.includes(currentUser?._id)));
+  const pinnedThread = useSelector((state) => state.threadReducer?.data?.threadData?.filter((singlethread) => singlethread?.pins?.includes(currentUser?._id)));
+  const sharedThread = useSelector((state) => state.threadReducer?.data?.threadData?.filter((singlethread) => singlethread?.shares?.includes(currentUser?._id)));
   const allUser = useSelector((state) => state.userReducer?.allUserData);
+
+  var ids = new Set(pinnedThread.map(d => d.ID));
+  let thread = [...pinnedThread, ...sharedThread.filter(d => !ids.has(d.ID))];
 
   const mergeArrays = (thread, allUser) => {
     let res = [];
@@ -106,6 +111,7 @@ const SideBar = () => {
   useEffect(() => {
     const handleWindowResize = () => {
       setWindowWidth(window.innerWidth);
+      setOpenNotification(false);
     };
 
     window.addEventListener('resize', handleWindowResize);
@@ -126,7 +132,7 @@ const SideBar = () => {
         sx={{
           zIndex: 1000000,
           width: '350px',
-          overflowY: 'scroll',
+          overflowY: 'auto',
           maxHeight: '500px',
         }}
       >
@@ -137,7 +143,7 @@ const SideBar = () => {
             {mergeArrays(thread, allUser).map((elems, index) => {
               return (
                 <Grid item sx={{
-                  border: '2px solid red',
+                  border: '2px solid #60a0e0',
                   padding: '4px',
                   marginBottom: '6px',
                   width: '100%'
@@ -146,7 +152,7 @@ const SideBar = () => {
                 >
                   <ListItem alignItems="flex-start" disablePadding>
                     <ListItemAvatar>
-                      <Avatar sx={{ bgcolor: 'orange' }} src={elems?.owner && elems.owner.image}>{!elems?.owner?.image && elems?.owner?.name?.charAt(0)}</Avatar>
+                      <Avatar sx={{ bgcolor: 'orange' }} src={elems?.owner && elems?.owner?.image}>{!elems?.owner?.image && elems?.owner?.name?.charAt(0)}</Avatar>
                     </ListItemAvatar>
                     <ListItemText
                       primary={
@@ -173,8 +179,8 @@ const SideBar = () => {
                               marginX: '2px'
                             }
                           }}>
-                            <Avatar sx={{ bgcolor: 'orange', width: '12px', height: '12px', padding: '2px' }} src={pin} alt='pin icon' />
-                            <Avatar sx={{ bgcolor: 'red', width: '12px', height: '12px', padding: '2px' }} src={pin} alt='pin icon' />
+                            {elems?.pins?.includes(currentUser?._id) && <Avatar sx={{ width: '12px', height: '12px', padding: '2px' }} src={pin} alt='pin icon' />}
+                            {elems?.shares?.includes(currentUser?._id) && <Avatar sx={{ width: '12px', height: '12px', padding: '2px' }} src={share} alt='share icon' />}
                           </Box>
                         </Box>
                       }
@@ -185,12 +191,13 @@ const SideBar = () => {
                       }
                     />
                   </ListItem>
-                </Grid>)
+                </Grid>
+              )
             })}
           </Grid>
         </Box>
       </Popper>
-      {(width > 900) ?
+      {(width > 1000) ?
         <Grid container position='relative' sx={{ width: '100%', height: '95vh' }}>
           <Grid item sx={{ width: '100%' }}
           >
@@ -216,7 +223,7 @@ const SideBar = () => {
               </Link>
               <ListItemButton onClick={handleClick}>
                 <ListItemIcon>
-                  <Avatar sx={{ bgcolor: 'orange' }} src={currentUser.image && currentUser.image}>{!currentUser.image && currentUser.name.charAt(0)}</Avatar>
+                  <Avatar sx={{ bgcolor: 'orange' }} src={currentUser?.image && currentUser?.image}>{!currentUser?.image && currentUser?.name?.charAt(0)}</Avatar>
                 </ListItemIcon>
                 <ListItemText primary={currentUser.email} />
                 {openUserCollapse ? <img src={expandLess} alt="expand less" style={{ width: '16px', height: '16px' }} /> : <img src={expandMore} alt="expand more" style={{ width: '16px', height: '16px' }} />}
@@ -368,7 +375,7 @@ const SideBar = () => {
                     </Link>
                     <ListItemButton onClick={handleClick}>
                       <ListItemIcon>
-                        <Avatar sx={{ bgcolor: 'orange' }} src={currentUser.image && currentUser.image}>{!currentUser.image && currentUser.name.charAt(0)}</Avatar>
+                        <Avatar sx={{ bgcolor: 'orange' }} src={currentUser?.image && currentUser?.image}>{!currentUser?.image && currentUser?.name?.charAt(0)}</Avatar>
                       </ListItemIcon>
                       <ListItemText primary={currentUser.email} />
                       {openUserCollapse ? <img src={expandLess} alt="expand less" style={{ width: '16px', height: '16px' }} /> : <img src={expandMore} alt="expand more" style={{ width: '16px', height: '16px' }} />}
@@ -386,16 +393,16 @@ const SideBar = () => {
                   </Box>
                   <Divider />
                   <Paper
-                    component="form"
-                    sx={{ p: '8px', display: 'flex', alignItems: 'center', width: '100%' }}
+                    sx={{ display: 'flex', alignItems: 'center', width: '100%' }}
                   >
-                    <IconButton sx={{}} aria-label="search">
+                    <Avatar aria-label="search" sx={{ background: 'none', padding: '4px' }}>
                       <img src={search} alt='search icon' />
-                    </IconButton>
+                    </Avatar>
                     <InputBase
                       sx={{ ml: 1, flex: 1 }}
                       placeholder="Search"
                       inputProps={{ 'aria-label': 'Search' }}
+                    // onChange={(e) => setSearchContext(e.target.value)}
                     />
                   </Paper>
                   <List>
@@ -417,6 +424,16 @@ const SideBar = () => {
                           </ListItemIcon>
                         </ListItemIcon>
                         <ListItemText primary="Notification" />
+                      </ListItemButton>
+                    </ListItem>
+                    <ListItem disablePadding>
+                      <ListItemButton onClick={() => navigate('/chat')}>
+                        <ListItemIcon>
+                          <ListItemIcon>
+                            <Avatar src={chat} alt='Chat' height="30px" />
+                          </ListItemIcon>
+                        </ListItemIcon>
+                        <ListItemText primary="Chat" />
                       </ListItemButton>
                     </ListItem>
                     <ListItem disablePadding sx={{ background: openChallengeCollapse ? "#E6E9FE" : "none" }}>

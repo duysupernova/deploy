@@ -16,7 +16,7 @@ export default function Quiz(props){
 
     return(
         <Container fixed >
-            <Box color={'black'} maxWidth='xs' paddingTop={16}>
+            <Box color={'black'} maxWidth='xs'>
                 <Card variant="outlined">
                     <CardContent>
                         <Typography variant="h4" paddingY={1}>

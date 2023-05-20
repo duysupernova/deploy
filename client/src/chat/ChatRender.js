@@ -7,10 +7,10 @@ const ChatRender = () => {
     return (
         <>
             <Grid container>
-                <Grid item xs={1} sm={2} md={2} >
+                <Grid item xs={2} sm={2} md={3} >
                     <SideBar></SideBar>
                 </Grid>
-                <Grid item xs={11} sm={10} md={10} >
+                <Grid item xs={10} sm={10} md={9} >
                     <ChatsPage />
                 </Grid>
             </Grid>

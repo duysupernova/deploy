@@ -6,9 +6,9 @@ import 'stream-chat-react/dist/css/v2/index.css';
 
 const chatClient = new StreamChat('u3dzudjmt9w4');
 const userToken = 'eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ1c2VyX2lkIjoiam9sbHktd2F2ZS0wIn0.C2-jSqR5SCdQdz68zOg4LRdjYbcYYtV7YMPBhFz6Z88';
-
 const storedObject = localStorage.getItem("NETTEE_TOKEN");
 const object = JSON.parse(storedObject);
+
 
 
 chatClient.connectUser(

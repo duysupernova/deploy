@@ -26,6 +26,19 @@ export const createNewUser = (newUser, navigate) => async (dispatch) => {
     }
 };
 
+export const updateUser = (userID, updateUserData) => async (dispatch) => {
+    try {
+        const { data } = await api.createNewUser(userID, updateUserData);
+
+        const action = { type: "UPDATE_USER_DATA", payload: data.data.userData };
+        dispatch(action);
+
+        // navigate('/login', { replace: true });
+    } catch (error) {
+        console.log(error);
+    }
+};
+
 export const loginUser = (formData, navigate) => async (dispatch) => {
     try {
         const { data } = await api.loginUser(formData);
@@ -51,9 +64,9 @@ export const likeThread = (token, thread_id) => async (dispatch) => {
     }
 }
 
-export const shareThread = (token, thread_id) => async (dispatch) => {
+export const shareThread = (thread_id, shareUserID) => async (dispatch) => {
     try {
-        const { data } = await api.shareThread(token, thread_id);
+        const { data } = await api.shareThread(thread_id, shareUserID);
 
         const action = { type: "UPDATE_SHARE", payload: data };
         dispatch(action);

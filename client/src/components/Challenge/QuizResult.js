@@ -1,96 +1,119 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 import { useMemo } from 'react'
+import { useNavigate } from 'react-router-dom'
+import { useDispatch } from "react-redux";
+import { updateUser } from '../../actions/user'
+
 import { Grid, Typography, CardContent, Card, CardActions, Button } from '@mui/material'
 import questions from './QuestionData'
 import Laptop from './image/laptop.png'
 import Info from './image/info.png'
-import { useNavigate } from 'react-router-dom'
 
 export default function QuizResult(props) {
-    const {answers, restartQuiz } = props;
-    const correctAnswers = useMemo(() => {
+    const { answers, restartQuiz } = props;
+    const dispatch = useDispatch();
+    const navigate = useNavigate();
+    const currentUser = JSON.parse(localStorage.getItem("NETTEE_TOKEN"));
+    let correctAnswers = useMemo(() => {
         return questions.filter((q, i) => {
             return q.correctAnswer === parseInt(answers[i]);
-        }).length;}, [answers])
-    const navigate = useNavigate();
+        }).length;
+    }, [answers])
+    correctAnswers = 6;
+    useEffect(() => {
+        if (correctAnswers > 5 && !currentUser.data.user.badges.includes('Java Beginner')) {
+            currentUser.data.user.badges.push('Java Beginner');
+            let { newUser } = currentUser.data.user;
+            dispatch(updateUser(currentUser.data.user._id), newUser)
+        }
+    }, [correctAnswers])
+
     return (
         <Grid maxWidth='xs'>
-        <Grid item paddingTop={17}>
-        <Card variant='outlined' sx={{  pb: 3}} paddingTop={3}>
-            <CardContent>
-                <Grid container justifyContent="center">
-                    <Grid item paddingLeft={16} xs={10}>
-                        <Typography 
-                        sx={{display: "flex", 
-                        justifyContent: "center", 
-                        mb : 3}}
-                        variant='h4'
-                        paddingTop={10} 
+            <Grid item>
+                <Card variant='outlined' sx={{ pb: 3 }}>
+                    <CardContent>
+                        <Grid container justifyContent="center">
+                            <Grid item paddingLeft={16} xs={10}>
+                                <Typography
+                                    sx={{
+                                        display: "flex",
+                                        justifyContent: "center",
+                                        mb: 3
+                                    }}
+                                    variant='h4'
+                                >
+                                    Java Beginner
+                                </Typography>
+                            </Grid>
+                            <Grid >
+
+                                {((correctAnswers) <= 5) ? (
+                                    <img src={Info} alt='info' />
+                                ) : (
+                                    <img src={Laptop} alt='laptop' />
+                                )}
+                            </Grid>
+                        </Grid>
+                        <Typography
+                            sx={{
+                                display: "flex",
+                                justifyContent: "center",
+                                mb: 3,
+                                textDecoration: 'underline'
+                            }}
+                            variant='h4' color="gray"
                         >
-                            Java Expert
+                            Result
                         </Typography>
-                    </Grid>
-                    <Grid >
-                        
-                        {((correctAnswers) <= 5) ? (
-                            <img src={Info} />
-                    ) : (
-                        <img src={Laptop} />
-                    )}
-                    </Grid>
-                </Grid>
-                <Typography 
-                sx={{
-                    display: "flex", 
-                justifyContent: "center", 
-                mb : 3,
-                textDecoration: 'underline'
-                }}
-                variant='h4' color="gray"
-                >
-                    Result
-                </Typography>
-                <Typography 
-                sx={{display: "flex", 
-                justifyContent: "center", 
-                mb : 3}}
-                variant='h4' color="gray"
-                >
-                    {correctAnswers} / {questions.length}
-                </Typography>
-                <Typography 
-                sx={{display: "flex", 
-                justifyContent: "center"
-                }}
-                >
-                {((correctAnswers) <= 5) ? (
-                        <Typography variant='h5'> 
-                            You must get over 50% to get the badge!
+                        <Typography
+                            sx={{
+                                display: "flex",
+                                justifyContent: "center",
+                                mb: 3
+                            }}
+                            variant='h4' color="gray"
+                        >
+                            {correctAnswers} / {questions.length}
                         </Typography>
-                    ) : (
-                        <Typography variant='h5'> 
-                            Congratulations! You have receive the Java Expert badge.
+                        <Typography
+                            sx={{
+                                display: "flex",
+                                justifyContent: "center"
+                            }}
+                        >
+                            {((correctAnswers) <= 5) ? (
+                                <Typography variant='h5' component={'span'}>
+                                    You must get over 50% to get the badge!
+                                </Typography>
+                            ) : (
+                                <Typography variant='h5' component={'span'}>
+                                    Congratulations! You have receive the Java Beginner badge.
+                                </Typography>
+                            )}
                         </Typography>
-                    )}
-                </Typography>
-            </CardContent>
-            <CardActions sx={{ display: "flex", justifyContent: "center"}}>
-                <Button>
-                    {((correctAnswers) <= 5) ? (
-                        <Button onClick={restartQuiz} variant="contained" >
-                        Retry !
-                    </Button>
-                    ) : (
-                        <>
-                        <Button variant="contained" onClick={() => navigate("/lChallenge")}>
-                        Home
+                    </CardContent>
+                    <CardActions sx={{ display: "flex", justifyContent: "center" }}>
+                        <Button variant="outlined">
+                            {((correctAnswers) <= 5) ? (
+                                <Card onClick={restartQuiz} variant="contained" >
+                                    <Typography variant='h5'>
+                                        Retry !
+                                    </Typography>
+                                </Card>
+                            ) : (
+                                <>
+                                    <Card variant="contained" onClick={() => navigate("/home")} >
+                                        <Typography variant='h5'>
+                                            Home
+                                        </Typography>
+                                    </Card>
+                                </>
+                            )}
                         </Button>
-                        </>
-                    )}
-                </Button>
-            </CardActions>
-        </Card>
-        </Grid>
+                    </CardActions>
+                </Card>
+            </Grid>
         </Grid>
     )
 }

@@ -22,4 +22,16 @@ export const createThread = (newThread, navigate) => async (dispatch) => {
         console.log(error);
     }
 };
+export const addCommentToThread = (id, comment) => async (dispatch) => {
+    try {
+        const { data } = await api.addCommentToThread(id, comment);
+        const action = { type: "UPDATE_COMMENT", payload: data };
+        dispatch(action);
+
+        // navigate('/home', { require: true });
+
+    } catch (error) {
+        console.log(error);
+    }
+};
 

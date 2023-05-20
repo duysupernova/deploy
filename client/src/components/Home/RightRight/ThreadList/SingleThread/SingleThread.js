@@ -1,21 +1,44 @@
-import React, { useState } from 'react'
-import { ButtonGroup, Button, Container, Grid, Typography, Avatar, List, ListItem, ListItemText, ListItemIcon, Stack, Badge } from '@mui/material'
+import React, { useState, useEffect } from 'react'
+import { ButtonGroup, Button, Container, Grid, Typography, Avatar, List, ListItem, ListItemText, ListItemIcon, Stack, Badge, Chip } from '@mui/material'
 import { useNavigate } from 'react-router-dom'
 import { useDispatch } from 'react-redux'
 import { likeThread, pinThread } from '../../../../../actions/user'
+import ShareThreadForm from '../../../../Form/ShareThreadForm'
 import useStyle from './style'
 import like from '../../../../../images/like.png'
 import unlike from '../../../../../images/unlike.png'
 import notification from '../../../../../images/notification.png'
 import share from '../../../../../images/share.png'
+import angular from '../../../../../images/angular.png'
+import jquery from '../../../../../images/jquery.png'
+import rails from '../../../../../images/rails.png'
+import react from '../../../../../images/react.png'
+import vuejs from '../../../../../images/vuejs.png'
 const SingleThread = ({ data }) => {
+    let tagsData = [
+        { key: 0, label: 'Angular', image: angular },
+        { key: 1, label: 'jQuery', image: jquery },
+        { key: 2, label: 'Rails', image: rails },
+        { key: 3, label: 'React', image: react },
+        { key: 4, label: 'Vue.js', image: vuejs },
+    ]
+
     const currentUser = JSON.parse(localStorage.getItem("NETTEE_TOKEN"));
     const dispatch = useDispatch();
     const myStyle = useStyle();
     const navigate = useNavigate();
     const [isLike, setIsLike] = useState(data?.likes?.includes(currentUser?.data?.user._id));
     const [isPin, setIsPin] = useState(data?.pins?.includes(currentUser?.data?.user._id));
-
+    useEffect(() => {
+        setIsLike(data?.likes?.includes(currentUser?.data?.user._id));
+        setIsPin(data?.pins?.includes(currentUser?.data?.user._id));
+    }, [data])
+    //open share box
+    const [openShareBox, setOpenShareBox] = useState(false);
+    const toggleOpenModal = (parameter) => {
+        setOpenShareBox(parameter);
+    }
+    //like function
     const handleLikeFunction = () => {
         dispatch(likeThread(currentUser?.token, data._id));
         if (data?.likes.includes(currentUser?.data?.user._id)) {
@@ -26,7 +49,7 @@ const SingleThread = ({ data }) => {
         }
         setIsLike((prev) => !prev);
     }
-
+    //pin function
     const handlePinFunction = () => {
         dispatch(pinThread(currentUser?.token, data._id));
         setIsPin((prev) => !prev);
@@ -37,6 +60,7 @@ const SingleThread = ({ data }) => {
                 border: "1px solid #CCCCCC",
                 borderRadius: "4px",
             }}>
+                <ShareThreadForm toggleOpenModal={toggleOpenModal} isOpen={openShareBox} threadID={data._id} />
                 <Grid container>
                     <Grid item xs={2} display='flex' justifyContent='center' alignItems='center' flexDirection='column'>
                         <Button sx={{ borderRadius: "50%" }} onClick={handleLikeFunction}>
@@ -52,7 +76,7 @@ const SingleThread = ({ data }) => {
                                 className={myStyle.listItemText}
                             >
                                 <ListItemText
-                                    primary={`Posted by ${data?._id}`}
+                                    primary={`Posted by ${data?.userData?.name}`}
                                     secondary={data?.title}
                                     onClick={() => navigate(`/threads/${data.threadID}/details`)}
                                     sx={{
@@ -69,7 +93,6 @@ const SingleThread = ({ data }) => {
                                                 className={myStyle.startIcon}
                                                 size="small"
                                                 onClick={handlePinFunction}
-                                            // disabled={isPin ? true : false}
                                             >
                                             </Button>
                                         </Badge>
@@ -78,7 +101,7 @@ const SingleThread = ({ data }) => {
                                             startIcon={<img alt="Share icon" src={share} style={{ width: '24px', height: '24px' }} />}
                                             className={myStyle.startIcon}
                                             size="small"
-                                        // onClick={() => navigate("/home")}
+                                            onClick={() => toggleOpenModal(true)}
                                         >
                                         </Button>
                                     </ButtonGroup>
@@ -93,14 +116,23 @@ const SingleThread = ({ data }) => {
                         </Typography>
                         <Grid item xs={12} sx={{ padding: "0 16px 0 16px" }} display='flex' justifyContent='space-between'>
                             <Stack spacing={1} direction="row" className={myStyle.tags}>
-                                {data?.tags && data.tags.map((tag, index) => {
+                                {data?.tags && data?.tags?.map((tag, index) => {
                                     return (
-                                        <Button
-                                            variant="contained"
-                                            size="small"
-                                            key={index}>
-                                            {tag}
-                                        </Button>
+                                        tagsData.map((singleTag) => {
+                                            return (
+                                                (tag.toString().localeCompare(singleTag.label, undefined, { sensitivity: 'accent' }) === 0)
+                                                    ?
+                                                    <Chip
+                                                        avatar={<Avatar src={singleTag?.image && singleTag.image} />}
+                                                        label={singleTag?.label}
+                                                        variant="outlined"
+                                                        color="primary"
+                                                        key={index}
+                                                    />
+                                                    :
+                                                    null
+                                            )
+                                        })
                                     )
                                 })}
                             </Stack>

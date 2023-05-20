@@ -1,4 +1,4 @@
-import { Container, CssBaseline, Box } from "@mui/material";
+import { Container, CssBaseline, Box, Grid } from "@mui/material";
 import Quiz from "./Quiz"
 import QuestionData from "./QuestionData"
 import { useState } from "react";
@@ -8,7 +8,8 @@ import QuizResult from "./QuizResult";
 export default function QuizPage() {
     const [currentQuestionIndex, setCurrentQuestionIndex] = useState(0);
     const [answers, setAnswers] = useState([]);
-    const finishedQuiz = currentQuestionIndex === questions.length;
+    // const finishedQuiz = currentQuestionIndex === questions.length;
+    const finishedQuiz = true
     const currentQuestion = questions[currentQuestionIndex];
 
     const goToNext = () => {
@@ -24,20 +25,20 @@ export default function QuizPage() {
         setCurrentQuestionIndex(0);
         setAnswers([])
     }
-    
+
 
     return (
-        <div>
+        <Grid>
             <CssBaseline />
-                <Box>
-                    <Container fixed>
-                        {finishedQuiz ? <QuizResult restartQuiz={restartQuiz} answers={answers}/> : 
-                        <Quiz question = {currentQuestion} 
-                        questionNumber ={currentQuestionIndex + 1} 
-                        submitAnswer={submitAnswer}
+            <Box>
+                <Container fixed>
+                    {finishedQuiz ? <QuizResult restartQuiz={restartQuiz} answers={answers} /> :
+                        <Quiz question={currentQuestion}
+                            questionNumber={currentQuestionIndex + 1}
+                            submitAnswer={submitAnswer}
                         />}
-                    </Container>
-                </Box>
-        </div>
+                </Container>
+            </Box>
+        </Grid>
     )
 }
