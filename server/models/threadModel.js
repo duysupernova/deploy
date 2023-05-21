@@ -62,7 +62,7 @@ const threadSchema = new mongoose.Schema({
   },
   shares: {
     type: [{
-      type: String
+      type: mongoose.Schema.ObjectId,
     }]
   },
   createdAt: {
