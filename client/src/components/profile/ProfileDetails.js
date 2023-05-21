@@ -1,6 +1,7 @@
 
 import * as React from 'react';
 import { useState } from 'react'
+import { useSelector, useDispatch } from "react-redux";
 import Button from '@mui/material/Button';
 import CssBaseline from '@mui/material/CssBaseline';
 import TextField from '@mui/material/TextField';
@@ -8,38 +9,89 @@ import Grid from '@mui/material/Grid';
 import Box from '@mui/material/Box';
 import Typography from '@mui/material/Typography';
 import Container from '@mui/material/Container';
-import { Stepper, Step, StepLabel, StepContent, Paper } from '@mui/material'
+import { Stepper, Step, StepLabel, StepContent, Paper, CircularProgress } from '@mui/material'
 import ImageUpload from './ImageUpload'
 
-const steps = [
-    {
-        label: 'Select campaign settings',
-        description: `For each ad campaign that you create, `,
-    },
-    {
-        label: 'Create an ad group',
-        description:
-            'An ad group contains one or more ads which target a shared set of keywords.',
-    },
-    {
-        label: 'Create an ad',
-        description: `Try out different ad text to see what brings in the most customers,
-          and learn how to enhance `,
-    },
-];
+const toBeginner = [{
+    "label": "Like requirements",
+    "description": "You need to get 10 likes in total",
+    "quantity": 10
+},
+{
+    "label": "Comments requirement",
+    "description": "You need to comment at least 5 times in other people threads",
+    "quantity": 5
+},
+{
+    "label": "Complete requirement chanllenge",
+    "description": "Earning 1 badge to coninue",
+    "title": ["Java Beginner"]
+}]
+const toCompetent = [{
+    "label": "Like requirements",
+    "description": "You need to get 20 likes in total",
+    "quantity": 20
+},
+{
+    "label": "Comments requirement",
+    "description": "You need to comment at least 10 times in other people threads",
+    "quantity": 10
+},
+{
+    "label": "Complete requirement chanllenge",
+    "description": "Earning 2 badges to coninue",
+    "title": ["Rust Beginner", "Rail Beginner"]
+}]
 export default function UserProfile() {
 
     const currentUser = JSON.parse(localStorage.getItem("NETTEE_TOKEN"))?.data?.user;
+    const allThread = useSelector((state) => state.threadReducer?.data?.threadData);
+    const currentUserThreads = allThread?.filter((thread) => thread?.userID === currentUser._id);
+    const totalLikes = currentUserThreads.map((singleThread) => singleThread.likes).length;
+    const totalComments = allThread.map((thread) =>
+        thread?.comments?.filter((comment) =>
+            comment?.userID === currentUser._id).length)
+        .reduce((accumulator, value) => {
+            return accumulator + value;
+        }, 0);;
 
     const [activeStep, setActiveStep] = useState(0);
+
+    let steps;
+    if (!currentUser?.title || currentUser.title === "Newbie") {
+        steps = toBeginner
+    }
+    else if (currentUser.title === "Beginner") {
+        steps = toCompetent
+    }
+
+    const isStepFailed = (step, index) => {
+        if (activeStep < index) {
+            return false;
+        }
+        if (step.label === "Like requirements" && totalLikes < step?.quantity) {
+            return true;
+        }
+        else if (step.label === "Comments requirement" && totalComments < step?.quantity) {
+            return true;
+        }
+        else if (step.label === "Complete requirement chanllenge" && currentUser?.badges?.length < step?.title.length) {
+            return true;
+        }
+        return false;
+    };
+
+    let normalise = (value, MAX) => {
+        if (value > MAX) {
+            return ((MAX - 0) * 100) / (MAX - 0)
+        }
+
+        return ((value - 0) * 100) / (MAX - 0)
+    };
 
     const handleNext = () => {
         setActiveStep((prevActiveStep) => prevActiveStep + 1);
     };
-
-    // const handleBack = () => {
-    //     setActiveStep((prevActiveStep) => prevActiveStep - 1);
-    // };
 
     const handleSubmit = () => {
 
@@ -87,35 +139,70 @@ export default function UserProfile() {
                         }}>
                             <Box sx={{ maxWidth: "100%" }}>
                                 <Stepper activeStep={activeStep} orientation="vertical">
-                                    {steps.map((step, index) => (
-                                        <Step key={step.label}>
-                                            <StepLabel
-                                                optional={
-                                                    index === 2 ? (
-                                                        <Typography variant="caption">Last step</Typography>
-                                                    ) : null
-                                                }
-                                            >
-                                                {step.label}
-                                            </StepLabel>
-                                            <StepContent>
-                                                <Typography>{step.description}</Typography>
-                                                <Box sx={{ mb: 2 }}>
-                                                    <div>
-                                                        <Button
-                                                            variant="contained"
-                                                            onClick={handleNext}
-                                                            sx={{ mt: 1, mr: 1 }}
-                                                        >
-                                                            {index === steps.length - 1 ? 'Finish' : 'Continue'}
-                                                        </Button>
-                                                    </div>
-                                                </Box>
-                                            </StepContent>
-                                        </Step>
-                                    ))}
+                                    {steps?.map((step, index) => {
+                                        const labelProps = {};
+                                        if (isStepFailed(step, index)) {
+                                            labelProps.optional = (
+                                                <Typography variant="caption" color="error">
+                                                    Alert message
+                                                </Typography>
+                                            );
+                                            labelProps.error = true;
+                                        }
+                                        return (
+                                            <Step key={step.label}>
+                                                <StepLabel {...labelProps}>{step.label}</StepLabel>
+                                                <StepContent>
+                                                    <Box sx={{
+                                                        display: 'flex',
+                                                        alignItems: 'center'
+                                                    }}>
+
+                                                        <Box sx={{ position: 'relative', display: 'inline-flex' }}>
+                                                            {(step?.label === "Like requirements") && <CircularProgress variant="determinate" value={normalise(totalLikes, step?.quantity || step?.title.length)} />}
+                                                            {(step?.label === "Comments requirement") && <CircularProgress variant="determinate" value={normalise(totalComments, step?.quantity || step?.title.length)} />}
+                                                            {(step?.label === "Complete requirement chanllenge") && <CircularProgress variant="determinate" value={normalise(currentUser?.badges?.length, step?.title.length)} />}
+                                                            <Box
+                                                                sx={{
+                                                                    top: 0,
+                                                                    left: 0,
+                                                                    bottom: 0,
+                                                                    right: 0,
+                                                                    position: 'absolute',
+                                                                    display: 'flex',
+                                                                    alignItems: 'center',
+                                                                    justifyContent: 'center',
+                                                                }}
+                                                            >
+                                                                <Typography variant="caption" component="div" color="text.secondary">
+                                                                    {(step?.label === "Like requirements") && totalLikes}
+                                                                    {(step?.label === "Comments requirement") && totalComments}
+                                                                    {(step?.label === "Complete requirement chanllenge") && currentUser?.badges?.length}
+                                                                </Typography>
+                                                            </Box>
+                                                        </Box>
+                                                        <Typography component="div" color="text.secondary" sx={{ marginX: '4px' }}>
+                                                            {step.description}
+                                                        </Typography>
+                                                    </Box>
+                                                    <Box sx={{ mb: 2 }}>
+                                                        <div>
+                                                            <Button
+                                                                variant="contained"
+                                                                onClick={!labelProps.error && handleNext}
+                                                                size='small'
+                                                                sx={{ mt: 1, mr: 1 }}
+                                                            >
+                                                                {index === steps?.length - 1 ? 'Finish' : 'Continue'}
+                                                            </Button>
+                                                        </div>
+                                                    </Box>
+                                                </StepContent>
+                                            </Step>
+                                        )
+                                    })}
                                 </Stepper>
-                                {activeStep === steps.length && (
+                                {activeStep === steps?.length && (
                                     <Paper square elevation={0} sx={{ p: 3 }}>
                                         <Typography>All requirements completed - You can upgrade your rank</Typography>
                                         <Button onClick={handleSubmit} sx={{ mt: 1, mr: 1 }}>
@@ -186,7 +273,7 @@ export default function UserProfile() {
                     </Button>
                 </Box>
             </Box>
-        </Container>
+        </Container >
     );
 }
 

@@ -225,7 +225,7 @@ const SideBar = () => {
                 <ListItemIcon>
                   <Avatar sx={{ bgcolor: 'orange' }} src={currentUser?.image && currentUser?.image}>{!currentUser?.image && currentUser?.name?.charAt(0)}</Avatar>
                 </ListItemIcon>
-                <ListItemText primary={currentUser.email} />
+                <ListItemText primary={currentUser?.email} />
                 {openUserCollapse ? <img src={expandLess} alt="expand less" style={{ width: '16px', height: '16px' }} /> : <img src={expandMore} alt="expand more" style={{ width: '16px', height: '16px' }} />}
               </ListItemButton>
               <Collapse in={openUserCollapse} timeout="auto" unmountOnExit>
@@ -377,7 +377,7 @@ const SideBar = () => {
                       <ListItemIcon>
                         <Avatar sx={{ bgcolor: 'orange' }} src={currentUser?.image && currentUser?.image}>{!currentUser?.image && currentUser?.name?.charAt(0)}</Avatar>
                       </ListItemIcon>
-                      <ListItemText primary={currentUser.email} />
+                      <ListItemText primary={currentUser?.email} />
                       {openUserCollapse ? <img src={expandLess} alt="expand less" style={{ width: '16px', height: '16px' }} /> : <img src={expandMore} alt="expand more" style={{ width: '16px', height: '16px' }} />}
                     </ListItemButton>
                     <Collapse in={openUserCollapse} timeout="auto" unmountOnExit>
