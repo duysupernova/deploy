@@ -43,6 +43,11 @@ const ThreadDetails = () => {
             }
         })
     })
+    allUser.map((user) => {
+        if (user._id === thread?.userID) {
+            thread = { ...thread, userData: user }
+        }
+    })
     const [isLike, setIsLike] = useState(allThread?.likes?.includes(currentUser?.data?.user._id));
     const [isPin, setIsPin] = useState(allThread?.pins?.includes(currentUser?.data?.user._id));
     const [preview, setPreview] = useState();
@@ -125,7 +130,7 @@ const ThreadDetails = () => {
                                     >
                                         <ListItemText
                                             primary={thread.title}
-                                            secondary="Date posted by whom ?"
+                                            secondary={`Date posted by ${thread?.userData?.name}`}
                                         />
                                     </ListItem>
                                 </List>

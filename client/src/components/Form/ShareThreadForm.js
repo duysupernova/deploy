@@ -19,9 +19,11 @@ const ShareThreadForm = ({ isOpen, toggleOpenModal, threadID }) => {
     const allUser = useSelector((state) => state.userReducer?.allUserData.map((user) => regExp.test(user.name) && user));
 
     const handleForm = () => {
-        console.log("this is user id (array)", addUser.addedList.map((user) => user?._id));
-        console.log("this is thread id", threadID);
-        // dispatch(shareThread(threadID, addUser.addedList.map((user) => user?._id)));
+        const newShares = {
+            shares: addUser.addedList.map((user) => user?._id)
+        }
+        console.log(newShares);
+        // dispatch(shareThread(threadID, newShares));
         // navigate(0);
     }
 

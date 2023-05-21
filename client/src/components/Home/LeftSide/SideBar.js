@@ -6,6 +6,7 @@ import { useNavigate } from 'react-router-dom'
 import { useSelector, useDispatch } from "react-redux"
 import { getAllThread } from '../../../actions/thread'
 import { getAllUser } from '../../../actions/user';
+import { useAuth } from '../../../auth/AuthHook';
 import Logo from './nettee.png'
 import expandLess from './expandLess.png'
 import expandMore from './expandMore.png'
@@ -31,6 +32,7 @@ const SideBar = () => {
   const [width, setWindowWidth] = useState(window.innerWidth);
   const navigate = useNavigate();
   const dispatch = useDispatch();
+  const { logout } = useAuth();
   const currentUser = JSON.parse(localStorage.getItem("NETTEE_TOKEN"))?.data?.user;
 
   const pinnedThread = useSelector((state) => state.threadReducer?.data?.threadData?.filter((singlethread) => singlethread?.pins?.includes(currentUser?._id)));
@@ -95,7 +97,9 @@ const SideBar = () => {
 
   const handleLogout = () => {
     localStorage.removeItem("NETTEE_TOKEN");
-    navigate('/login', { replace: true });
+    // logout();
+    navigate(0);
+
   }
 
   const toggleDrawer = (anchor, open) => (event) => {

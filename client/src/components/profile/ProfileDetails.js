@@ -2,6 +2,8 @@
 import * as React from 'react';
 import { useState } from 'react'
 import { useSelector, useDispatch } from "react-redux";
+import { useNavigate } from 'react-router-dom';
+import { updateUser } from '../../actions/user';
 import Button from '@mui/material/Button';
 import CssBaseline from '@mui/material/CssBaseline';
 import TextField from '@mui/material/TextField';
@@ -25,7 +27,8 @@ const toBeginner = [{
 {
     "label": "Complete requirement chanllenge",
     "description": "Earning 1 badge to coninue",
-    "title": ["Java Beginner"]
+    "title": ["Java Beginner"],
+    "reward": "Beginner"
 }]
 const toCompetent = [{
     "label": "Like requirements",
@@ -40,11 +43,14 @@ const toCompetent = [{
 {
     "label": "Complete requirement chanllenge",
     "description": "Earning 2 badges to coninue",
-    "title": ["Rust Beginner", "Rail Beginner"]
+    "title": ["Rust Beginner", "Rail Beginner"],
+    "reward": "Competent"
 }]
 export default function UserProfile() {
-
+    const dispatch = useDispatch();
+    const navigate = useNavigate();
     const currentUser = JSON.parse(localStorage.getItem("NETTEE_TOKEN"))?.data?.user;
+    const allUser = useSelector((state) => state.userReducer?.allUserData);
     const allThread = useSelector((state) => state.threadReducer?.data?.threadData);
     const currentUserThreads = allThread?.filter((thread) => thread?.userID === currentUser._id);
     const totalLikes = currentUserThreads.map((singleThread) => singleThread.likes).length;
@@ -62,6 +68,9 @@ export default function UserProfile() {
         steps = toBeginner
     }
     else if (currentUser.title === "Beginner") {
+        steps = toCompetent
+    }
+    else {
         steps = toCompetent
     }
 
@@ -89,12 +98,22 @@ export default function UserProfile() {
         return ((value - 0) * 100) / (MAX - 0)
     };
 
-    const handleNext = () => {
-        setActiveStep((prevActiveStep) => prevActiveStep + 1);
+    const handleNext = (props) => {
+        if (!props) {
+            setActiveStep((prevActiveStep) => prevActiveStep + 1);
+        }
     };
 
     const handleSubmit = () => {
 
+        const newTitle = {
+            title: steps[2].reward
+        }
+        dispatch(updateUser(currentUser?._id, newTitle))
+        let currentUserData = JSON.parse(localStorage.getItem("NETTEE_TOKEN"));
+        currentUserData['data']['user']['title'] = steps[2].reward;
+        localStorage.setItem("NETTEE_TOKEN", JSON.stringify(currentUserData));
+        navigate(0);
     };
 
     return (
@@ -138,6 +157,10 @@ export default function UserProfile() {
                             padding: '32px'
                         }}>
                             <Box sx={{ maxWidth: "100%" }}>
+                                <Typography align='center' variant='body1' sx={{
+                                    fontSize: '18px',
+                                    fontWeight: '700'
+                                }}>To {steps[2].reward}</Typography>
                                 <Stepper activeStep={activeStep} orientation="vertical">
                                     {steps?.map((step, index) => {
                                         const labelProps = {};
@@ -189,7 +212,7 @@ export default function UserProfile() {
                                                         <div>
                                                             <Button
                                                                 variant="contained"
-                                                                onClick={!labelProps.error && handleNext}
+                                                                onClick={() => handleNext(labelProps.error)}
                                                                 size='small'
                                                                 sx={{ mt: 1, mr: 1 }}
                                                             >
