@@ -3,6 +3,7 @@ import { useNavigate } from "react-router-dom";
 import { useLocalStorage } from "./LocalStorageHook";
 import { useDispatch } from "react-redux";
 import { loginUser } from "../actions/user";
+import Swal from 'sweetalert2';
 const AuthContext = createContext();
 
 export const AuthProvider = ({ children }) => {
@@ -12,9 +13,17 @@ export const AuthProvider = ({ children }) => {
 
     const login = async (data) => {
         setUser(data);
-        dispatch(loginUser(data, navigate));
-
+        dispatch(loginUser(data, navigate)).then(function (result) {
+            if (!result) {
+                Swal.fire({
+                    icon: 'error',
+                    title: 'Oops...',
+                    text: 'Wrong Email or Password !',
+                })
+            }
+        });;
     };
+
     const logout = () => {
         setUser(null);
         navigate('/login', { replace: true });

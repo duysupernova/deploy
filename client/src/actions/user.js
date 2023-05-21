@@ -28,7 +28,6 @@ export const createNewUser = (newUser, navigate) => async (dispatch) => {
 
 export const updateUser = (userID, userData) => async (dispatch) => {
     try {
-        console.log(userID, userData);
         const { data } = await api.updateUser(userID, userData);
 
         const action = { type: "UPDATE_USER_DATA", payload: data.data.userData };
@@ -48,8 +47,10 @@ export const loginUser = (formData, navigate) => async (dispatch) => {
         dispatch(action);
 
         navigate('/home', { replace: true });
+        return true;
     } catch (error) {
         console.log(error);
+        return false;
     }
 }
 

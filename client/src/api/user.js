@@ -7,5 +7,5 @@ export const createNewUser = (newUser) => axios.post(`${backend_url}/signup`, ne
 export const updateUser = (userID, updateUserData) => axios.patch(`${backend_url}/${userID}`, updateUserData)
 export const loginUser = (formData) => axios.post(`${backend_url}/login`, formData)
 export const likeThread = (token, thread_id) => axios.post(`${backend_url}/post/likeFunction/${thread_id}`, token, { headers: { Authorization: `Bearer ${token}` } })
-export const shareThread = (thread_id, shareUserID) => axios.post(`${backend_url}/post/shareFunction/${thread_id}`, shareUserID)
+export const shareThread = (thread_id, shareUserID) => axios.patch(`${backend_url}/shareFunction/${thread_id}`, shareUserID)
 export const pinThread = (token, thread_id) => axios.post(`${backend_url}/post/pinFunction/${thread_id}`, token, { headers: { Authorization: `Bearer ${token}` } })
