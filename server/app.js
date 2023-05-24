@@ -8,6 +8,11 @@ const threadRouter = require("./routes/threadRoutes");
 const questionRouter = require("./routes/questionRoutes")
 
 const app = express();
+app.use(
+    cors({
+        origin: "*",
+    })
+)
 
 app.use(morgan("dev"));
 app.use(express.json({ limit: '50mb'}));
